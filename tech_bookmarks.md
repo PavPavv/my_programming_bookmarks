@@ -1,15 +1,9 @@
 # My programming bookmarks
 > Last update: 11/21/2021
 
-### _Most useful programming web-sites_
-#### Jobs:
-- [HeadHunter](https://hh.ru)
-- [HabrCarreer](https://career.habr.com/)
-#### Design:
-- [Figma](https://www.figma.com/login)
-#### Versions:
-- [Github](https://github.com)
-- [Docker](https://id.docker.com/l)
-#### Questions/answers:
-- [StackOverflow](https://stackoverflow.com/)
-- 
+## Table of content:
+- :page_with_curl: [Most basic resources](./md/basic_prog_portals.md)
+- :page_with_curl: [Front-end]
+- :page_with_curl: [Back-end]
+- :page_with_curl: [Algorithms]
+- :page_with_curl: [Linux]
