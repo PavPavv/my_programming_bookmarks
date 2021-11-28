@@ -1,4 +1,5 @@
 ### _Basic programming portals_
+This is my must-have list of necessary links for every coder.
 
 #### Jobs:
 - [HeadHunter](https://hh.ru)
@@ -10,6 +11,7 @@
 #### Versions:
 - [Github](https://github.com)
 - [Dockerhub](https://hub.docker.com/)
+- [BitBucket](https://bitbucket.org/)
 
 #### Questions/answers:
 - [StackOverflow](https://stackoverflow.com/)
@@ -22,9 +24,13 @@
 - [Dillinger](https://dillinger.io/) (MarkDown only)
 - [Replit](https://replit.com/languages/nodejs) (JS)
 - [Replit](https://replit.com/languages/typescript) (TS)
+- [PlayCode](https://playcode.io/new/)
 
 #### Online coloborative tools:
 - [Miro](https://miro.com/)
+
+#### Common tools:
+- [MarkDown cheatsheet](https://www.markdownguide.org/cheat-sheet/)
 
 #### Most popular prog-read:
 - [Twitter](https://twitter.com/)
