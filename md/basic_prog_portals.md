@@ -14,13 +14,17 @@
 #### Questions/answers:
 - [StackOverflow](https://stackoverflow.com/)
 
-#### Online code editors:
-- MarkDown only: [Dillinger](https://dillinger.io/)
-- Most popular programing langiages: [Replit](https://replit.com/languages/nodejs)
-
 #### Code problems:
 - [LeetCode](https://leetcode.com/)
 - [CodeWars](https://www.codewars.com/)
+
+#### Online code editors:
+- [Dillinger](https://dillinger.io/) (MarkDown only)
+- [Replit](https://replit.com/languages/nodejs) (JS)
+- [Replit](https://replit.com/languages/typescript) (TS)
+
+#### Online coloborative tools:
+- [Miro](https://miro.com/)
 
 #### Most popular prog-read:
 - [Twitter](https://twitter.com/)
