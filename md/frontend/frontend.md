@@ -13,6 +13,8 @@ By front-end I mean a cluster ot terms and topics as _HTML & CSS_, _native JavaS
 - [Code Coverage Highlighter ](https://marketplace.visualstudio.com/items?itemName=brainfit.vscode-coverage-highlighter)
 - [AutoRenameTag](https://marketplace.visualstudio.com/items?itemName=formulahendry.auto-rename-tag)
 - [SpellChecker](https://marketplace.visualstudio.com/items?itemName=streetsidesoftware.code-spell-checker)
+- [Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+- [PathIntellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
 
 #### Environment:
 - [ESLint1](https://eslint.org/)
@@ -24,13 +26,25 @@ By front-end I mean a cluster ot terms and topics as _HTML & CSS_, _native JavaS
 #### Design:
 - [ColorScheme](https://colorscheme.ru/)
 
-#### JavaScript:
-
 #### Bundlers:
 - [Webpack1](https://dev.to/carriepascale/a-very-beginner-s-guide-to-webpack-2jal)
 - [Webpack](https://habr.com/ru/post/519064/)
 
 #### Google Browser Engine V8:
+- [How browser works ru](https://www.html5rocks.com/ru/tutorials/internals/howbrowserswork/)
+- [V8 engine habr ru](https://habr.com/ru/company/ruvds/blog/337460/)
 
 #### Standarts
 - [EcmaScript specification](https://tc39.es/ecma262/)
+
+#### JavaScript
+- 📋 [Java Script](./js.md)
+
+#### TypeScript
+- 📋 [Type Script](./ts.md)
+
+#### ReactJS
+- 📋 [React JS](./react.md)
+
+#### NextJS
+- 📋 [Next JS](./next.md)

@@ -1,5 +1,5 @@
 ### _Basic programming portals_
-This is my must-have list of necessary links for every coder.
+This is my must-have list of necessary tools for every coder.
 
 #### Jobs:
 - [HeadHunter](https://hh.ru)
@@ -22,6 +22,8 @@ This is my must-have list of necessary links for every coder.
 
 #### Online code editors:
 - [Dillinger](https://dillinger.io/) (MarkDown only)
+- [JSON](https://jsoneditoronline.org/)
+- [RegEx](https://regex101.com/)
 - [Replit](https://replit.com/languages/nodejs) (JS)
 - [Replit](https://replit.com/languages/typescript) (TS)
 - [PlayCode](https://playcode.io/new/)
