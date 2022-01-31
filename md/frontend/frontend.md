@@ -1,7 +1,7 @@
 ## Front-end
 
-My most useful front-end links list. 
-By front-end I mean a cluster ot terms and topics as _HTML & CSS_, _native JavaScript_, _JSFrameworks_ (I use React), _JS web-instruments_ (dev tools, bundlers, etc.), _some browser's construction details that might be helpful with working in JS from the client side_, _some web-standarts and technologies useful for the client side_ and etc.
+My most-useful-front-end-links list. 
+By front-end I mean a cluster ot terms and topics as HTML & CSS, native JavaScript, JS-frameworks (React mostly), JS web-instruments (dev tools, bundlers, etc.), TypeScript, TS-frameworks, some browser's construction details that might be helpful with working in JS from the client side, some web-standarts and technologies useful for the client side and etc.
 
 #### Front-end tech docs
 - [MDN](https://developer.mozilla.org/en-US/)
@@ -45,13 +45,13 @@ By front-end I mean a cluster ot terms and topics as _HTML & CSS_, _native JavaS
 - [EcmaScript specification](https://tc39.es/ecma262/)
 
 #### JavaScript
-- 📋 [Java Script](./frontend/js.md)
+- 📋 [Java Script](./js.md)
 
 #### TypeScript
-- 📋 [Type Script](./frontend/ts.md)
+- 📋 [Type Script](./ts.md)
 
 #### ReactJS
-- 📋 [React JS](./frontend/react.md)
+- 📋 [React JS](./react.md)
 
 #### NextJS
-- 📋 [Next JS](./frontend/next.md)
+- 📋 [Next JS](./next.md)
