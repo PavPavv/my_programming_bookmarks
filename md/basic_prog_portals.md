@@ -1,4 +1,4 @@
-### _Basic programming portals_
+## Basic programming portals
 This is my must-have list of necessary tools for every coder.
 
 #### Jobs:

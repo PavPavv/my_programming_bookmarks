@@ -1,5 +1,5 @@
 # My programming bookmarks 📑
-> Last update: 11/28/2021
+> Last update: 01/31/2022
 
 Here I collect my favorite articles, links and web-resources which I find useful for myself.
 Thus I free my head and laptop's browsers bookmarks and keep all in one place.
@@ -10,3 +10,4 @@ Thus I free my head and laptop's browsers bookmarks and keep all in one place.
 - :page_with_curl: [Back-end](./md/backend/backend.md)
 - :page_with_curl: [Algorithms](./md/algorithms.md)
 - :page_with_curl: [Linux](./md/linux.md)
+- :page_with_curl: [Security](./md/security.md)

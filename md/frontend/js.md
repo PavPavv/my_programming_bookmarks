@@ -1,4 +1,4 @@
-### JavaScript
+## JavaScript
 
 #### Types and data structures
 - [data types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures)
