@@ -24,8 +24,7 @@ This is my must-have list of necessary tools for every coder.
 - [Dillinger](https://dillinger.io/) (MarkDown only)
 - [JSON](https://jsoneditoronline.org/)
 - [RegEx](https://regex101.com/)
-- [Replit](https://replit.com/languages/nodejs) (JS)
-- [Replit](https://replit.com/languages/typescript) (TS)
+- [Replit](https://replit.com/languages/nodejs)
 - [PlayCode](https://playcode.io/new/)
 
 #### Online coloborative tools:
