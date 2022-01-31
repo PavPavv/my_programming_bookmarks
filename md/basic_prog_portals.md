@@ -13,6 +13,9 @@ This is my must-have list of necessary tools for every coder.
 - [Dockerhub](https://hub.docker.com/)
 - [BitBucket](https://bitbucket.org/)
 
+#### RegEx
+- [RegEx Microsoft](https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference)
+
 #### Questions/answers:
 - [StackOverflow](https://stackoverflow.com/)
 
@@ -38,3 +41,7 @@ This is my must-have list of necessary tools for every coder.
 - [Medium](https://medium.com/)
 - [Quora](https://www.quora.com/)
 - [Habr](https://habr.com/)
+
+#### Code style
+- [Clean code](https://github.com/ryanmcdermott/clean-code-javascript)
+- [SOLID](https://medium.com/webbdev/solid-4ffc018077da)
