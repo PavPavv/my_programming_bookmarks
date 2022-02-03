@@ -37,6 +37,7 @@ By front-end I mean a cluster ot terms and topics as HTML & CSS, native JavaScri
 - [Webpack2](https://habr.com/ru/post/519064/)
 
 #### Google Browser Engine V8:
+- [How browser works](https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/)
 - [How browser works ru](https://www.html5rocks.com/ru/tutorials/internals/howbrowserswork/)
 - [V8 engine habr ru](https://habr.com/ru/company/ruvds/blog/337460/)
 - [Deep tricks and explainings](https://mrale.ph/)
@@ -45,13 +46,15 @@ By front-end I mean a cluster ot terms and topics as HTML & CSS, native JavaScri
 - [EcmaScript specification](https://tc39.es/ecma262/)
 
 #### JavaScript
-- 📋 [Java Script](./js.md)
-
-#### TypeScript
-- 📋 [Type Script](./ts.md)
+- 📋 [Java Script basics, interview questions, RU](https://github.com/PavPavv/MyJSCheatsheet)
+- 📋 [JavaScript basics](./js_basics.md)
+- 📋 [Java Script (hard parts)](./js.md)
 
 #### ReactJS
 - 📋 [React JS](./react.md)
+
+#### TypeScript
+- 📋 [Type Script](./ts.md)
 
 #### NextJS
 - 📋 [Next JS](./next.md)

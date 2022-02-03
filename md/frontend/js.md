@@ -3,6 +3,10 @@
 #### Types and data structures
 - [Data types](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Data_structures)
 
+
+#### Classes in JS
+- [JS classes are not “just syntactic sugar”](https://webreflection.medium.com/js-classes-are-not-just-syntactic-sugar-28690fedf078)
+- [JS classes are not “just syntactic sugar”, RU](https://habr.com/ru/company/ruvds/blog/554288/)
 #### MutationObserver
 - [MutationObserver ru](https://habr.com/ru/company/ruvds/blog/351256/)
 

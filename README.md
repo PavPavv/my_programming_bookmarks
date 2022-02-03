@@ -1,8 +1,8 @@
 # My programming bookmarks 📑
-> Last update: 01/31/2022
+> Last update: 02/01/2022
 
 Here I collect my favorite articles, links and web-resources which I find useful for myself.
-Thus I free my head and laptop's browsers bookmarks and keep all in one place.
+Thus I free my head and laptop's browser bookmarks and keep all in one place.
 
 ## Table of content:
 - :page_with_curl: [Basic resources for coder](./md/basic_prog_portals.md)
