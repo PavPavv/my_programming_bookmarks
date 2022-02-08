@@ -54,3 +54,7 @@ This is my must-have list of necessary tools for every coder.
 - [Clean code](https://github.com/ryanmcdermott/clean-code-javascript)
 - [SOLID](https://medium.com/webbdev/solid-4ffc018077da)
 - [Coding stories](https://codingstories.io/)
+- [Three things I learned from Sandi Metz’s book as a non-Ruby programmer](https://medium.com/@mithi/review-sandi-metz-s-poodr-ch-1-4-wip-d4daac417665)
+
+#### Common theory
+- [Programming dictionary, RU](https://github.com/HowProgrammingWorks/Dictionary)
