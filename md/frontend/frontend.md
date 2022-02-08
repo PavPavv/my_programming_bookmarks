@@ -3,9 +3,6 @@
 My most-useful-front-end-links list. 
 By front-end I mean a cluster ot terms and topics as HTML & CSS, native JavaScript, JS-frameworks (React mostly), JS web-instruments (dev tools, bundlers, etc.), TypeScript, TS-frameworks, some browser's construction details that might be helpful with working in JS from the client side, some web-standarts and technologies useful for the client side and etc.
 
-
-#### Fetching
-- [Fake REST API](https://jsonplaceholder.typicode.com/)
 #### Front-end tech docs
 - [MDN](https://developer.mozilla.org/en-US/)
 
@@ -52,6 +49,9 @@ By front-end I mean a cluster ot terms and topics as HTML & CSS, native JavaScri
 - 📋 [Java Script basics, interview questions, RU](https://github.com/PavPavv/MyJSCheatsheet)
 - 📋 [JavaScript basics](./js_basics.md)
 - 📋 [Java Script (hard parts)](./js.md)
+
+#### Fetching
+- [Fake REST API](https://jsonplaceholder.typicode.com/)
 
 #### Native libraries
 3D:

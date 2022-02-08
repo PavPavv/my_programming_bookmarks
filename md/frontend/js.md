@@ -38,6 +38,11 @@
 - [Functional Programming in JavaScript](https://blog.bitsrc.io/functional-programming-in-javascript-how-and-why-94e7a97343b)
 - 🎥 [Functional Programming R.Martin](https://www.youtube.com/watch?v=7Zlp9rKHGD4&t=950s)
 
+
+#### Code base
+- [Tabnine](https://www.tabnine.com/code/javascript)
+- [Patterns base](https://www.patterns.dev/)
+
 #### Other
 - [My JS cheatsheet](https://github.com/PavPavv/MyJSCheatsheet)
 - [Total JavaScript](https://github.com/javascript-tutorial/en.javascript.info)

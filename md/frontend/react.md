@@ -47,6 +47,15 @@
 - [Emotion](https://emotion.sh/docs/introduction)
 - [Material UI](https://mui.com/getting-started/usage/)
 
+#### Charts
+- [Recharts](https://recharts.org/en-US)
+- [D3](https://d3js.org/)
+- [Chart on map, RU](https://habr.com/ru/post/318600/)
+
+#### Auth
+- [JWT article](https://habr.com/ru/post/485764/)
+- [React + Redux - JWT Authentication Tutorial & Example](https://jasonwatmore.com/post/2017/12/07/react-redux-jwt-authentication-tutorial-example#index-jsx)
+
 #### Other
 - [React-philosophy](https://github.com/mithi/react-philosophies)
 - [React Awesome total](https://github.com/enaqx/awesome-react)

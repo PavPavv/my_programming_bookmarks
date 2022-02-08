@@ -13,8 +13,12 @@ This is my must-have list of necessary tools for every coder.
 - [Dockerhub](https://hub.docker.com/)
 - [BitBucket](https://bitbucket.org/)
 
+#### Processes
+- [Processes](./processes.md)
+
 #### RegEx
 - [RegEx Microsoft](https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference)
+- [Popular RegEx, RU](https://habr.com/ru/post/123845/)
 
 #### Questions/answers:
 - [StackOverflow](https://stackoverflow.com/)
@@ -37,6 +41,7 @@ This is my must-have list of necessary tools for every coder.
 - [Miro](https://miro.com/)
 
 #### Common tools:
+- [Lokalisation](https://lokalise.com/home)
 - [MarkDown cheatsheet](https://www.markdownguide.org/cheat-sheet/)
 
 #### Most popular prog-read:
