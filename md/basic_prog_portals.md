@@ -30,6 +30,9 @@ This is my must-have list of necessary tools for every coder.
 - [Replit](https://replit.com/languages/nodejs)
 - [PlayCode](https://playcode.io/new/)
 
+#### Online courses
+- [Udemy](https://www.udemy.com/)
+
 #### Online coloborative tools:
 - [Miro](https://miro.com/)
 
@@ -45,3 +48,4 @@ This is my must-have list of necessary tools for every coder.
 #### Code style
 - [Clean code](https://github.com/ryanmcdermott/clean-code-javascript)
 - [SOLID](https://medium.com/webbdev/solid-4ffc018077da)
+- [Coding stories](https://codingstories.io/)
