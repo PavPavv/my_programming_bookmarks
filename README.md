@@ -21,3 +21,4 @@ Thus I free my head and laptop's browser bookmarks and keep all in one place.
 - 🧾 - official documentation
 - 🎥 - video
 - 📦 - package, plugin or library
+- 🔓 - open source
