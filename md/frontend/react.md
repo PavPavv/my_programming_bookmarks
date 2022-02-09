@@ -1,6 +1,6 @@
 ## ReactJS
 
-- 📋 [Dan Abramov blog](Static Properties, Abstract Classes, and Constructor Functions in TypeScript)
+- 📋 [Dan Abramov blog](https://overreacted.io/)
 #### Basic React
 - 📋 [Cheatsheet](https://devhints.io/react)
 - 📋 [React total, RU](https://github.com/harryheman/React-Total)
@@ -8,12 +8,13 @@
 #### Utils
 - 📋 [Map only one item](https://www.devcript.com/how-to-select-only-one-element-of-a-map-in-react/)
 - 📋 [Useful tricks](https://sean-warman.medium.com/best-react-hacks-for-lazy-devs-b44b533fa923)
-- 📋 [Dan Abramov's blog](https://overreacted.io/)
 
 #### Hooks
 - 📋 [useCallback, RU](https://habr.com/ru/post/529950/)
 - 📋 [Custom hooks](https://usehooks.com/)
 - 📋 [useGlobalHook](https://www.npmjs.com/package/use-global-hook)
+- 📋 [How to use useEffect](https://overreacted.io/a-complete-guide-to-useeffect/)
+- 📋 [How to fetch data with React Hooks](https://www.robinwieruch.de/react-hooks-fetch-data/)
 
 #### State managment
 - 📋 [Thunk explanation](https://medium.com/fullstack-academy/thunks-in-redux-the-basics-85e538a3fe60)
