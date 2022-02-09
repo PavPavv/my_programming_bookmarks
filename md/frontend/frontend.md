@@ -66,7 +66,7 @@ Forms:
 Tests:
 - 📦 [https://jestjs.io/](https://jestjs.io/)
 Maps visualization:
-- 📋 [Habr review](https://habr.com/ru/post/318600/)
+- 📋 [Top map visualization libraries](https://habr.com/ru/post/318600/)
 
 #### ReactJS
 - 🔖 [React JS](./react.md)
