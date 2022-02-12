@@ -42,7 +42,7 @@ This is my must-have list of necessary tools for every coder.
 
 #### Common tools:
 - 🤖 [Lokalisation](https://lokalise.com/home)
-- [MarkDown cheatsheet](https://www.markdownguide.org/cheat-sheet/)
+- 🧾 [MarkDown cheatsheet](https://www.markdownguide.org/cheat-sheet/)
 
 #### Most popular prog-read:
 - 🤖 [Twitter](https://twitter.com/)
