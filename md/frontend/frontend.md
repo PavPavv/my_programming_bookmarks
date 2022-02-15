@@ -30,6 +30,7 @@ By front-end I mean a cluster ot terms and topics as HTML & CSS, native JavaScri
 
 #### Design:
 - 🤖 [ColorScheme](https://colorscheme.ru/)
+- 🤖 [Free illustrations](https://undraw.co/)
 
 #### Bundlers:
 - 🧾 [Webpack](https://webpack.js.org/)
