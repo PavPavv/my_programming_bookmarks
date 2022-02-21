@@ -6,6 +6,9 @@
 #### Variables
 - 📋 [Variables and scoping](https://exploringjs.com/es6/ch_variables.html)
 
+#### Breaking loop
+- 📋 [How to Break Out of a JavaScript Loop](https://masteringjs.io/tutorials/fundamentals/foreach-break)
+
 #### Classes in JS
 - 📋 [JS classes are not “just syntactic sugar”](https://webreflection.medium.com/js-classes-are-not-just-syntactic-sugar-28690fedf078)
 - 📋 [JS classes are not “just syntactic sugar”, RU](https://habr.com/ru/company/ruvds/blog/554288/)
