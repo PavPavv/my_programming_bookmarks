@@ -2,8 +2,11 @@
 This is my must-have list of necessary tools for every coder.
 
 #### Jobs:
-- 🤖[HeadHunter](https://hh.ru)
+- 🤖 [HeadHunter](https://hh.ru)
 - 🤖 [HabrCarreer](https://career.habr.com/)
+
+#### Relocation
+- 🤖 [Jobs with relocation](https://relocate.me/)
 
 #### Design:
 - 🤖 [Figma](https://www.figma.com/login)
