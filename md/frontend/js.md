@@ -5,6 +5,7 @@
 
 #### Variables
 - 📋 [Variables and scoping](https://exploringjs.com/es6/ch_variables.html)
+- 📋 [Variables: Scopes, Environments, and Closures](http://speakingjs.com/es5/ch16.html)
 
 #### Breaking loop
 - 📋 [How to Break Out of a JavaScript Loop](https://masteringjs.io/tutorials/fundamentals/foreach-break)
