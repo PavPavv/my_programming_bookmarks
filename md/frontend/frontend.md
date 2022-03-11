@@ -38,6 +38,7 @@ By front-end I mean a cluster ot terms and topics as HTML & CSS, native JavaScri
 - 📋 [Webpack2](https://habr.com/ru/post/519064/)
 
 #### Google Browser Engine V8:
+- 🧾 [Web events](https://developer.mozilla.org/ru/docs/Web/Events)
 - 📋 [How browser works](https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/)
 - 📋 [How browser works ru](https://www.html5rocks.com/ru/tutorials/internals/howbrowserswork/)
 - 📋 [V8 engine habr ru](https://habr.com/ru/company/ruvds/blog/337460/)
