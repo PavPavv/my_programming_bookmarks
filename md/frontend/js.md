@@ -13,6 +13,10 @@
 #### Classes in JS
 - 📋 [JS classes are not “just syntactic sugar”](https://webreflection.medium.com/js-classes-are-not-just-syntactic-sugar-28690fedf078)
 - 📋 [JS classes are not “just syntactic sugar”, RU](https://habr.com/ru/company/ruvds/blog/554288/)
+
+#### Promises
+- 📋 [Using promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises)
+
 #### MutationObserver
 - 📋 [MutationObserver ru](https://habr.com/ru/company/ruvds/blog/351256/)
 
