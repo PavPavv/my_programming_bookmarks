@@ -32,7 +32,8 @@
 - 📋 [JS stack habr](https://habr.com/ru/company/ruvds/blog/337042/)
 
 #### EventLoop (Browser model)
-- [Event loop](https://www.jsv9000.app/)
+- 📋 [In depth: Microtasks and the JavaScript runtime environment](https://developer.mozilla.org/en-US/docs/Web/API/HTML_DOM_API/Microtask_guide/In_depth#tasks_vs_microtasks)
+- 🤖 [Event loop](https://www.jsv9000.app/)
 - 📋 [Event loop habr ru](https://habr.com/ru/company/ruvds/blog/340508/)
 - 🎥 [Event loop](https://www.youtube.com/watch?v=cCOL7MC4Pl0)
 
