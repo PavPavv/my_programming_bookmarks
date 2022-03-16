@@ -78,3 +78,6 @@ Maps visualization:
 
 #### NextJS
 - 🔖 [Next JS](./next.md)
+
+#### Interview
+- 📋 [Preparation for frontend interview](https://www.notion.so/Front-End-Preparation-a0ac842415a04ddf9319718ea6ba22a4)
