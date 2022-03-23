@@ -4,6 +4,7 @@ This is my must-have list of necessary tools for every coder.
 #### Jobs:
 - 🤖 [HeadHunter](https://hh.ru)
 - 🤖 [HabrCarreer](https://career.habr.com/)
+- 🤖 [g-mate](https://gms.tech/)
 
 #### Relocation
 - 🤖 [Jobs with relocation](https://relocate.me/)
