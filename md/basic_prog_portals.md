@@ -16,6 +16,8 @@ This is my must-have list of necessary tools for every coder.
 - 🤖 [Github](https://github.com)
 - 🤖 [Dockerhub](https://hub.docker.com/)
 - 🤖 [BitBucket](https://bitbucket.org/)
+- 🤖 [Gitee](https://gitee.com/)
+- 🤖 [Gogs](https://gogs.io/)
 
 #### Processes
 - 🔖 [Processes](./processes.md)
