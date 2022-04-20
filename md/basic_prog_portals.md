@@ -49,6 +49,7 @@ This is my must-have list of necessary tools for every coder.
 #### Common tools:
 - 🤖 [Lokalisation](https://lokalise.com/home)
 - 🧾 [MarkDown cheatsheet](https://www.markdownguide.org/cheat-sheet/)
+- 🧾 [MarkDown tricks](https://gist.github.com/apaskulin/1ad686e42c7165cb9c22f9fe1e389558#dropdowns)
 
 #### Most popular prog-read:
 - 🤖 [Twitter](https://twitter.com/)
