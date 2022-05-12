@@ -75,7 +75,7 @@ Maps visualization:
 - 🔖 [React JS](./react.md)
 
 #### TypeScript
-- 🔖 [Type Script](./ts.md)
+- 🔖 [TypeScript](./ts.md)
 
 #### NextJS
 - 🔖 [Next JS](./next.md)
