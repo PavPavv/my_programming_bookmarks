@@ -5,6 +5,9 @@
 - 📋 [Brief explanation](https://2ality.com/2018/04/type-notation-typescript.html)
 - 📋 [Handbook RU](https://typescript-handbook.ru/docs/ts-1/)
 
+#### Linter
+- 🧾 [TSLint](https://palantir.github.io/tslint/)
+
 #### Parts
 - 📋 [Static Properties, Abstract Classes, and Constructor Functions in TS](https://betterprogramming.pub/introduction-to-typescript-classes-static-properties-abstract-classes-and-more-869f1eaa4835)
 
