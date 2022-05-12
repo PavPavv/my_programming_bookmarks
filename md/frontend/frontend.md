@@ -21,6 +21,7 @@ By front-end I mean a cluster ot terms and topics as HTML & CSS, native JavaScri
 
 #### Environment:
 - 🧾 [ESLint](https://eslint.org/)
+- 🧾 [ESLint rules](https://eslint.org/docs/rules/)
 - 📋 [ESLint, PreCommitHook settings RU](https://maxpfrontend.ru/vebinary/nastroyka-eslint-prettier-pre-commit-hook-create-react-app-visual-studio-code/)
 
 ### HTML & CSS
