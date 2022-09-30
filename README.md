@@ -9,10 +9,12 @@ Thus I free my head and laptop's browser bookmarks and keep all in one place.
 
 - 🔖 [Basic resources for coder](./md/basic_prog_portals.md)
 - 🔖 [Processes](./md/processes.md)
+- 🔖 [Git](./md/git.md)
+- 🔖 [RegEx](./md/regex.md)
+- 🔖 [Linux](./md/linux.md)
 - 🔖 [Front-end](./md/frontend/frontend.md)
 - 🔖 [Back-end](./md/backend/backend.md)
 - 🔖 [Algorithms](./md/algorithms.md)
-- 🔖 [Linux](./md/linux.md)
 - 🔖 [Security](./md/security.md)
 
 ### Typographic conventions
