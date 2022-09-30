@@ -2,7 +2,7 @@
 
 ## Most useful linux tools
 
-- 🔖 [Terminal](./terminal.md)
+- 🔖 [Terminal](./linux/terminal.md)
 - 📋 [nvim](https://github.com/PavPavv/MyNeovimCheatsheet)
 - tmux
 - midnight commander

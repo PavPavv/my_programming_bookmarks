@@ -183,3 +183,89 @@ Get user's rights back
 ```bash
 sudo chown -R some/path
 ```
+
+> systemd is an init system and system manager  and systemctl command is the central management tool for controlling the init system. In systemd, the target of most actions are “units”, which are resources that systemd knows how to manage. For service management tasks, the target unit will be service units, which have unit files with a suffix of .service. However, for most service management commands, you can actually leave off the .service suffix, as systemd is smart enough to know that you probably want to operate on a service when using service management commands.
+
+Start service
+
+```bash
+sudo systemctl start application.service
+```
+
+```bash
+sudo systemctl start application
+```
+
+Stop service
+
+```bash
+sudo systemctl stop application.service
+```
+
+Restart service
+
+```bash
+sudo systemctl restart application.service
+```
+
+Reload service
+
+```bash
+sudo systemctl reload application.service
+```
+
+Reload or restart service
+
+```bash
+sudo systemctl reload-or-restart application.service
+```
+
+Enable service
+
+```bash
+sudo systemctl enable application.service
+```
+
+Disable service
+
+```bash
+sudo systemctl disable application.service
+```
+
+Checking the status of service
+
+```bash
+sudo systemctl status application.service
+```
+
+Check if service is enable
+
+```bash
+sudo systemctl is-enabled application.service
+```
+
+Check if service is failed
+
+```bash
+sudo systemctl is-failed application.service
+```
+
+To see a list of all of the active units that systemd knows about, we can use the list-units command:
+
+```bash
+sudo systemctl list-units
+```
+
+To see a list of all of the active and non-active units too
+
+```bash
+sudo systemctl list-units --all
+```
+
+```bash
+sudo systemctl list-units --all --state=inactive
+```
+
+```bash
+sudo systemctl list-units --type=service
+```
