@@ -269,3 +269,15 @@ sudo systemctl list-units --all --state=inactive
 ```bash
 sudo systemctl list-units --type=service
 ```
+
+Check 3000 port for processes
+
+```bash
+sudo netstat -tulpn | grep :3000
+```
+
+Kill process at the port of 3000
+
+```bash
+sudo fuser -k 3000/tcp
+```

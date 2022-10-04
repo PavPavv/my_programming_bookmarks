@@ -79,8 +79,6 @@ VOLUME ["app/test"]
 CMD ["node", "server.js"]
 ```
 
-## docker-compose
-
 2. Then you can build an Image in the directory with Dockerfile:
 
 ```bash
@@ -117,3 +115,172 @@ docker ps -a
 docker stop test-app
 ```
 
+## Images
+
+1. Create an image
+
+```bash
+sudo docker build .
+```
+
+2. Check list of images
+
+```bash
+sudo docker images
+```
+
+```bash
+sudo docker image ls
+```
+
+```bash
+# only id's
+sudo docker image ls -q
+```
+
+3. Delete all the images
+
+```bash
+sudo docker image prune
+```
+
+4. Delete all the stopped images
+
+```bash
+sudo docker image prune -a
+```
+
+5. Delete chosen image
+
+```bash
+sudo docker rmi imageIdOrName
+```
+
+## Containers
+
+1. Check list of running Containers:
+
+```bash
+docker ps
+```
+
+2. Check list of all Containers:
+
+```bash
+docker ps -a
+```
+
+3. Stop the Container:
+
+```bash
+docker stop test-app
+```
+
+4. Delete all the stopped containers
+
+```bash
+sudo docker container prune
+```
+
+## Networks
+
+1. List on all the networks
+
+```bash
+sudo network ls
+```
+
+## Volumes
+
+
+## docker-compose
+
+```yaml
+version: '3.8'
+
+services:
+  service_one:
+    image: some-image:latest
+    build:
+      context: .
+      dockerfile: ./some/some/Dockerfile
+    container_name: some_name
+    expose:
+      - '3000'
+    working_dir: /someDir
+    command: 'yarn build'
+    restart: on-failure   
+  service_two:
+      context: .
+      dockerfile: ./some/some/Dockerfile
+  service_three:
+      context: .
+      dockerfile: ./some/some/Dockerfile
+```
+
+1. Version of docker-compose
+
+```bash
+sudo docker-compose version
+```
+
+
+1. Help with all the commands
+
+```bash
+sudo docker-compose
+```
+
+2. Build or rebuild services
+
+```bash
+sudo docker-compose build
+```
+
+3. Create services
+
+```bash
+sudo docker-compose create
+```
+
+4. Restart services
+
+```bash
+sudo docker-compose restart
+```
+
+5. Stop services
+
+```bash
+sudo docker-compose stop
+```
+
+5. Create and start containers
+
+```bash
+sudo docker-compose up
+```
+  
+Detach mode: run containers in the background (with no logs)
+
+```bash
+sudo docker-compose up -d
+```
+
+6. List of images
+
+```bash
+sudo docker-compose images
+```
+
+7. List of containers
+
+```bash
+sudo docker-compose ps
+```
+
+8. Remove stopped containers
+
+```bash
+sudo docker-compose rm
+```
