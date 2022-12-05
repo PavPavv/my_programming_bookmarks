@@ -91,6 +91,11 @@ Tests:
 
 - 📦 [https://jestjs.io/](https://jestjs.io/)
 
+SVG & charts:
+
+- 🔖 [SVG](./svg.md)
+- 🔖 [d3.js](./d3.md)
+
 Maps visualization:
 
 - 📋 [Top map visualization libraries](https://habr.com/ru/post/318600/)

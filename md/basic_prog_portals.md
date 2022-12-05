@@ -36,6 +36,7 @@ This is my must-have list of necessary tools for every coder.
 #### Online code editors:
 - 🤖 [Dillinger](https://dillinger.io/) (MarkDown only)
 - 🤖 [JSON](https://jsoneditoronline.org/)
+- 🤖 [Types from JSON](http://json2ts.com/)
 - 🤖 [RegEx](https://regex101.com/)
 - 🤖 [Replit](https://replit.com/languages/nodejs)
 - 🤖 [PlayCode](https://playcode.io/new/)
