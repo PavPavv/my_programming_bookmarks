@@ -45,6 +45,7 @@ By front-end I mean a cluster ot terms and topics as HTML & CSS, native JavaScri
 - 🧾 [Webpack](https://webpack.js.org/)
 - 📋 [Webpack beginners guide](https://dev.to/carriepascale/a-very-beginner-s-guide-to-webpack-2jal)
 - 📋 [Webpack2](https://habr.com/ru/post/519064/)
+- 🔖 [Build your own webpack. Simple example](https://github.com/PavPavv/wb)
 
 ### Google Browser Engine V8
 
