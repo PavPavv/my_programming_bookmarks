@@ -173,3 +173,11 @@ Roll back commit by commit hash from the log
 ```bash
 git revert commit-hash-here
 ```
+
+## Using rebase
+
+1. git pull origin <dev-branch-name>
+2. git checkout <local-branch>
+3. git rebase develop
+4. git push —force-with-lease origin <local-branch>
+
