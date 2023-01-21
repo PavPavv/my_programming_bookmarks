@@ -176,8 +176,18 @@ git revert commit-hash-here
 
 ## Using rebase
 
-1. git pull origin <dev-branch-name>
-2. git checkout <local-branch>
-3. git rebase develop
-4. git push —force-with-lease origin <local-branch>
+```bash
+git pull origin <dev-branch-name>
+```
 
+```bash
+git checkout <local-branch>
+```
+
+```bash
+git rebase develop
+```
+
+```bash
+git push —force-with-lease origin <local-branch>
+```
