@@ -1,39 +1,49 @@
-## Basic programming portals
+# Basic programming portals
+
 This is my must-have list of necessary tools for every coder.
 
-#### Jobs:
+## Jobs:
+
 - 🤖 [HeadHunter](https://hh.ru)
 - 🤖 [HabrCarreer](https://career.habr.com/)
 - 🤖 [g-mate](https://gms.tech/)
 
-#### Relocation
+## Relocation
+
 - 🤖 [Jobs with relocation](https://relocate.me/)
 
-#### Design:
+## Design:
+
 - 🤖 [Figma](https://www.figma.com/login)
 
-#### Versions:
+## Versions:
+
 - 🤖 [Github](https://github.com)
 - 🤖 [Dockerhub](https://hub.docker.com/)
 - 🤖 [BitBucket](https://bitbucket.org/)
 - 🤖 [Gitee](https://gitee.com/)
 - 🤖 [Gogs](https://gogs.io/)
 
-#### Processes
+## Processes
+
 - 🔖 [Processes](./processes.md)
 
-#### RegEx
+## RegEx
+
 - 📋 [RegEx Microsoft](https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference)
 - 📋 [Popular RegEx, RU](https://habr.com/ru/post/123845/)
 
 #### Questions/answers:
+
 - 🤖 [StackOverflow](https://stackoverflow.com/)
 
-#### Code problems:
+## Code problems:
+
 - 🤖 [LeetCode](https://leetcode.com/)
 - 🤖 [CodeWars](https://www.codewars.com/)
 
-#### Online code editors:
+## Online code editors:
+
 - 🤖 [Dillinger](https://dillinger.io/) (MarkDown only)
 - 🤖 [JSON](https://jsoneditoronline.org/)
 - 🤖 [Types from JSON](http://json2ts.com/)
@@ -41,28 +51,34 @@ This is my must-have list of necessary tools for every coder.
 - 🤖 [Replit](https://replit.com/languages/nodejs)
 - 🤖 [PlayCode](https://playcode.io/new/)
 
-#### Online courses
+## Online courses
+
 - 🤖 [Udemy](https://www.udemy.com/)
 
-#### Online coloborative tools:
+## Online coloborative tools:
+
 - 🤖 [Miro](https://miro.com/)
 
-#### Common tools:
+## Common tools:
+
 - 🤖 [Lokalisation](https://lokalise.com/home)
 - 🧾 [MarkDown cheatsheet](https://www.markdownguide.org/cheat-sheet/)
 - 🧾 [MarkDown tricks](https://gist.github.com/apaskulin/1ad686e42c7165cb9c22f9fe1e389558#dropdowns)
 
-#### Most popular prog-read:
+## Most popular prog-read:
+
 - 🤖 [Twitter](https://twitter.com/)
 - 🤖 [Medium](https://medium.com/)
 - 🤖 [Quora](https://www.quora.com/)
 - 🤖 [Habr](https://habr.com/)
 
-#### Code style
+## Code style
+
 - 📖 [Clean code](https://github.com/ryanmcdermott/clean-code-javascript)
 - 📋 [SOLID](https://medium.com/webbdev/solid-4ffc018077da)
 - 🤖 [Coding stories](https://codingstories.io/)
 - 📋 [Three things I learned from Sandi Metz’s book as a non-Ruby programmer](https://medium.com/@mithi/review-sandi-metz-s-poodr-ch-1-4-wip-d4daac417665)
 
-#### Common theory
+## Common theory
+
 - 📋 [Programming dictionary, RU](https://github.com/HowProgrammingWorks/Dictionary)
