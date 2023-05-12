@@ -6,6 +6,7 @@
 
 - 📋 [Cheatsheet](https://devhints.io/react)
 - 📋 [React total, RU](https://github.com/harryheman/React-Total)
+- 🔖 [My React cheat sheet](https://github.com/PavPavv/MyJSCheatsheet/blob/master/interview_EN/react.md)
 
 ## Utils
 
