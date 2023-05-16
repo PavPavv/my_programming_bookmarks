@@ -1,6 +1,6 @@
 ## Front-end
 
-My most-useful-front-end-links list. 
+My most-useful-front-end-links list.
 By front-end I mean a cluster ot terms and topics as HTML & CSS, native JavaScript, JS-frameworks (React mostly), JS web-instruments (dev tools, bundlers, etc.), TypeScript, TS-frameworks, some browser's construction details that might be helpful with working in JS from the client side, some web-standarts and technologies useful for the client side and etc.
 
 ### Front-end tech docs
@@ -46,6 +46,7 @@ By front-end I mean a cluster ot terms and topics as HTML & CSS, native JavaScri
 - 📋 [Webpack beginners guide](https://dev.to/carriepascale/a-very-beginner-s-guide-to-webpack-2jal)
 - 📋 [Webpack2](https://habr.com/ru/post/519064/)
 - 🔖 [Build your own webpack. Simple example](https://github.com/PavPavv/wb)
+- 🔖 [Custom webpack set up](./webpack.md)
 
 ### Google Browser Engine V8
 

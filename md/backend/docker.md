@@ -192,7 +192,6 @@ sudo network ls
 
 ## Volumes
 
-
 ## docker-compose
 
 ```yaml
@@ -209,13 +208,13 @@ services:
       - '3000'
     working_dir: /someDir
     command: 'yarn build'
-    restart: on-failure   
+    restart: on-failure
   service_two:
-      context: .
-      dockerfile: ./some/some/Dockerfile
+    context: .
+    dockerfile: ./some/some/Dockerfile
   service_three:
-      context: .
-      dockerfile: ./some/some/Dockerfile
+    context: .
+    dockerfile: ./some/some/Dockerfile
 ```
 
 1. Version of docker-compose
@@ -223,7 +222,6 @@ services:
 ```bash
 sudo docker-compose version
 ```
-
 
 1. Help with all the commands
 
@@ -260,7 +258,7 @@ sudo docker-compose stop
 ```bash
 sudo docker-compose up
 ```
-  
+
 Detach mode: run containers in the background (with no logs)
 
 ```bash
