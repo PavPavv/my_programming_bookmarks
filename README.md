@@ -1,6 +1,6 @@
 # My programming bookmarks 📑
 
-> Last update: 09/30/2022
+> Last update: 10/02/2023
 
 Here I collect my favorite articles, links and web-resources which I find useful for myself.
 Thus I free my head and laptop's browser bookmarks and keep all in one place.

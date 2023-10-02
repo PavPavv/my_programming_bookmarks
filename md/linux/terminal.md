@@ -5,15 +5,19 @@
 - [Ubuntu snap vs. apt: Which package manager to use and when](https://www.techtarget.com/searchitoperations/tip/Ubuntu-snap-vs-apt-Which-package-manager-to-use-and-when)
 
 Open terminal with keyboard
+
 > Ctrl+Alt+T
 
 Copy from terminal
+
 > Ctrl+Shift+C
 
 Paste in terminal
+
 > Ctrl+Shift+V
 
 Abort of program in terminal
+
 > Ctrl+C
 
 Get system user name
@@ -184,7 +188,7 @@ Get user's rights back
 sudo chown -R some/path
 ```
 
-> systemd is an init system and system manager  and systemctl command is the central management tool for controlling the init system. In systemd, the target of most actions are “units”, which are resources that systemd knows how to manage. For service management tasks, the target unit will be service units, which have unit files with a suffix of .service. However, for most service management commands, you can actually leave off the .service suffix, as systemd is smart enough to know that you probably want to operate on a service when using service management commands.
+> systemd is an init system and system manager and systemctl command is the central management tool for controlling the init system. In systemd, the target of most actions are “units”, which are resources that systemd knows how to manage. For service management tasks, the target unit will be service units, which have unit files with a suffix of .service. However, for most service management commands, you can actually leave off the .service suffix, as systemd is smart enough to know that you probably want to operate on a service when using service management commands.
 
 Start service
 
