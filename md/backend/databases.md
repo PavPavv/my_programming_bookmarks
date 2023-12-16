@@ -14,6 +14,8 @@
 
 ## PostgeSQL
 
+- 🔖 [My cheat sheet for postgreSQL](./post.md)
+
 ## Firebase
 
 ## Supabase
