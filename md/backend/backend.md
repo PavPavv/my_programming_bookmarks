@@ -23,6 +23,7 @@ My most-useful-back-end-links list.
 ## Containers
 
 - 🔖 [My Docker cheat sheet](./docker.md)
+- 🔖 [Dockerize frontend](./dockerizeFrontend.md)
 - 🧾 [Docker](https://docs.docker.com/)
 - 📋 [Docker cheat sheet](https://dockerlabs.collabnix.com/docker/cheatsheet/)
 

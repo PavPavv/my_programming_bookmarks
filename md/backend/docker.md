@@ -34,12 +34,12 @@ systemctl stop docker
 
 ---
 
-## Docker theory
+## Docker basic theory
 
 ### Main rules
 
-Docker runs by Docker engine and create images with container. You can think of container like a mini-VM.
-To run Docker you need a Dockerfile. Who has an image can create a containers. In Docker every Container should just do **one main** thing.
+Docker runs by Docker engine and create images with containers. You can think of container like a mini-VM.
+To run Docker you need a Dockerfile. Who has an image can create a containers. In Docker every container should just do **one main** thing.
 
 ### Data in Docker
 
@@ -47,17 +47,19 @@ To run Docker you need a Dockerfile. Who has an image can create a containers. I
 2. Temporary App Data (read/write, stored in Containers)
 3. Permanent App Data (read + write, stored with Container & Volumes)
 
-### Volumes
+### Volumes (theory)
 
 Volumes unlike Containers and Images hosts on a local machine. That means that data in Volumes survive Image or Container removing.
 
-### Network
+### Networks (theory)
 
 ---
 
 ## Use Docker
 
-1. To start using Docker you need a Dockerfile, like this:
+## Describe "Dockerfile"
+
+To start using Docker you need to create a Dockerfile at your project root folder, like this:
 
 ```Dockerfile
 # Inheritance
@@ -79,54 +81,30 @@ VOLUME ["app/test"]
 CMD ["node", "server.js"]
 ```
 
-2. Then you can build an Image in the directory with Dockerfile:
+### Images
+
+Then you can build an Image in the directory with Dockerfile:
 
 ```bash
 docker build .
 ```
 
-3. You can check an Image:
+(Create named image)
+
+```bash
+docker build -t <your-image-name> .
+```
+
+Rebuild the image (the same exact command)
+
+```bash
+docker build -t <your-image-name> .
+```
+
+You can check all the images:
 
 ```bash
 docker images
-```
-
-4. Create and start a new Container from an Image with detach publishing at the port of 3000 and remove after the stop with a certain name:
-
-```bash
-docker run -d -p 3000:80 --rm --name test-app
-```
-
-5. Check list of running Containers:
-
-```bash
-docker ps
-```
-
-6. Check list of all Containers:
-
-```bash
-docker ps -a
-```
-
-7. Stop the Container:
-
-```bash
-docker stop test-app
-```
-
-## Images
-
-1. Create an image
-
-```bash
-sudo docker build .
-```
-
-2. Check list of images
-
-```bash
-sudo docker images
 ```
 
 ```bash
@@ -138,51 +116,75 @@ sudo docker image ls
 sudo docker image ls -q
 ```
 
-3. Delete all the images
+Delete all the images
 
 ```bash
 sudo docker image prune
 ```
 
-4. Delete all the stopped images
+Delete all the stopped images
 
 ```bash
 sudo docker image prune -a
 ```
 
-5. Delete chosen image
+Delete chosen image
 
 ```bash
 sudo docker rmi imageIdOrName
 ```
 
-## Containers
+### Containers
 
-1. Check list of running Containers:
+Create and start a new Container from an Image with detach publishing at the port of 3000 and remove after the stop with a certain name:
+
+```bash
+docker run -d -p 3000:80 --name <your-container-name> <your-image-name>
+```
+
+Check list of running Containers:
 
 ```bash
 docker ps
 ```
 
-2. Check list of all Containers:
+Check list of all Containers:
 
 ```bash
 docker ps -a
 ```
 
-3. Stop the Container:
+Stop the Container:
 
 ```bash
 docker stop test-app
 ```
 
-4. Delete all the stopped containers
+Kill a running container if you need so:
+
+```bash
+docker rm <you-container-name> -f
+```
+
+Get into the container's shell
+
+```bash
+docker exec -it <your-container> sh
+```
+
+Get out from the container's shell
+
+```bash
+exit
+```
+
+Delete all the stopped containers
 
 ```bash
 sudo docker container prune
 ```
 
-## Networks
+### Networks
 
 1. List on all the networks
 
@@ -190,9 +192,9 @@ sudo docker container prune
 sudo network ls
 ```
 
-## Volumes
+### Volumes
 
-## docker-compose
+#### docker-compose
 
 ```yaml
 version: '3.8'
