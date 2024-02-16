@@ -111,3 +111,56 @@ Read only bind mount:
 ```bash
 docker run -v $(pwd)/src:/app/src:ro -d -p 3000:5173 --name <your-container-name> <your-image-name>
 ```
+
+```bash
+docker run --env-file ./.env -v $(pwd)/src:/app/src:ro -d -p 3000:5173 --name <your-container-name> <your-image-name>
+```
+
+## Docker-compose
+
+> Spacing matters!
+
+1. Create _docker-compose.yml_ file
+
+```yml
+# Compose doesn't use version to select an exact schema to validate the Compose file, but prefers the most recent schema when it's implemented.
+version: '3'
+# Services represents in docker-compose docker containers
+services:
+  vite-react-app:
+    # Specify an image for the service/container
+    # In fact, we decompose docker terminal command, like:
+    # docker run --env-file ./.env -v $(pwd)/src:/app/src:ro -d -p 3000:5173 --name <your-container-name> <your-image-name>
+    # <your-image-name>
+    build: .
+    # -p 3000:5173
+    ports:
+      - '3000:5173'
+    # -v $(pwd)/src:/app/src
+    volumes:
+      - ./src:/app/src
+    # -e VITE_APP_NAME=pavpav
+    # environment:
+    #   - VITE_APP_NAME=pavpav
+    # --env-file ./.env
+    env_file:
+      - ./.env
+```
+
+2. Run the target containers by running docker-compose:
+
+```bash
+docker-compose up -d
+```
+
+If you want to rebuild image:
+
+```bash
+docker-compose up -d --build
+```
+
+3. Stop containers:
+
+```bash
+docker-compose down
+```

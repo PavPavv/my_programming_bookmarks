@@ -184,6 +184,10 @@ Delete all the stopped containers
 sudo docker container prune
 ```
 
+```bash
+docker run --env-file ./.env -v $(pwd)/src:/app/src:ro -d -p 3000:5173 --name <your-container-name> <your-image-name>
+```
+
 ### Networks
 
 1. List on all the networks
