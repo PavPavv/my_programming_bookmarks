@@ -3,6 +3,7 @@
 ## Most useful linux tools
 
 - 🔖 [Terminal](./linux/terminal.md)
+- 🔖 [Bourne shell](./linux/shell.md)
 - 📋 [nvim](https://github.com/PavPavv/MyNeovimCheatsheet/blob/main/nvim/getStarted.md)
 - 🔖 [tmux](./linux/tmux.md)
 - midnight commander
