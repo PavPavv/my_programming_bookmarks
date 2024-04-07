@@ -198,7 +198,7 @@ sudo network ls
 
 ### Volumes
 
-#### docker-compose
+### docker-compose
 
 ```yaml
 version: '3.8'
@@ -287,4 +287,10 @@ sudo docker-compose ps
 
 ```bash
 sudo docker-compose rm
+```
+
+5. Run several docker-compose files for many containers:
+
+```bash
+sudo docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d --build
 ```

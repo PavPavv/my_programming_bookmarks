@@ -164,3 +164,9 @@ docker-compose up -d --build
 ```bash
 docker-compose down
 ```
+
+4. Run several docker-compose files for many containers:
+
+```bash
+sudo docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d --build
+```
