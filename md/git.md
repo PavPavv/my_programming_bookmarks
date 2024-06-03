@@ -172,6 +172,12 @@ Commits history
 git log
 ```
 
+Search for commit with certain text
+
+```bash
+git log -S
+```
+
 Restore file of the current branch from stages status
 
 ```bash
