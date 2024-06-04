@@ -98,6 +98,12 @@ Get changes from the remote origin to the current branch
 git pull origin branch-name-here
 ```
 
+Check differences between two branches
+
+```bash
+git diff main..develop
+```
+
 ---
 
 ## Workflow
@@ -202,6 +208,18 @@ Roll back commit by commit hash from the log
 git revert commit-hash-here
 ```
 
+Check difference between two commits
+
+```bash
+git diff <commit_hash_1> <commit_hash_2>
+```
+
+Change only author of the last commit
+
+```bash
+git commit --amend --reset-author
+```
+
 ### What the difference between git reset and git revert?
 
 The **git reset** and **git revert** commands in Git are both used to undo changes in a repository, but they work in different ways.
@@ -240,4 +258,17 @@ git rebase develop
 
 ```bash
 git push —force-with-lease origin <local-branch>
+```
+
+How to undo certain push to origin:
+
+Using **git rebase -i** allows check, edit and delete commits in commit logs in interactive mode.
+You should delete target commit and then run **git push --force** to update remote origin forcibly.
+
+```bash
+git rebase -i
+```
+
+```bash
+git push --force
 ```
