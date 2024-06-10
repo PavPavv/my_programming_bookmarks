@@ -104,6 +104,12 @@ Check differences between two branches
 git diff main..develop
 ```
 
+To look at the difference between not staged changes and current staged state
+
+```bash
+git diff
+```
+
 ---
 
 ## Workflow
@@ -170,6 +176,24 @@ Cancel last local commit of the current branch
 git reset --hard HEAD^
 ```
 
+Archive local repo from git
+
+```bash
+git archive --format=zip
+```
+
+Verifies the connectivity and validity of the objects in the database
+
+```bash
+git fsck
+```
+
+Set current file state back to last commit state
+
+```bash
+ git checkout HEAD -- <file>
+```
+
 ## Commits
 
 Commits history
@@ -218,6 +242,12 @@ Change only author of the last commit
 
 ```bash
 git commit --amend --reset-author
+```
+
+Change text of the last commit without changing codebase
+
+```bash
+git commit --amend --no-edit
 ```
 
 ### What the difference between git reset and git revert?
@@ -271,4 +301,12 @@ git rebase -i
 
 ```bash
 git push --force
+```
+
+## Cherry-pick
+
+Cherry-pick commit with certain date
+
+```bash
+git log --after='YYYY-MM-DD' --before='YYYY-MM-DD' -1 | grep commit | cut -d ' ' -f 2 | xargs git cherry-pick
 ```
