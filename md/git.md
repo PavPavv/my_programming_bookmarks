@@ -74,7 +74,7 @@ Create new branch and switch to it
 git checkout -b branch-name-here
 ```
 
-Delete local branch
+Delete local branch after checking if local branch already been merged
 
 ```bash
 git branch -d branch-name-here
@@ -250,6 +250,14 @@ Change text of the last commit without changing codebase
 git commit --amend --no-edit
 ```
 
+## Blame
+
+Check who changed certain (10, for example) line in certain file last time
+
+```bash
+git blame -L 10 <filename>
+```
+
 ### What the difference between git reset and git revert?
 
 The **git reset** and **git revert** commands in Git are both used to undo changes in a repository, but they work in different ways.
@@ -303,10 +311,28 @@ git rebase -i
 git push --force
 ```
 
+Interactive copy commits from one branch to another since certain commit, where **since** is commit, **branch** - source branch and **newbase** is a target branch
+
+```bash
+git rebase --onto <newbase> <since> <branch>
+```
+
 ## Cherry-pick
+
+Put last commit of _feature_ branch to the top od the **main** branch
+
+```bash
+git cherry-pick <feature>
+```
 
 Cherry-pick commit with certain date
 
 ```bash
 git log --after='YYYY-MM-DD' --before='YYYY-MM-DD' -1 | grep commit | cut -d ' ' -f 2 | xargs git cherry-pick
+```
+
+The following command allows you to apply the changes from a specific commit to your current branch without automatically creating a new commit. This means that the changes will be staged in your working directory, but you will have the opportunity to review and modify them before committing the changes.
+
+```bash
+git cherry-pick --no-commit <commit-hash>
 ```
