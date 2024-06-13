@@ -80,6 +80,12 @@ Delete local branch after checking if local branch already been merged
 git branch -d branch-name-here
 ```
 
+Delete local branch WITHOUT checking if local branch already been merged
+
+```bash
+git branch -D branch-name-here
+```
+
 Rename branch name
 
 ```bash
@@ -110,6 +116,12 @@ To look at the difference between not staged changes and current staged state
 git diff
 ```
 
+Check all staged, but not commited yet changes
+
+```bash
+git diff --staged
+```
+
 ---
 
 ## Workflow
@@ -124,6 +136,12 @@ Stage all the current branch changes
 
 ```bash
 git add .
+```
+
+The following command allows you to interactively select and stage changes within a file or set of files. When you run **git add --patch**, Git will show you each change within the file and prompt you to decide whether to stage it or not.
+
+```bash
+git add --patch
 ```
 
 Commit all the current branch changes
@@ -194,6 +212,12 @@ Set current file state back to last commit state
  git checkout HEAD -- <file>
 ```
 
+Count every commit for period of time
+
+```bash
+git log --since='last month' --pretty=format:'%cn' | sort | uniq -c
+```
+
 ## Commits
 
 Commits history
@@ -248,6 +272,14 @@ Change text of the last commit without changing codebase
 
 ```bash
 git commit --amend --no-edit
+```
+
+## Merging
+
+Merge without creating new commit for it
+
+```bash
+git merge --no-commit
 ```
 
 ## Blame
