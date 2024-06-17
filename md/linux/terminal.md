@@ -20,6 +20,8 @@ Abort of program in terminal
 
 > Ctrl+C
 
+## Basic
+
 Get system user name
 
 ```bash
@@ -44,6 +46,8 @@ Exit terminal
 exit
 ```
 
+## Install
+
 Install software package
 
 ```bash
@@ -52,9 +56,21 @@ sudo apt install nameOfProgram
 
 Check OS version
 
+## Check system
+
 ```bash
 lsb_release -a
 ```
+
+## Disks
+
+Check free space
+
+```bash
+df -h
+```
+
+## Directories
 
 Enter directory
 
@@ -80,12 +96,6 @@ Table of content of the current directory
 ls -la
 ```
 
-Copy files
-
-```bash
-cp name.file copiedName.file
-```
-
 Copy folder
 
 ```bash
@@ -104,6 +114,14 @@ Create directory
 mkdir
 ```
 
+Remove entire folder
+
+```bash
+rm -rf someDir
+```
+
+## Files
+
 Create file
 
 ```bash
@@ -114,6 +132,12 @@ Replace file
 
 ```bash
 mv test/some.txt ../docs/test
+```
+
+Copy files
+
+```bash
+cp name.file copiedName.file
 ```
 
 Remove file
@@ -128,12 +152,6 @@ Copy all files in directory
 rm testDir/*
 ```
 
-Remove entire folder
-
-```bash
-rm -rf someDir
-```
-
 Read text file
 
 ```bash
@@ -146,17 +164,21 @@ Read pdf file
 evince text.pdf
 ```
 
-Turn off system
-
-```bash
-sudo shutdown -h now
-```
+## Manipulate system
 
 Turn off system
 
 ```bash
 sudo shutdown -h now
 ```
+
+Turn off system
+
+```bash
+sudo shutdown -h now
+```
+
+## Archives
 
 Unzip archive
 
@@ -170,11 +192,27 @@ Unrar rar-archive
 unrar e file.rar
 ```
 
+## Network
+
 Edit hosts file
 
 ```bash
 sudo gedit /etc/hosts
 ```
+
+Check 3000 port for processes
+
+```bash
+sudo netstat -tulpn | grep :3000
+```
+
+Kill process at the port of 3000
+
+```bash
+sudo fuser -k 3000/tcp
+```
+
+## User
 
 Get user's rights back
 
@@ -187,6 +225,8 @@ Get user's rights back
 ```bash
 sudo chown -R some/path
 ```
+
+## Processes
 
 > systemd is an init system and system manager and systemctl command is the central management tool for controlling the init system. In systemd, the target of most actions are “units”, which are resources that systemd knows how to manage. For service management tasks, the target unit will be service units, which have unit files with a suffix of .service. However, for most service management commands, you can actually leave off the .service suffix, as systemd is smart enough to know that you probably want to operate on a service when using service management commands.
 
@@ -272,16 +312,4 @@ sudo systemctl list-units --all --state=inactive
 
 ```bash
 sudo systemctl list-units --type=service
-```
-
-Check 3000 port for processes
-
-```bash
-sudo netstat -tulpn | grep :3000
-```
-
-Kill process at the port of 3000
-
-```bash
-sudo fuser -k 3000/tcp
 ```
