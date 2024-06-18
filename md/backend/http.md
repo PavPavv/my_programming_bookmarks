@@ -121,3 +121,61 @@ https://<host>:<port>/<path>?<query>#<frag>
 - _query_ - Used by some schemes to pass parameters to active applications (such as databases, bulletin boards, search engines, and other Internet gateways). There is no common format for the contents of the query component. It is separated from the rest of the URL by the “?” character.
 
 - _frag_ - A name for a piece or part of the resource. The frag field is not passed to the server when referencing the object; it is used internally by the client. It is separated from the rest of the URL by the “#” character.
+
+## HTTP messages
+
+HTTP messages are the blocks of data sent between HTTP applications. HTTP uses the terms _inbound_ and _outbound_ to describe transactional direction. Messages travel inbound to the origin server, and when their work is done, they travel outbound back to the user agent. HTTP messages flow like rivers. All messages flow downstream, regardless of whether they are request messages or response messages. The sender of any message is upstream of the receiver.
+
+All HTTP messages fall into two types: request messages and response messages. Request messages request an action from a web server. Response messages carry results of a request back to a client.
+
+Note that a set of HTTP headers should always end in a blank line (bare CRLF), even if there are no headers and even if there is no entity body.
+
+All HTTP messages begin with a **start line**. The start line for a request message says what to do. The start line for a response message says what happened.
+
+As methods tell the server what to do, status codes tell the client what happened.
+
+### Status code classes
+
+- 100-101 - Informational
+- 200-206 - Successful
+- 300-305 - Redirection
+- 400-415 - Client error
+- 500-505 - Server error
+
+### Header classifications
+
+- **General**- Can appear in both request and response messages
+- **Request**- Provide more information about the request
+- **Response**- Provide more information about the response
+- **Entity**- Describe body size and contents, or the resource itself
+- **Extension**- New headers that are not defined in the specification
+
+### HTTP Methods
+
+#### GET
+
+GET is the most common method. It usually is used to ask a server to send a resource.
+
+#### HEAD
+
+The HEAD method behaves exactly like the GET method, but the server returns only the headers in the response. No entity body is ever returned. This allows a client to inspect the headers for a resource without having to actually get the resource.
+
+#### POST
+
+The POST method was designed to send input data to the server. POST is used to send data to a server. PUT is used to deposit data into a resource on the server
+
+#### PUT
+
+The PUT method writes documents to a server, in the inverse of the way that GET reads documents from a server. The semantics of the PUT method are for the server to take the body of the request and either use it to create a new document named by the requested URL or, if that URL already exists, use the body to replace it.
+
+#### TRACE
+
+When a client makes a request, that request may have to travel through firewalls, proxies, gateways, or other applications. Each of these has the opportunity to modify the original HTTP request. The TRACE method allows clients to see how its request looks when it finally makes it to the server.
+
+#### OPTIONS
+
+The OPTIONS method asks the server to tell us about the various supported capabilities of the web server. You can ask a server about what methods it supports in general or for particular resources.
+
+#### DELETE
+
+#### PATCH
