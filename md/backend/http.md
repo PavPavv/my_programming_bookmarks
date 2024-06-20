@@ -1,4 +1,4 @@
-# HTTP
+# HTTP basics
 
 > > The Hypertext Transfer Protocol (HTTP) is the protocol programs use to communicate over the World Wide Web. There are many applications of HTTP, but HTTP is most famous for two-way conversation between web browsers and web servers.
 
@@ -145,9 +145,22 @@ As methods tell the server what to do, status codes tell the client what happene
 ### Header classifications
 
 - **General**- Can appear in both request and response messages
+  - general
+  - cache control headers
 - **Request**- Provide more information about the request
+  - Request informational headers
+  - Accept headers
+  - Conditional request headers
+  - Request security headers
+  - Proxy request headers
 - **Response**- Provide more information about the response
+  - Response informational headers
+  - Negotiation headers
+  - Response security headers
 - **Entity**- Describe body size and contents, or the resource itself
+  - Entity informational headers
+  - Content headers
+  - Entity caching headers
 - **Extension**- New headers that are not defined in the specification
 
 ### HTTP Methods
@@ -179,3 +192,49 @@ The OPTIONS method asks the server to tell us about the various supported capabi
 #### DELETE
 
 #### PATCH
+
+## Connection Management
+
+HTTP connections really are nothing more than TCP connections, plus a few rules about how to use them. TCP connections are the reliable connections of the Internet.
+
+1. The browser extracts the hostname
+2. The browser looks up the IP address for this hostname (DNS)
+3. The browser gets the port number (80 by default)
+4. The browser makes a TCP connection to ip-address with certain port
+5. The browser sends an HTTP GET request message to the server
+6. The browser reads the HTTP response message from the server
+7. The browser closes the connection
+
+TCP gives HTTP a reliable bit pipe. Bytes stuffed in one side of a TCP connection come out the other side correctly, and in the right order.
+TCP sends its data in little chunks called IP packets (or IP datagrams). In this way, HTTP is the top layer in a “protocol stack” of “HTTP over TCP over IP”. A secure variant, HTTPS, inserts a cryptographic encryption layer (called TLS or SSL) between HTTP and TCP.
+
+When HTTP wants to transmit a message, it streams the contents of the message data, in order, through an open TCP connection. TCP takes the stream of data, chops up the data stream into chunks called segments, and transports the segments across the Internet inside envelopes called IP packets.
+
+Each TCP segment is carried by an IP packet from one IP address to another IP
+address. Each of these IP packets contains:
+
+- An IP packet header (usually 20 bytes)
+- A TCP segment header (usually 20 bytes)
+- A chunk of TCP data (0 or more bytes)
+
+A computer might have several TCP connections open at any one time. TCP keeps all these connections straight through port numbers.
+
+A TCP connection is distinguished by four values:
+
+```xml
+<source-IP-address, source-port, destination-IP-address, destination-port>
+```
+
+### A brief overview of TCP performance
+
+When you set up a new TCP connection, even before you send any data, the TCP software exchanges a series of IP packets to negotiate the terms of the connection.
+The HTTP programmer never sees these packets—they are managed invisibly by the TCP/IP software. All the HTTP programmer sees is a delay when creating a new TCP connection.
+
+> IP packets are usually a few hundred bytes for Internet traffic and around 1,500 bytes for local traffic.
+
+Each TCP segment gets a sequence number and a data-integrity checksum. The receiver of each segment returns small acknowledgment packets back to the sender when segments have been received intact. If a sender does not receive an acknowledgment within a specified window of time, the sender concludes the packet was destroyed or corrupted and resends the data.
+
+TCP slow start throttles the number of packets a TCP endpoint can have in flight at any one time. Put simply, each time a packet is received successfully, the sender gets permission to send two more packets. If an HTTP transaction has a large amount of data to send, it cannot send all the packets at once. It must send one packet and wait for an acknowledgment; then it can send two packets, each of which must be acknowledged, which allows four packets, etc. This is called “opening the congestion window.”
+
+
+TCP has a data stream interface that permits applications to stream data of any size to the TCP stack—even a single byte at a time! But because each TCP segment carries at least 40 bytes of flags and headers, network performance can be degraded severely if TCP sends large numbers of packets containing small amounts of data. Sending a storm of single-byte packets is called “sender silly window syndrome.” This is inefficient, antisocial, and can be disruptive to other Internet traffic.
