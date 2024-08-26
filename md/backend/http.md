@@ -238,3 +238,87 @@ TCP slow start throttles the number of packets a TCP endpoint can have in flight
 
 
 TCP has a data stream interface that permits applications to stream data of any size to the TCP stack—even a single byte at a time! But because each TCP segment carries at least 40 bytes of flags and headers, network performance can be degraded severely if TCP sends large numbers of packets containing small amounts of data. Sending a storm of single-byte packets is called “sender silly window syndrome.” This is inefficient, antisocial, and can be disruptive to other Internet traffic.
+
+TCP connections are bidirectional. Each side of a TCP connection has an input queue and an output queue, for data being read or written. Data placed in the output of one side will eventually show up on the input of the other side. An application can close either or both of the TCP input and output channels. A **close()** sockets call closes both the input and output channels of a TCP connection. You can use the **shutdown()** sockets call to close either the input or output channel individually. This is called a “half close”.
+Simple HTTP applications can use only full closes. But when applications start talking to many other types of HTTP clients, servers, and proxies, and when they start using pipelined persistent connections, it becomes important for them to use half closes to prevent peers from getting unexpected write errors.
+
+In general, applications implementing graceful closes will first close their output channels and then wait for the peer on the other side of the connection to close its output channels. When both sides are done telling each other they won’t be sending any more data (i.e., closing output channels), the connection can be closed fully, with no risk of reset.
+
+### HTTP Connection Handling
+
+HTTP allows a chain of HTTP intermediaries between the client and the ultimate origin server (proxies, caches, etc.). HTTP messages are forwarded hop by hop from the client, through intermediary devices, to the origin server (or the reverse).
+When an HTTP application receives a message with a Connection header, the receiver parses and applies all options requested by the sender.
+
+#### Parallel connections
+
+Concurrent HTTP requests across multiple TCP connection.
+HTTP allows clients to open multiple connections and perform multiple HTTP transactions in parallel.
+In practice, browsers do use parallel connections, but they limit the total number of parallel connections to a small number (often four). Servers are free to close excessive connections from a particular client.
+
+- parallel connections have some disadvantages:
+  - each transaction opens/closes a new connection, costing time and bandwidth
+  - each new connection has reduced performance because of TCP slow start
+  - there is a practical limit on the number of open parallel connections
+
+#### Persistent connections
+
+Reusing TCP connections to eliminate connect/close delays. Persistent connections stay open across transactions, until either the client or the server decides to close them.
+Persistent connection that is already open to the target server, you can avoid the slow connection setup. Persistent connections can be most effective when used in conjunction with parallel connections. Today, many web applications open a small number of parallel connections, each persistent.
+
+#### Pipelined connections
+
+Concurrent HTTP requests across a shared TCP connection. This is a further performance optimization over keep-alive connections. Multiple requests can be enqueued before the responses arrive.
+
+#### Multiplexed connections
+
+Interleaving chunks of requests and responses (experimental).
+
+
+#### Connection close
+
+Any HTTP client, server, or proxy can close a TCP transport connection at any time. The connections normally are closed at the end of a message, * but during error conditions, the connection may be closed in the middle of a header line or in other strange places.
+
+Each HTTP response should have an accurate Content-Length header to describe the size of the response body. Some older HTTP servers omit the Content-Length header or include an erroneous length, depending on a server connection close to signify the actual end of data. When a client or proxy receives an HTTP response terminating in connection close, and the actual transferred entity length doesn’t match the Content-Length (or there is no Content-Length), the receiver should question the correctness of the length.
+
+Connections can close at any time, even in non-error conditions. HTTP applications have to be ready to properly handle unexpected closes. If a transport connection closes while the client is performing a transaction, the client should reopen the connection and retry one time, unless the transaction has side effects.
+
+Side effects are important. When a connection closes after some request data was sent but before the response is returned, the client cannot be 100% sure how much of the transaction actually was invoked by the server. Some transactions, such as GETting a static HTML page, can be repeated again and again without changing anything. Other transactions, such as POSTing an order to an online book store, shouldn’t be repeated, or you may risk multiple orders. A transaction is idempotent if it yields the same result regardless of whether it is exe-
+cuted once or many times. Implementors can assume the GET, HEAD, PUT, DELETE, TRACE, and OPTIONS methods share this property.
+
+Nonidempotent methods or sequences must not be retried automatically, although user agents may offer a human operator the choice of retrying the request. For example, most browsers will offer a dialog box when reloading a cached POST response, asking if you want to post the transaction again.
+
+## HTTP Architecture
+
+### Web Servers
+
+A web server processes HTTP requests and serves responses. The term “web server” can refer either to web server software or to the particular device or computer dedicated to serving the web pages.
+Web servers implement HTTP and the related TCP connection handling. They also manage the resources served by the web server and provide administrative features to configure, control, and enhance the web server. The web server logic shares responsibilities for managing TCP connections with the operating system.
+
+#### General-Purpose Software Web Servers
+
+General-purpose software web servers run on standard, network-enabled computer systems.
+
+##### What Real Web Servers Do
+
+1. Set up connection—accept a client connection, or close if the client is unwanted.
+2. Receive request — read an HTTP request message from the network.
+3. Process request — interpret the request message and take action.
+4. Access resource — access the resource specified in the message.
+5. Construct response — create the HTTP response message with the right headers.
+6. Send response — send the response back to the client.
+7. Log transaction — place notes about the completed transaction in a log file
+
+##### Step 1: Accepting Client Connections
+
+When a client requests a TCP connection to the web server, the web server establishes the connection and determines which client is on the other side of the connection, extracting the IP address from the TCP connection. (Different operating systems have different interfaces and data structures for manipulating TCP connections. In Unix environments, the TCP connection is represented by a socket, and the IP address of the client can be found from the socket using the getpeername call.)
+
+Some web servers also support the IETF ident protocol. The ident protocol lets servers find out what username initiated an HTTP connection. This Common Log Format ident field is called “rfc931,” after an outdated version of the RFC defining the ident protocol (the updated ident specification is documented by RFC 1413).
+
+##### Step 2: Receiving Request Messages
+
+When parsing the request message, the web server:
+
+- Parses the request line looking for the request method, the specified resource identifier (URI), and the version number, * each separated by a single space, and ending with a carriage-return line-feed (CRLF) sequence
+- Reads the message headers, each ending in CRLF
+- Detects the end-of-headers blank line, ending in CRLF (if present)
+- Reads the request body, if any (length specified by the Content-Length header)

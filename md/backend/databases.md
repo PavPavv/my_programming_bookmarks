@@ -14,7 +14,8 @@
 
 ## PostgeSQL
 
-- 🔖 [My cheat sheet for postgreSQL](./post.md)
+- 🔖 [My super small cheat sheet for postgreSQL](./post.md)
+- 🔖 [My cheat sheet for postgreSQL](https://github.com/PavPavv/learn_postgres)
 
 ## Firebase
 

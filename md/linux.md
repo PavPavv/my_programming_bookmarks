@@ -2,8 +2,11 @@
 
 ## Most useful linux tools
 
-- 🔖 [Terminal](./linux/terminal.md)
-- 🔖 [Bourne shell](./linux/shell.md)
+- 🔖 [Terminal basics](./linux/terminal.md)
+  - 🔖 [Working with network in terminal](./linux/terminal_network.md)
+  - 🔖 [Complex search, working with files](./linux/complex_terminal.md)
+  - 🔖 [Bourne shell](./linux/shell.md)
+  - 🔖 [Linux administrator (repair, restore, optimize OS)](./linux/admin.md)
 - 📋 [nvim](https://github.com/PavPavv/MyNeovimCheatsheet/blob/main/nvim/getStarted.md)
 - 🔖 [tmux](./linux/tmux.md)
 - midnight commander
