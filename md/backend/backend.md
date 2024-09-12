@@ -9,9 +9,9 @@ My most-useful-back-end-links list.
 ## Basics
 
 - 🔖 [My HTTP cheat sheet](./http.md)
-  - 🧾 [Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)
-  - 🧾 [Response statuses](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
-  - 🧾 [MIME-types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
+- 🧾 [Headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers)
+- 🧾 [Response statuses](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+- 🧾 [MIME-types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types)
 
 ## API documentation
 

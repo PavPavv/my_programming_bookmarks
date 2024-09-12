@@ -273,7 +273,6 @@ Concurrent HTTP requests across a shared TCP connection. This is a further perfo
 
 Interleaving chunks of requests and responses (experimental).
 
-
 #### Connection close
 
 Any HTTP client, server, or proxy can close a TCP transport connection at any time. The connections normally are closed at the end of a message, * but during error conditions, the connection may be closed in the middle of a header line or in other strange places.
@@ -322,3 +321,71 @@ When parsing the request message, the web server:
 - Reads the message headers, each ending in CRLF
 - Detects the end-of-headers blank line, ending in CRLF (if present)
 - Reads the request body, if any (length specified by the Content-Length header)
+
+###### Internal Representations of Messages
+
+Some web servers also store the request messages in internal data structures that make the message easy to manipulate. For example, the data structure might con-
+tain pointers and lengths of each piece of the request message, and the headers might be stored in a fast lookup table so the specific values of particular headers can be accessed quickly.
+
+###### Connection Input/Output Processing Architectures
+
+High-performance web servers support thousands of simultaneous connections. Web servers constantly watch for new web requests, because requests can arrive at
+any time.
+
+- **Single-threaded web servers**
+
+Single-threaded web servers process one request at a time until completion. This architecture is simple to implement, but during processing, all the other connections are ignored. This creates serious performance problems and is appropriate only for low-load servers and diagnostic tools like type-o-serve.
+
+- **Multiprocess and multithreaded web servers**
+
+Multiprocess and multithreaded web servers dedicate multiple processes or higher-efficiency threads to process requests simultaneously.
+A process is an individual program flow of control, with its own set of variables. A thread is a faster, more efficient version of a process. Both threads and processes let a single program do multiple things at the same time. For simplicity of explanation, we treat processes and threads interchangeably. But, because of the performance differences, many high-performance servers are both multiprocess and multithreaded.
+The threads/processes may be created on demand or in advance. Systems where threads are created in advance are called “worker pool” systems, because a set of threads
+waits in a pool for work to do.
+
+- **Multiplexed I/O servers**
+
+To support large numbers of connections, many web servers adopt multiplexed architectures. In a multiplexed architecture, all the connections are simultaneously watched for activity. When a connection changes state (e.g., when data becomes available or an error condition occurs), a small amount of processing is performed on the connection; when that processing is complete, the connection is returned to the open connection list for the next change in state. Work is done on a connection only when there is something to be done; threads and processes are not tied up waiting on idle connections.
+
+- **Multiplexed multithreaded web servers**
+
+Some systems combine multithreading and multiplexing to take advantage of multiple CPUs in the computer platform. Multiple threads (often one per physical processor) each watch the open connections (or a subset of the open connections) and perform a small amount of work on each connection.
+
+##### Step 3: Processing Requests
+
+##### Step 4: Mapping and Accessing Resources
+
+Typically, a special folder in the web server filesystem is reserved for web content. This folder is called the document root, or docroot.
+
+##### Step 5: Building Responses
+
+Once the web server has identified the resource, it performs the action described in the request method and returns the response message. The response message contains a response status code, response headers, and a response body if one was generated.
+
+If the transaction generated a response body, the content is sent back with the
+response message. If there was a body, the response message usually contains:
+
+- A Content-Type header, describing the MIME type of the response body ([Common MIME types](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types))
+- A Content-Length header, describing the size of the response body
+- The actual message body content
+
+###### Redirection
+
+Web servers sometimes return redirection responses instead of success messages. A web server can redirect the browser to go elsewhere to perform the request. A redirection response is indicated by a 3XX return code. The Location response header contains a URI for the new or preferred location of the content.
+
+Redirects are useful for:
+
+- Permanently moved resources
+- Temporarily moved resources
+- URL augmentation
+
+URL augmentation - servers often use redirects to rewrite URLs, often to embed context. When the request arrives, the server generates a new URL containing embedded state information and redirects the user to this new URL. * The client follows the redirect, reissuing the request, but now including the full, state-augmented URL
+
+- Load balancing
+- Server affinity
+- Canonicalizing directory names
+
+##### Step 6: Sending Responses
+
+##### Step 7: Logging
+
+## Proxies
