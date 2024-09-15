@@ -182,3 +182,148 @@ ng serve --open
 
 ng generate component my-component
 ```
+
+## From Angular books
+
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.1.
+
+## Development server
+
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+
+## Code scaffolding
+
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+```typescript
+@Input('exercise-set') exerciseSet!:ExerciseSet; or @Input() exerciseList!: ExerciseSetList;
+```
+
+trackBy:
+
+Separating responsibilities – Smart/Container and Presentation (Smart and Dump) components
+
+The EventEmitter class uses TypeScript’s type-checking capability, making it possible for us to
+determine what type of object we are going to emit to the parent component.
+
+@Output attribute must be done with parentheses –
+( ) – and this $event parameter represents the object that the child component will emit.
+
+Angular has a dependency injection mechanism. This feature allows us to compose a class just by declaring the object we need in its constructor (args).
+
+```typescript
+export class DiaryComponent {
+  constructor(private exerciseSetsService: ExerciseSetsService) {}
+  exerciseList = this.exerciseSetsService.getInitialList();
+. . .
+}
+```
+
+```typescript
+inject()
+import { Component, inject } from '@angular/core';
+export class DiaryComponent {
+  private exerciseSetsService = inject(ExerciseSetsService);
+  exerciseList = this.exerciseSetsService.getInitialList();
+. . .
+}
+```
+
+prefer composition over inheritance!
+inject() must be called from an injection context
+such as a constructor, a factory function, a field initializer,
+or a function used with `runInInjectionContext`.
+
+The singleton pattern is a design pattern of the creational type and
+allows the creation of objects whose access will be global in the system.
+
+----------------------------------------------------------------------------
+
+When we create a service, it has an @Injectable decorator, as in our example:
+@Injectable({
+  providedIn: 'root',
+})
+export class ExerciseSetsService {
+The provideIn metadata determines the scope of the service. The value 'root' means that the
+instance of the service will be unique for every application; that’s why, by default, Angular services
+are singleton.
+
+The onInit method is called after building the component, but before rendering the component.
+
+----------------------------------------------------------------------------
+
+ngModel is an object managed by the FormModule module that represents the form’s data model.
+
+The use of square brackets and parentheses [(someGood)]="doOrGetSomeGood" signals to Angular that we are performing a two-way data
+binding on the property.
+
+we need to add the ReactiveFormsModule module responsible
+for all the functionality that Angular makes available to us for this type of form
+
+For Angular to recognize the form validation function, it must return a new function with the
+signature described in the ValidatorFn interface. This signature defines that it will receive
+AbstractControl and must return an object of type ValidationErrors that allows the
+template to interpret the new type of validation.
+
+```typescript
+private formBuilder = inject(NonNullableFormBuilder);
+
+. . .
+import { ErrorPageComponent } from './error-page/error-page.
+component';
+const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: 'home' },
+  {
+    path: 'home',
+    loadChildren: () =>
+      import('./home/home.module').then((file) => file.HomeModule),
+  },
+  { path: 'error', component: ErrorPageComponent },
+  { path: '**', redirectTo: '/error' },
+];
+. . .
+
+  ngOnInit(): void {
+    this.entryId = this.route.snapshot.paramMap.get('id');
+    if (this.entryId) {
+      this.exerciseSetsService
+        .getItem(this.entryId)
+        .subscribe((entry) => this.updateForm(entry));
+    }
+  }
+```
+
+----------------------------------------------------------------------------
+  
+ ng g guard login/auth
+
+```typescript
+ export const authGuard: CanActivateFn = (route, state) => {
+  const authService = inject(AuthService);
+  const router = inject(Router);
+  if (authService.isLogged) {
+    return true;
+  } else {
+    return router.parseUrl('/login');
+  }
+};
+```
+
+the canActivateChild attribute to call the route’s guard, so we don’t need to repeat
+all the routes in this module.
