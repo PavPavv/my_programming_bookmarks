@@ -389,3 +389,31 @@ URL augmentation - servers often use redirects to rewrite URLs, often to embed c
 ##### Step 7: Logging
 
 ## Proxies
+
+Proxies sit between clients and servers and act as “middlemen,” shuffling HTTP messages back and forth between the parties.
+
+### Proxies Versus Gateways
+
+Strictly speaking, proxies connect two or more applications that speak the same protocol, while gateways hook up two or more parties that speak different protocols. A gateway acts as a “protocol converter,” allowing a client to complete a transaction with a server, even when the client and server speak different protocols.
+
+### Why Use Proxies?
+
+- Child filter
+- Document access controller
+- Security firewall
+- Web cache
+- Surrogate
+- Content router
+- Transcoder
+- Anonymizer
+  - The user’s computer and OS type is removed from the User-Agent header.
+  - The From header is removed to protect the user’s email address.
+  - The Referer header is removed to obscure other sites the user has visited.
+  - The Cookie headers are removed to eliminate profiling and identity data.
+
+### Proxy Hierarchies
+
+Proxies can be cascaded in chains called proxy hierarchies. In a proxy hierarchy, messages are passed from proxy to proxy until they eventually reach the origin server
+(and then are passed back through the proxies to the client).
+
+
