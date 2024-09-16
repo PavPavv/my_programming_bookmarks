@@ -416,4 +416,12 @@ Strictly speaking, proxies connect two or more applications that speak the same 
 Proxies can be cascaded in chains called proxy hierarchies. In a proxy hierarchy, messages are passed from proxy to proxy until they eventually reach the origin server
 (and then are passed back through the proxies to the client).
 
+### How Proxies Get Traffic
 
+- Modify the client
+- Modify the network
+- Modify the DNS namespace
+- Modify the web server
+
+When a client sends a request to a web server, the request line contains only a partial URI (without a scheme, host, or port).
+When a client sends a request to a proxy, however, the request line contains the full URI.
