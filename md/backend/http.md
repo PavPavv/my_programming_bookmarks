@@ -425,3 +425,26 @@ Proxies can be cascaded in chains called proxy hierarchies. In a proxy hierarchy
 
 When a client sends a request to a web server, the request line contains only a partial URI (without a scheme, host, or port).
 When a client sends a request to a proxy, however, the request line contains the full URI.
+
+### The Via Header
+
+Each time a message goes through another node, the intermediate node must be added to the end of the Via list.
+The Via header field contains a comma-separated list of waypoints. Each waypoint represents an individual proxy server or gateway hop and contains information about
+the protocol and address of that intermediate node.
+
+> Via = 1.1 cache.joes-hardware.com, 1.1 proxy.irenes-isp.net
+
+Note that each Via waypoint contains up to four components: an optional protocol name (defaults to HTTP), a required protocol version, a required node name, and an
+optional descriptive comment.
+
+### The TRACE Method
+
+HTTP/1.1’s TRACE method lets you trace a request message through a chain of proxies, observing what proxies the message passes through and how each proxy modifies the request message. The final recipient is either the origin server or the first proxy or gateway to receive a Max-Forwards value of zero (0) in the request.
+
+You can use the Max-Forwards header to limit the number of proxy hops for TRACE and OPTIONS requests, which is useful for testing a chain of proxies forwarding messages in an infinite loop or for checking the effects of particular proxy servers in the middle of a chain. Max-Forwards also limits the forwarding of **OPTIONS** messages.
+
+### The HTTP OPTIONS
+
+Clients can use OPTIONS to determine a server’s capabilities before interacting with the server, making it easier to interoperate with proxies and servers of different feature levels.
+
+## Caching
