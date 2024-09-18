@@ -448,3 +448,18 @@ You can use the Max-Forwards header to limit the number of proxy hops for TRACE 
 Clients can use OPTIONS to determine a server’s capabilities before interacting with the server, making it easier to interoperate with proxies and servers of different feature levels.
 
 ## Caching
+
+Web caches are HTTP devices that automatically keep copies of popular documents. Even if bandwidth isn’t a problem, distance might be. Every network router adds
+delays to Internet traffic. In reality, signals travel at somewhat less than the speed of light, so distance delays are even worse.
+
+When a cache needs to revalidate a cached copy, it sends a small revalidation request to the origin server. If the content hasn’t changed, the server responds with a tiny
+304 Not Modified response. HTTP gives us a few tools to revalidate cached objects, but the most popular is the **If-Modified-Since** header. If the server object has been deleted, the server sends back a 404 Not Found response, and the cache deletes its copy.
+
+Unfortunately, HTTP provides no way for a client to tell if a response was a cache hit or an origin server access. In both cases, the response code will be 200 OK, indicating that the response has a body. Some commercial proxy caches attach additional information to Via headers to describe what happened in the cache.
+One way that a client can usually detect if the response came from a cache is to use the Date header. By comparing the value of the Date header in the response to the
+current time, a client can often detect a cached response by its older date value. Another way a client can detect a cached response is the Age header, which tells how
+old the response is.
+
+Public caches are special, shared proxy servers called caching proxy servers or, more commonly, proxy caches.
+
+### Cache Meshes, Content Routing, and Peering
