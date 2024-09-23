@@ -463,3 +463,20 @@ old the response is.
 Public caches are special, shared proxy servers called caching proxy servers or, more commonly, proxy caches.
 
 ### Cache Meshes, Content Routing, and Peering
+
+Some network architects build complex cache meshes instead of simple cache hierarchies. Proxy caches in cache meshes talk to each other in more sophisticated ways,
+and make dynamic cache communication decisions, deciding which parent caches to talk to, or deciding to bypass caches entirely and direct themselves to the origin
+server. Such proxy caches can be described as content routers, because they make routing decisions about how to access, manage, and deliver content.
+Because HTTP doesn’t provide sibling cache support, people have extended HTTP with protocols, such as the Internet Cache Protocol (ICP) and the HyperText Caching Protocol
+(HTCP).
+
+### Cache Processing Steps
+
+1. Receiving—Cache reads the arriving request message from the network.
+2. Parsing—Cache parses the message, extracting the URL and headers.
+3. Lookup—Cache checks if a local copy is available and, if not, fetches a copy (and stores it locally).
+4. Freshness check—Cache checks if cached copy is fresh enough and, if not, asks server for any updates.
+5. Response creation—Cache makes a response message with the new headers and cached body.
+6. Sending—Cache sends the response back to the client over the network.
+7. Logging—Optionally, cache creates a log file entry describing the transaction.
+

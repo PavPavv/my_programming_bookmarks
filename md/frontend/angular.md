@@ -686,3 +686,140 @@ public exercises$ = this.entryForm.valueChanges.pipe(
 
 The distinctUntilChanged operator checks whether the stream’s data, has changed from one iteration to another and triggers the next operator only if the value is different, saving even more unnecessary calls to the backend.
 
+----------------------------------------------------------------------------
+
+### Testing
+
+```typescript
+describe('AppComponent', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+     declarations: [AppComponent],
+     imports: [RouterTestingModule],
+   }).compileComponents();
+  });
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
+});
+```
+
+```typescript
+beforeEach(() => {
+  TestBed.configureTestingModule({
+    declarations: [LoginComponent],
+    imports: [ReactiveFormsModule],
+    providers: [
+      AuthService,
+      {
+        provide: AuthService,
+        useValue: jasmine.createSpyObj('AuthService', ['login']),
+      },
+    ],
+  });
+  fixture = TestBed.createComponent(LoginComponent);
+  component = fixture.componentInstance;
+  fixture.detectChanges();
+});
+```
+
+#### Component testing
+
+Angular component unit tests not only examine logic but also assess the values that will be presented on the screen.
+
+```typescript
+describe('DiaryComponent', () => {
+//   . . .
+  let exerciseSetsService: ExerciseSetsService;
+  beforeEach(async () => {
+  await TestBed.configureTestingModule({
+//    . . .
+  }).compileComponents();
+//    . . .
+    exerciseSetsService = TestBed.inject(ExerciseSetsService);
+  });
+  it('should call delete method when the button delete is clicked',
+fakeAsync(() => {
+    exerciseSetsService.deleteItem = jasmine.createSpy().and.
+returnValue(of());
+    component.deleteItem('1');
+    tick();
+    expect(exerciseSetsService.deleteItem).
+toHaveBeenCalledOnceWith('1');
+  }));
+});
+```
+
+```typescript
+import { Location } from '@angular/common';
+describe('DiaryComponent', () => {
+  let location: Location;
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+// . . .
+      imports: [
+        RouterTestingModule.withRoutes([
+          {
+            path: 'home/diary/entry/:id',
+            component: NewEntryFormReactiveComponent, },
+        ]),
+      ]
+     }).compileComponents();
+    location = TestBed.inject(Location);
+  });
+  it('should direct to diary entry edit route', fakeAsync(() => {
+    const set: ExerciseSet = { date: new Date(), exercise: 'test',
+reps: 6, sets: 6, id: '1' };
+    component.editEntry(set);
+    tick();
+    expect(location.path()).toBe('/home/diary/entry/1');
+  }));
+});
+```
+
+#### E2E tests with Cypress
+
+```bash
+ng add @cypress/schematic
+```
+
+```bash
+ng e2e
+```
+
+```typescript
+describe('Login Page:', () => {
+  it('should login to the diary with the correct credentials.', () =>
+{
+    cy.visit('/');
+    cy.get('#username').type('mario');
+    cy.get('#password').type('1234');
+    cy.get('[data-cy="submit"]').click();
+    cy.contains('Workout diary');
+  });
+});
+```
+
+```typescript
+describe('New Entry Form:', () => {
+  beforeEach(() => {
+    cy.visit('/');
+    cy.get('#username').type('mario');
+    cy.get('#password').type('1234');
+    cy.get('[data-cy="submit"]').click();
+  });
+  it('Should register a new entry in the workout diary', () => {
+    cy.get('[data-cy="new-entry-menu"]').click();
+    cy.contains('Date');
+    cy.get('#date').type('2023-08-08');
+    cy.get('#exercise').type('Front Squat');
+    cy.get('#sets').type('4');
+    cy.get('#reps').type('6');
+    cy.get('[data-cy="submit"]').click();
+    cy.contains('Item Created!');
+  });
+});
+```
+
