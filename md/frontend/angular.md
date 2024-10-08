@@ -34,6 +34,12 @@ export class TodoListItem {
 }
 ```
 
+This is an Angular “one-way” binding expression.
+
+```typescript
+{{ taskTitle }}. 
+```
+
 When you need to dynamically set the value of attributes in an HTML element, the target property is wrapped in square brackets. This binds the attribute with the desired dynamic data by informing Angular that the declared value should be interpreted as a JavaScript-like statement (with some Angular enhancements) instead of a plain string.
 
 ```typescript
@@ -324,6 +330,13 @@ const routes: Routes = [
 ```
 
 ----------------------------------------------------------------------------
+
+### Standalone components
+
+The standalone property means that this component can be used directly without being declared in any module.
+In the imports property, we declare its dependencies, which are CommonModule.
+
+----------------------------------------------------------------------------
   
 ### Guards in Angular
 
@@ -361,17 +374,17 @@ ng g resolver diary/diary
 ```typescript
 export const diaryResolver: ResolveFn<ExerciseSetListAPI> = (route,
 state) => {
-  const exerciseSetsService = inject(ExerciseSetsService);
-  return exerciseSetsService.getInitialList();
+  const exerciseSetsService = inject(ExerciseSetsService);
+  return exerciseSetsService.getInitialList();
 };
 ```
 
 ```typescript
 {
-  path: '',
-  component: DiaryComponent,
-  title: 'Diary',
-  resolve: { diaryApi: diaryResolver },
+  path: '',
+  component: DiaryComponent,
+  title: 'Diary',
+  resolve: { diaryApi: diaryResolver },
 },
 ```
 
@@ -380,11 +393,11 @@ state) => {
 private route = inject(ActivatedRoute);
 
 // 
-  ngOnInit(): void {
-    this.route.data.subscribe(({ diaryApi }) => {
-      this.exerciseList = diaryApi.items;
-    });
-  }
+  ngOnInit(): void {
+    this.route.data.subscribe(({ diaryApi }) => {
+      this.exerciseList = diaryApi.items;
+    });
+  }
 
 ```
 
@@ -404,37 +417,37 @@ ng g interceptor login/auth
 ```typescript
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  private authService = inject(AuthService);
+  private authService = inject(AuthService);
 
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
-    const token = this.authService.token;
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+    const token = this.authService.token;
 
-    if (request.url.includes('auth')) {
-      return next.handle(request);
-    }
-    if (token) {
-      const reqAuth = request.clone({
-        headers: request.headers.set(`Authorization`, `Bearer ${token}`),
-      });
-      return next.handle(reqAuth);
-    }
-    return next.handle(request);
-  }
+    if (request.url.includes('auth')) {
+      return next.handle(request);
+    }
+    if (token) {
+      const reqAuth = request.clone({
+        headers: request.headers.set(`Authorization`, `Bearer ${token}`),
+      });
+      return next.handle(reqAuth);
+    }
+    return next.handle(request);
+  }
 }
 ```
 
 ```typescript
 @NgModule({
-  declarations: [AppComponent, ErrorPageComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:
+  declarations: [AppComponent, ErrorPageComponent],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:
 true },
-  ],
-  bootstrap: [AppComponent],
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
@@ -448,20 +461,20 @@ ng g interceptor shared/host
 ```typescript
 @Injectable()
 export class HostInterceptor implements HttpInterceptor {
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
-    const url = 'http://localhost:3000';
-    const resource = request.url;
-    if (request.url.includes('http')) {
-      return next.handle(request);
-    }
-    const urlsReq = request.clone({
-      url: `${url}/${resource}`,
-    });
-    return next.handle(urlsReq);
-  }
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+    const url = 'http://localhost:3000';
+    const resource = request.url;
+    if (request.url.includes('http')) {
+      return next.handle(request);
+    }
+    const urlsReq = request.clone({
+      url: `${url}/${resource}`,
+    });
+    return next.handle(urlsReq);
+  }
 }
 ```
 
@@ -469,15 +482,15 @@ For this interceptor to be triggered by Angular, we need to add it to the provid
 
 ```typescript
 @NgModule({
-  declarations: [AppComponent, ErrorPageComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:
+  declarations: [AppComponent, ErrorPageComponent],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:
 true },
-    { provide: HTTP_INTERCEPTORS, useClass: HostInterceptor, multi:
+    { provide: HTTP_INTERCEPTORS, useClass: HostInterceptor, multi:
 true },
-  ],
-  bootstrap: [AppComponent],
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {}
 ```
@@ -494,55 +507,55 @@ We will implement the LoadService service, which will maintain and control the l
 
 ```typescript
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root',
 })
 export class LoadService {
-  #showLoader = false;
-  showLoader() {
-    this.#showLoader = true;
-  }
-  hideLoader() {
-    this.#showLoader = false;
-  }
-  get isLoading() {
-    return this.#showLoader;
-  }
+  #showLoader = false;
+  showLoader() {
+    this.#showLoader = true;
+  }
+  hideLoader() {
+    this.#showLoader = false;
+  }
+  get isLoading() {
+    return this.#showLoader;
+  }
 }
 ```
 
 ```typescript
 @Injectable()
 export class LoadInterceptor implements HttpInterceptor {
-  private loadService = inject(LoadService);
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
-    if (request.headers.get('X-LOADING') === 'false') {
-      return next.handle(request);
-    }
-    this.loadService.showLoader();
-    return next
-      .handle(request)
-      .pipe(finalize(() => this.loadService.hideLoader()));
-  }
+  private loadService = inject(LoadService);
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+    if (request.headers.get('X-LOADING') === 'false') {
+      return next.handle(request);
+    }
+    this.loadService.showLoader();
+    return next
+      .handle(request)
+      .pipe(finalize(() => this.loadService.hideLoader()));
+  }
 }
 ```
 
 ```typescript
 @NgModule({
-  declarations: [AppComponent, ErrorPageComponent,
+  declarations: [AppComponent, ErrorPageComponent,
 LoadingOverlayComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:
 true },
-    { provide: HTTP_INTERCEPTORS, useClass: HostInterceptor, multi:
+    { provide: HTTP_INTERCEPTORS, useClass: HostInterceptor, multi:
 true },
-    { provide: HTTP_INTERCEPTORS, useClass: LoadInterceptor, multi:
+    { provide: HTTP_INTERCEPTORS, useClass: LoadInterceptor, multi:
 true },
-  ],
-  bootstrap: [AppComponent],
+  ],
+  bootstrap: [AppComponent],
 })
 export class AppModule {
 ```
@@ -559,30 +572,30 @@ ng interceptor notification/notification
 import { ToastrService } from 'ngx-toastr';
 @Injectable()
 export class NotificationInterceptor implements HttpInterceptor {
-  private toaster = inject(ToastrService);
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
-    return next.handle(request).pipe(
-      tap((event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse && event.status === 201) {
-          this.toaster.success('Item Created!');
-        }
-      })
-    );
-  }
+  private toaster = inject(ToastrService);
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+    return next.handle(request).pipe(
+      tap((event: HttpEvent<any>) => {
+        if (event instanceof HttpResponse && event.status === 201) {
+          this.toaster.success('Item Created!');
+        }
+      })
+    );
+  }
 }
 ```
 
 ```typescript
 // providers: [
 // . . .
-//    {
-//      provide: HTTP_INTERCEPTORS,
-//      useClass: NotificationInterceptor,
-//      multi: true,
-//    },
+//    {
+//      provide: HTTP_INTERCEPTORS,
+//      useClass: NotificationInterceptor,
+//      multi: true,
+//    },
 // . . .
 // ]
 ```
@@ -596,41 +609,41 @@ ng g interceptor telemetry/telemetry
 ```typescript
 @Injectable()
 export class TelemetryInterceptor implements HttpInterceptor {
-  intercept(
-    request: HttpRequest<unknown>,
-    next: HttpHandler
-  ): Observable<HttpEvent<unknown>> {
-      if (request.headers.get('X-TELEMETRY') !== 'true') {
-      return next.handle(request);
-    }
-    const started = Date.now();
-    return next.handle(request).pipe(
-      finalize(() => {
-        const elapsed = Date.now() - started;
-        const message = `${request.method} "${request.urlWithParams}" in ${elapsed} ms.`;
-        console.log(message);
-      })
-    );
-  
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+      if (request.headers.get('X-TELEMETRY') !== 'true') {
+      return next.handle(request);
+    }
+    const started = Date.now();
+    return next.handle(request).pipe(
+      finalize(() => {
+        const elapsed = Date.now() - started;
+        const message = `${request.method} "${request.urlWithParams}" in ${elapsed} ms.`;
+        console.log(message);
+      })
+    );
+  
 ```
 
 ```typescript
 // . . .
 // providers: [
 // . . .
-//    {
-//      provide: HTTP_INTERCEPTORS,
-//      useClass: TelemetryInterceptor,
-//      multi: true,
-//    },
+//    {
+//      provide: HTTP_INTERCEPTORS,
+//      useClass: TelemetryInterceptor,
+//      multi: true,
+//    },
 // ],
 // . . .
 ```
 
 ```typescript
 getInitialList(): Observable<ExerciseSetListAPI> {
-  const headers = new HttpHeaders().set('X-TELEMETRY', 'true');
-  return this.httpClient.get<ExerciseSetListAPI>(this.url, { headers});
+  const headers = new HttpHeaders().set('X-TELEMETRY', 'true');
+  return this.httpClient.get<ExerciseSetListAPI>(this.url, { headers});
 }
 ```
 
@@ -664,7 +677,7 @@ Another advantage that the async pipe provides is that the framework controls th
 
 ```typescript
 public exercises$ = this.entryForm.valueChanges.pipe(
-  switchMap((model) => this.exerciseService.getExercises(model?.exercise))
+  switchMap((model) => this.exerciseService.getExercises(model?.exercise))
 );
 ```
 
@@ -676,15 +689,103 @@ The **switchMap** operator is a higher-order observable because it takes an obse
 const DEBOUNCE_TIME = 300;
 
 public exercises$ = this.entryForm.valueChanges.pipe(
-  debounceTime(DEBOUNCE_TIME),
-  map((model) => model?.exercise ?? ''),
-  filter((exercise) => exercise.length >= 3),
+  debounceTime(DEBOUNCE_TIME),
+  map((model) => model?.exercise ?? ''),
+  filter((exercise) => exercise.length >= 3),
   distinctUntilChanged(),
-  switchMap((exercise) => this.exerciseService.getExercises(exercise))
+  switchMap((exercise) => this.exerciseService.getExercises(exercise))
 );
 ```
 
 The distinctUntilChanged operator checks whether the stream’s data, has changed from one iteration to another and triggers the next operator only if the value is different, saving even more unnecessary calls to the backend.
+
+#### Signals
+
+```typescript
+let a = signal<number>(2);
+let b = signal<number>(3);
+let sum = computed(() => a() + b());
+console.log(sum());
+a.set(9);
+console.log(sum());
+b.update((oldValue) => oldValue * 2);
+console.log(sum());
+```
+
+The computed type is, in our analogy of a spreadsheet, a cell that contains a formula where you can read the values of other cells to determine its value.
+
+
+```typescript
+export class LoadService {
+  isLoading = signal<Boolean>(false);
+  showLoader() {
+    this.isLoading.set(true);
+  }
+  hideLoader() {
+    this.isLoading.set(false);
+  }
+}
+```
+
+```tsx
+@if (loadService.isLoading()) {
+  <app-loading-overlay />
+}
+<router-outlet></router-outlet>
+```
+
+```typescript
+export class ExerciseSetsService {
+// . . .
+  exerciseList = signal<ExerciseSetList>([] as ExerciseSetList);
+  getInitialList() {
+    const headers = new HttpHeaders().set('X-TELEMETRY', 'true');
+    this.httpClient
+      .get<ExerciseSetListAPI>(this.url, { headers })
+      .pipe(map((api) => api?.items))
+      .subscribe((list) => this.exerciseList.set(list));
+  }
+  deleteItem(id: string) {
+    this.httpClient.delete<boolean>(`${this.url}/${id}`).subscribe(()
+=> {
+    this.exerciseList.update((list) =>
+      list.filter((exerciseSet) => exerciseSet.id !== id)
+    );
+    });
+  }
+// . . .
+}
+```
+
+```typescript
+export class ListEntriesComponent {
+  @Output() editEvent = new EventEmitter<ExerciseSet>();
+  @Output() deleteEvent = new EventEmitter<string>();
+  private exerciseSetsService = inject(ExerciseSetsService);
+  exerciseList = this.exerciseSetsService.exerciseList;
+}
+```
+
+```tsx
+<section class="mb-8">
+  <h2 class="mb-4 text-xl font-bold">List of entries</h2>
+  <ul class="rounded border shadow">
+  @for (item of exerciseList(); track item.id) {
+    <li>
+      <app-entry-item
+        [exercise-set]="item"
+        (deleteEvent)="deleteEvent.emit($event)"
+        (editEvent)="editEvent.emit($event)"
+      />
+    </li>
+    } @empty {
+      <div>
+        No Items!
+      </div>
+    }
+  </ul>
+</section>
+```
 
 ----------------------------------------------------------------------------
 
@@ -692,36 +793,36 @@ The distinctUntilChanged operator checks whether the stream’s data, has change
 
 ```typescript
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-     declarations: [AppComponent],
-     imports: [RouterTestingModule],
-   }).compileComponents();
-  });
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+     declarations: [AppComponent],
+     imports: [RouterTestingModule],
+   }).compileComponents();
+  });
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
 });
 ```
 
 ```typescript
 beforeEach(() => {
-  TestBed.configureTestingModule({
-    declarations: [LoginComponent],
-    imports: [ReactiveFormsModule],
-    providers: [
-      AuthService,
-      {
-        provide: AuthService,
-        useValue: jasmine.createSpyObj('AuthService', ['login']),
-      },
-    ],
-  });
-  fixture = TestBed.createComponent(LoginComponent);
-  component = fixture.componentInstance;
-  fixture.detectChanges();
+  TestBed.configureTestingModule({
+    declarations: [LoginComponent],
+    imports: [ReactiveFormsModule],
+    providers: [
+      AuthService,
+      {
+        provide: AuthService,
+        useValue: jasmine.createSpyObj('AuthService', ['login']),
+      },
+    ],
+  });
+  fixture = TestBed.createComponent(LoginComponent);
+  component = fixture.componentInstance;
+  fixture.detectChanges();
 });
 ```
 
@@ -731,51 +832,51 @@ Angular component unit tests not only examine logic but also assess the values t
 
 ```typescript
 describe('DiaryComponent', () => {
-//   . . .
-  let exerciseSetsService: ExerciseSetsService;
-  beforeEach(async () => {
-  await TestBed.configureTestingModule({
-//    . . .
-  }).compileComponents();
-//    . . .
-    exerciseSetsService = TestBed.inject(ExerciseSetsService);
-  });
-  it('should call delete method when the button delete is clicked',
+//   . . .
+  let exerciseSetsService: ExerciseSetsService;
+  beforeEach(async () => {
+  await TestBed.configureTestingModule({
+//    . . .
+  }).compileComponents();
+//    . . .
+    exerciseSetsService = TestBed.inject(ExerciseSetsService);
+  });
+  it('should call delete method when the button delete is clicked',
 fakeAsync(() => {
-    exerciseSetsService.deleteItem = jasmine.createSpy().and.
+    exerciseSetsService.deleteItem = jasmine.createSpy().and.
 returnValue(of());
-    component.deleteItem('1');
-    tick();
-    expect(exerciseSetsService.deleteItem).
+    component.deleteItem('1');
+    tick();
+    expect(exerciseSetsService.deleteItem).
 toHaveBeenCalledOnceWith('1');
-  }));
+  }));
 });
 ```
 
 ```typescript
 import { Location } from '@angular/common';
 describe('DiaryComponent', () => {
-  let location: Location;
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  let location: Location;
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
 // . . .
-      imports: [
-        RouterTestingModule.withRoutes([
-          {
-            path: 'home/diary/entry/:id',
-            component: NewEntryFormReactiveComponent, },
-        ]),
-      ]
-     }).compileComponents();
-    location = TestBed.inject(Location);
-  });
-  it('should direct to diary entry edit route', fakeAsync(() => {
-    const set: ExerciseSet = { date: new Date(), exercise: 'test',
+      imports: [
+        RouterTestingModule.withRoutes([
+          {
+            path: 'home/diary/entry/:id',
+            component: NewEntryFormReactiveComponent, },
+        ]),
+      ]
+     }).compileComponents();
+    location = TestBed.inject(Location);
+  });
+  it('should direct to diary entry edit route', fakeAsync(() => {
+    const set: ExerciseSet = { date: new Date(), exercise: 'test',
 reps: 6, sets: 6, id: '1' };
-    component.editEntry(set);
-    tick();
-    expect(location.path()).toBe('/home/diary/entry/1');
-  }));
+    component.editEntry(set);
+    tick();
+    expect(location.path()).toBe('/home/diary/entry/1');
+  }));
 });
 ```
 
@@ -791,35 +892,292 @@ ng e2e
 
 ```typescript
 describe('Login Page:', () => {
-  it('should login to the diary with the correct credentials.', () =>
+  it('should login to the diary with the correct credentials.', () =>
 {
-    cy.visit('/');
-    cy.get('#username').type('mario');
-    cy.get('#password').type('1234');
-    cy.get('[data-cy="submit"]').click();
-    cy.contains('Workout diary');
-  });
+    cy.visit('/');
+    cy.get('#username').type('mario');
+    cy.get('#password').type('1234');
+    cy.get('[data-cy="submit"]').click();
+    cy.contains('Workout diary');
+  });
 });
 ```
 
 ```typescript
 describe('New Entry Form:', () => {
-  beforeEach(() => {
-    cy.visit('/');
-    cy.get('#username').type('mario');
-    cy.get('#password').type('1234');
-    cy.get('[data-cy="submit"]').click();
-  });
-  it('Should register a new entry in the workout diary', () => {
-    cy.get('[data-cy="new-entry-menu"]').click();
-    cy.contains('Date');
-    cy.get('#date').type('2023-08-08');
-    cy.get('#exercise').type('Front Squat');
-    cy.get('#sets').type('4');
-    cy.get('#reps').type('6');
-    cy.get('[data-cy="submit"]').click();
-    cy.contains('Item Created!');
-  });
+  beforeEach(() => {
+    cy.visit('/');
+    cy.get('#username').type('mario');
+    cy.get('#password').type('1234');
+    cy.get('[data-cy="submit"]').click();
+  });
+  it('Should register a new entry in the workout diary', () => {
+    cy.get('[data-cy="new-entry-menu"]').click();
+    cy.contains('Date');
+    cy.get('#date').type('2023-08-08');
+    cy.get('#exercise').type('Front Squat');
+    cy.get('#sets').type('4');
+    cy.get('#reps').type('6');
+    cy.get('[data-cy="submit"]').click();
+    cy.contains('Item Created!');
+  });
 });
 ```
 
+----------------------------------------------------------------------------
+
+### Micro frontend
+
+There are several ways to share micro frontends, from the simplest (and obsolete), with the use of iframes, to more modern, but complex, solutions such as module federation.
+
+Web Components is a specification that aims to standardize components created by different frameworks into a model that can be consumed between them. In other words, by creating an Angular component
+following this specification, an application created in React or Vue could consume this component. Although Web Components was not created with micro frontend projects in mind, we can see that its
+definition fits perfectly for what we need.
+
+```bash
+ng add ngx-build-plus
+npm i http-server
+```
+
+```json
+"scripts": {
+  "ng": "ng",
+  "start": "ng serve",
+  "build": "ng build --single-bundle --bundle-styles --keep-
+styles --output-hashing=none",
+  "serve-mfe": "http-server dist/gym_exercises",
+}
+```
+
+The serve-mfe script uses the http-server service to publish the contents of the dist folder that will contain the compiled micro frontend.
+
+```bash
+npm run build
+npm run serve-mfe
+```
+
+Let’s prepare main application to consume the micro frontend. To do this, let’s start by creating a new module in the application.
+
+```bash
+ng g m some-name --routing
+ng g c some-name/some-name
+```
+
+With the preceding commands, we create the module with the generated route file and a component that will be responsible for loading mfe.
+We now have the task of including the micro frontend generated in the other project in our interface. For this, we have a community package
+called @angular-extensions that allows us to load our micro frontend simply using a directive.
+
+```bash
+npm i @angular-extensions/elements
+```
+
+```typescript
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ExerciseRoutingModule } from './exercise-routing.module';
+import { ExerciseComponent } from './exercise/exercise.component';
+import { LazyElementsModule } from '@angular-extensions/elements';
+@NgModule({
+  declarations: [ExerciseComponent],
+  imports: [CommonModule, LazyElementsModule, ExerciseRoutingModule],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+})
+export class ExerciseModule {}
+```
+
+In this file, we are first adding the library module called LazyElementsModule to have access to the directive that we will use in the component. Furthermore, we have a new property in the metadata
+called schemas. In it, we are informing Angular with the CUSTOM_ELEMENTS_SCHEMA token that this module will receive elements from outside the project. By default, Angular checks whether
+the tag used in the template exists in the project or in the HTML standard, such as the input tag.
+
+```typescript
+import { Component } from '@angular/core';
+@Component({
+  selector: 'app-exercise',
+  templateUrl: './exercise.component.html',
+  styleUrls: ['./exercise.component.css'],
+})
+export class ExerciseComponent {
+  elementUrl = 'http://localhost:8080/main.js';
+}
+```
+
+Here, we are defining the address where the micro frontend’s main files will be served.
+
+```html
+<exercise-form *axLazyElement="elementUrl"> </exercise-form >
+```
+
+Here, we are declaring the new exercise-form element, and to load it, we use the **axLazyElement** directive assigning the micro frontend address.
+
+To run our project, make sure the micro frontend is being served with the npm run serve-mfe command.
+
+#### Angular elements
+
+An Angular element component is a common component but transpiled to the Web Components standard, packaging not only our code but also the Angular rendering engine,
+making it framework agnostic.
+
+```bash
+npm install @angular/elements --save
+```
+
+### Deploy
+
+```bash
+ng generate environments
+```
+
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:4200'
+};
+```
+
+```typescript
+export const environment = {
+  production: true,
+  apiUrl: 'https://your-server/api',
+};
+```
+
+```typescript
+import { environment } from 'src/environments/environment';
+
+@Injectable()
+export class HostInterceptor implements HttpInterceptor {
+  intercept(
+    request: HttpRequest<unknown>,
+    next: HttpHandler
+  ): Observable<HttpEvent<unknown>> {
+    const url = environment.apiUrl;
+// . . .
+}
+```
+
+To run our Angular project as a production build, we can use the following command:
+
+```bash
+ng serve --configuration production
+```
+
+The environmental needs of a frontend application running in production are different from the development environment.
+
+```bash
+ng build
+```
+
+In the configurations property, we have definitions of the types of environments that we can have in our project. Initially, the Angular CLI creates two configurations:
+production and development.
+
+In the production configuration, we have the budgets property, which determines the maximum size that our package must have in addition to defining the maximum size that a unitary component
+must have. If your project exceeds this size, Angular may show a warning in the production console or even not build your project.
+
+The outputHashing attribute ensures that the files generated by the application have their names added to a hash.
+This is important because most public clouds and Content Delivery Networks (CDNs) cache the application based on the name of the files. When we generate a new version of our app, we want this cache to be invalidated to deliver the new version to our users.
+Finally, the _defaultConfiguration_ property determines that if no parameter is passed, the **ng build** command will execute with the configuration indicated in it, in this case, production.
+
+angular.json:
+
+```json
+"configurations": {
+  "production": {
+    "budgets": [
+      {
+        "type": "initial",
+        "maximumWarning": "500kb",
+        "maximumError": "1mb"
+      },
+      {
+        "type": "anyComponentStyle",
+        "maximumWarning": "2kb",
+        "maximumError": "4kb"
+      }
+    ],
+    "outputHashing": "all"
+  },
+  . . .
+  "defaultConfiguration": "production"
+```
+
+When running the build in production configurations, Angular performs the following processes:
+
+- Ahead-of-Time (AOT) compilation: Angular compiles templates and CSS files in addition to TypeScript files.
+- Production mode: The application has some validations optimized for running in production.
+- Bundling: It bundles all component files, templates, services and libraries in files separated by modules.
+- Minification: From the files generated by TypeScript, it concatenates and eliminates whitespace and comments to generate the smallest files possible.
+- Uglification: It rewrites generated code for variables, function names, and small, cryptic modules to make it difficult to reverse engineer the frontend code delivered to the user’s browser.
+- Dead code elimination: Also known as tree shaking, this is the process of not including components in bundles that are not referenced in the code and do not need to be present in the production package.
+
+#### Mounting a Docker image with Nginx
+
+nginx.default.conf:
+
+```nginx
+server {
+  listen 80;
+  sendfile on;
+  default_type application/octet-stream;
+  gzip on;
+  gzip_http_version 1.1;
+  gzip_disable      "MSIE [1-6]\.";
+  gzip_min_length   1100;
+  gzip_vary         on;
+  gzip_proxied      expired no-cache no-store private auth;
+  gzip_types        text/plain text/css application/json application/
+javascript application/x-javascript text/xml application/xml
+application/xml+rss text/javascript;
+  gzip_comp_level   9;
+  root /usr/share/nginx/html;
+  location / {
+    try_files $uri $uri/ /index.html =404;
+  }
+}
+```
+
+In this configuration file, the first three properties (listen, sendfile, and default_type) aim to configure the exposed port and prepare the server to send our project’s package files.
+The properties starting with gzip configure the delivery of files with the native web compression data gzip, further reducing the files delivered to our user’s browser.
+The last part of the file determines the first page to be served. As we are in a Single-Page Application (SPA), the first file to be delivered is index.html.
+With this configuration, we can run Nginx, but instead of installing it natively on our local machine, we will use Docker to run it.
+
+Keep in mind that the image and the service that will be run from it (called a container in the Docker ecosystem) is as if it were a new machine and we will only copy what our application needs to run.
+
+dockerfile:
+
+```dockerfile
+FROM node:18-alpine as build
+
+COPY package.json package.lock.json ./
+
+RUN npm ci && mkdir /my-app && mv ./node_modules ./my-app
+
+WORKDIR /my-app
+
+COPY . .
+
+RUN npm run build
+
+FROM nginx:1.25-alpine
+
+COPY nginx.default.conf /etc/nginx/conf.d/default.conf
+
+RUN rm -rf /user/share/nginx/html/*
+
+COPY --from=build /my-app/dist/my-app /usr/share/nginx/html
+
+CMD ["nginx", "-g", "deamon off;"]
+```
+
+In this file, we are using the multi-stage build technique to create our image. First, we build the application and then use the result of this build to create the final image. This way, our image becomes smaller and more optimized.
+The first stage, which we call build here, is based on the _node:18-alpine_ image, which is a minimal image with the Alpine Linux distribution and version 18 of Node.js included.
+Then, the _package.json_ and _package-lock.json_ files are copied and the npm ci command is run to install the package.
+Then, with the **COPY . .** command, all project code is copied (except the _node_modules_ folder).
+At the end of this stage, our application bundle is generated using the **npm run build** command.
+The next stage, which will be production, is based on the _nginx:1.25-alpine_ image because to run a web server, we only need a Linux distribution such as Nginx installed.
+The next task is to copy the configuration file for the Nginx installation, delete the example file that comes with the tool, and copy the files generated in the previous stage to this one.
+The line ["nginx", "-g", "daemon off;"] runs Nginx and makes it ready to deliver our application.
+
+To run the Docker container locally, use the following command:
+
+```bash
+docker run -p 8080:80 myapp
+```
