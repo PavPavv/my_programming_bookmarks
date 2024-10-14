@@ -1,5 +1,100 @@
 # AngularJS
 
+## Start project
+
+### Generate project template
+
+```bash
+ng new <options...>
+```
+
+- _--dry-run_ (Boolean) (Default: false) – Run through without making any changes.
+- _--skip-install_ (Boolean) (Default: false) – Skip installing packages.
+- _--skip-git_ (Boolean) (Default: false) – Skip initializing a git repository.
+- _--standalone_ (Boolean) (Default: false) – Creates an application based upon the standalone API, without NgModules.
+- _--style_ (String) (Default: css) – The style file default extension. Your choices are css, scss, sass, or less.
+- _--prefix_ (String) (Default: app) – The prefix to use for all component selectors.
+- _--routing_ (Boolean) (Default: false) – Generate a routing module.
+
+### Generating
+
+```bash
+ng generate <blueprint> <options...>
+```
+
+- _appShell_
+- _application_
+- _class_
+- _component_
+- _directive_
+- _enum_
+- _guard_
+- _interceptor_
+- _interface_library_
+- _module_
+- _pipe_
+- _service_
+- _serviceWorker_
+- _webWorker_
+
+- _--flat_ (Boolean): Flag to indicate if a directory is created. By default, ng CLI will create a separate folder for most blueprints, even if there is only one file. If know you won’t be creating multiple files (templates, tests, etc.), you can pass true to this flag, and the CLI won’t create the separate folder.
+
+- _--spec_ (Boolean): Specifies if a spec file is generated. Pass false to this flag to prevent the CLI from generating test files for you. Use this with caution. There are very few reasons not to have unit tests for your code.
+
+- _--app_ (String): Specifies app name to use.
+
+- _--standalone_ (Boolean): Specifies whether a component or directive should be created without an existing NgModule.
+
+- _--module_ (String): Allows specification of the declaring module. By default, the item being generated will be attached to the “closest containing module.” The CLI will walk up the folder tree, looking for a module. Specifying a different module here will override that behavior.
+
+Example:
+
+```bash
+npm i -g @angular/cli
+ng new my-new-app
+ng serve --open
+
+ng generate component my-component
+```
+
+### Starting a Development Web Server
+
+```bash
+ng serve <options...>
+```
+
+- _--host_ (String): Allows you to change the host being served.
+- _--port_ (Number): Allows you to override the port served.
+- _--open_ Causes the CLI to open your default browser automatically.
+
+### Checking Your Coding Style
+
+```bash
+ng lint <options...>
+```
+
+- _--fix=true_ Recommended you only run this option on a pristine git repository, making it easy to undo if it breaks something.
+
+### Running Unit Tests
+
+```bash
+ng test <options...>
+```
+
+### Building Your Projects
+
+```bash
+ng build <options...>
+```
+
+Run end-to-end (integration) tests in existing project:
+
+```bash
+ng e2e <options...>
+```
+
+## Component
+
 An Angular component can be identified by the component suffix (e.g., _my-custom-name.component.ts_) and has the following:
 
 - A decorator to define configuration options for things like:
@@ -34,10 +129,102 @@ export class TodoListItem {
 }
 ```
 
+Angular executes template expressions after every change detection cycle. Many asynchronous activities trigger change detection cycles, such as promise resolutions, HTTP results, timer events, key presses, and mouse moves.
+
+### Conceptual preview of Angular components
+
+Angular apps are built around components, which are Angular's building blocks. Components contain the code, HTML layout, and CSS style information that provide the function and appearance of an element in the app. In Angular, components can contain other components. An app's functions and appearance can be divided and partitioned into components.
+
+In Angular, components have metadata that define its properties. When you create your HomeComponent, you use these properties:
+
+- **selector**: to describe how Angular refers to the component in templates.
+- **standalone**: to describe whether the component requires a NgModule.
+- **imports**: to describe the component's dependencies.
+- **template**: to describe the component's HTML markup and layout.
+- **styleUrls**: to list the URLs of the CSS files that the component uses in an array.
+
+starting with Angular 15.2, the **@Component** decorator now includes an imports array. This array isn’t related to TypeScript’s import statement. Instead, it’s specific to Angular and is used
+to provide the compilation context for **standalone components**. It includes all other components, directives, pipes, and NgModules that are used in the template of the standalone component.
+
+### Input()
+
+```typescript
+@Input('exercise-set') exerciseSet!:ExerciseSet; or @Input() exerciseList!: ExerciseSetList;
+```
+
+trackBy:
+
+Separating responsibilities – Smart/Container and Presentation (Smart and Dump) components
+
+The EventEmitter class uses TypeScript’s type-checking capability, making it possible for us to
+determine what type of object we are going to emit to the parent component.
+
+@Output attribute must be done with parentheses –
+( ) – and this $event parameter represents the object that the child component will emit.
+
+### Dependency injection
+
+Angular has a dependency injection mechanism. This feature allows us to compose a class just by declaring the object we need in its constructor (args).
+
+```typescript
+export class DiaryComponent {
+  constructor(private exerciseSetsService: ExerciseSetsService) {}
+  exerciseList = this.exerciseSetsService.getInitialList();
+. . .
+}
+```
+
+```typescript
+inject()
+import { Component, inject } from '@angular/core';
+export class DiaryComponent {
+  private exerciseSetsService = inject(ExerciseSetsService);
+  exerciseList = this.exerciseSetsService.getInitialList();
+. . .
+}
+```
+
+prefer composition over inheritance!
+inject() must be called from an injection context
+such as a constructor, a factory function, a field initializer,
+or a function used with `runInInjectionContext`.
+
+The singleton pattern is a design pattern of the creational type and
+allows the creation of objects whose access will be global in the system.
+
+----------------------------------------------------------------------------
+
+## Data binding
+
+In Angular, data binding is a core concept that allows you to synchronize data between the model (component) and the view (template). There are two main types of data binding: one-way binding and two-way binding.
+
+### One-way binding
+
+One-way binding means that data flows in one direction only, either from the component to the view or from the view to the component.
+
+1.From Component to View:
+
+- This is often done using interpolation ({{ }}), property binding ([property]), and event binding ((event)).
+
 This is an Angular “one-way” binding expression.
 
 ```typescript
 {{ taskTitle }}. 
+```
+
+```tsx
+<
+  *ngFor="let name of names"
+  [name]="name"
+/>
+```
+
+2.From View to Component:
+
+- This is generally achieved through event binding.
+
+```tsx
+<input (input)="onInputChange($event)" />
 ```
 
 When you need to dynamically set the value of attributes in an HTML element, the target property is wrapped in square brackets. This binds the attribute with the desired dynamic data by informing Angular that the declared value should be interpreted as a JavaScript-like statement (with some Angular enhancements) instead of a plain string.
@@ -46,7 +233,13 @@ When you need to dynamically set the value of attributes in an HTML element, the
 <button [disabled]="hasPendingChanges"></button>
 ```
 
-Angular executes template expressions after every change detection cycle. Many asynchronous activities trigger change detection cycles, such as promise resolutions, HTTP results, timer events, key presses, and mouse moves.
+### Two-way binding
+
+Two-way binding allows data to flow in both directions: from the component to the view and from the view back to the component. This is particularly useful for form inputs where you want to keep the component's state in sync with user input.
+
+```tsx
+<input [(ngModel)]="username" />
+```
 
 ## Unidirectional data flow
 
@@ -165,107 +358,7 @@ export class Receipt {
 }
 ```
 
-## Organization
-
-### Conceptual preview of Angular components
-
-Angular apps are built around components, which are Angular's building blocks. Components contain the code, HTML layout, and CSS style information that provide the function and appearance of an element in the app. In Angular, components can contain other components. An app's functions and appearance can be divided and partitioned into components.
-
-In Angular, components have metadata that define its properties. When you create your HomeComponent, you use these properties:
-
-- **selector**: to describe how Angular refers to the component in templates.
-- **standalone**: to describe whether the component requires a NgModule.
-- **imports**: to describe the component's dependencies.
-- **template**: to describe the component's HTML markup and layout.
-- **styleUrls**: to list the URLs of the CSS files that the component uses in an array.
-
-## Angular CLI
-
-```bash
-npm i -g @angular/cli
-ng new my-new-app
-ng serve --open
-
-ng generate component my-component
-```
-
-## From Angular books
-
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.1.1.
-
-## Development server
-
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
-
 ## From Angular book
-
-### Input()
-
-```typescript
-@Input('exercise-set') exerciseSet!:ExerciseSet; or @Input() exerciseList!: ExerciseSetList;
-```
-
-trackBy:
-
-Separating responsibilities – Smart/Container and Presentation (Smart and Dump) components
-
-The EventEmitter class uses TypeScript’s type-checking capability, making it possible for us to
-determine what type of object we are going to emit to the parent component.
-
-@Output attribute must be done with parentheses –
-( ) – and this $event parameter represents the object that the child component will emit.
-
-### Dependency injection
-
-Angular has a dependency injection mechanism. This feature allows us to compose a class just by declaring the object we need in its constructor (args).
-
-```typescript
-export class DiaryComponent {
-  constructor(private exerciseSetsService: ExerciseSetsService) {}
-  exerciseList = this.exerciseSetsService.getInitialList();
-. . .
-}
-```
-
-```typescript
-inject()
-import { Component, inject } from '@angular/core';
-export class DiaryComponent {
-  private exerciseSetsService = inject(ExerciseSetsService);
-  exerciseList = this.exerciseSetsService.getInitialList();
-. . .
-}
-```
-
-prefer composition over inheritance!
-inject() must be called from an injection context
-such as a constructor, a factory function, a field initializer,
-or a function used with `runInInjectionContext`.
-
-The singleton pattern is a design pattern of the creational type and
-allows the creation of objects whose access will be global in the system.
-
-----------------------------------------------------------------------------
 
 ### Services in Angular
 
@@ -330,15 +423,15 @@ const routes: Routes = [
 ```
 
 ----------------------------------------------------------------------------
-
-### Standalone components
-
-The standalone property means that this component can be used directly without being declared in any module.
-In the imports property, we declare its dependencies, which are CommonModule.
-
-----------------------------------------------------------------------------
   
 ### Guards in Angular
+
+Angular offers several built-in guard types like **CanActivate**, **CanDeactivate**, **CanLoad**, and **Resolve**, each serving a specific purpose in the navigation life cycle.
+
+- User access control: Guards can be used to control which users have access to certain routes based on their roles or permissions.
+- Data protection: They can protect data on a page from being lost when the user navigates away.
+- Load optimization: They can prevent lazy-loaded modules from loading until certain conditions are met.
+- Data pre-fetching: Guards can fetch the data required for a specific route in advance using Resolve guards. We’ll look more at the resolver later.
 
 ```bash
 ng g guard login/auth
@@ -356,8 +449,31 @@ ng g guard login/auth
 };
 ```
 
-the canActivateChild attribute to call the route’s guard, so we don’t need to repeat
-all the routes in this module.
+the **canActivateChild** attribute to call the route’s guard, so we don’t need to repeat all the routes in this module.
+
+```typescript
+export dateGuard: CanActivateFn = (route, state) => {
+    const dateParam = route.params['date'];
+    const date = new Date(dateParam);
+    if (!isNaN(date.getTime()) && date > new Date()) {
+      return true;
+    } else {
+      alert('Invalid or past date!');
+      return false;
+    }
+  }
+```
+
+```typescript
+import { dateGuard } from "./date.guard";
+const routes: Routes = [
+  {
+    path: "event/:date",
+    component: EventComponent,
+    canActivate: [dateGuard],
+  },
+];
+```
 
 ----------------------------------------------------------------------------
 
