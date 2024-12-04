@@ -185,12 +185,9 @@ export class DiaryComponent {
 ```
 
 prefer composition over inheritance!
-inject() must be called from an injection context
-such as a constructor, a factory function, a field initializer,
-or a function used with `runInInjectionContext`.
+inject() must be called from an injection context such as a constructor, a factory function, a field initializer, or a function used with `runInInjectionContext`.
 
-The singleton pattern is a design pattern of the creational type and
-allows the creation of objects whose access will be global in the system.
+The singleton pattern is a design pattern of the creational type and allows the creation of objects whose access will be global in the system.
 
 ----------------------------------------------------------------------------
 
@@ -358,10 +355,6 @@ export class Receipt {
 }
 ```
 
-## From Angular book
-
-### Services in Angular
-
 When we create a service, it has an @Injectable decorator, as in our example:
 
 ```typescript
@@ -377,9 +370,7 @@ are singleton.
 
 The onInit method is called after building the component, but before rendering the component.
 
-----------------------------------------------------------------------------
-
-### Modules in Angular + lazy loading + 404 page
+## Modules in Angular + lazy loading + 404 page
 
 ngModel is an object managed by the FormModule module that represents the form’s data model.
 
@@ -421,10 +412,8 @@ const routes: Routes = [
     }
   }
 ```
-
-----------------------------------------------------------------------------
   
-### Guards in Angular
+## Guards in Angular
 
 Angular offers several built-in guard types like **CanActivate**, **CanDeactivate**, **CanLoad**, and **Resolve**, each serving a specific purpose in the navigation life cycle.
 
@@ -453,31 +442,29 @@ the **canActivateChild** attribute to call the route’s guard, so we don’t ne
 
 ```typescript
 export dateGuard: CanActivateFn = (route, state) => {
-    const dateParam = route.params['date'];
-    const date = new Date(dateParam);
-    if (!isNaN(date.getTime()) && date > new Date()) {
-      return true;
-    } else {
-      alert('Invalid or past date!');
-      return false;
-    }
-  }
+  dateParam = route.params['date'];
+  const date = new Date(dateParam);
+    if (!isNaN(date.getTime()) && date > new Date()) {
+      return true;
+    } else {
+      alert('Invalid or past date!');
+      return false;
+    }
+  }
 ```
 
 ```typescript
 import { dateGuard } from "./date.guard";
 const routes: Routes = [
-  {
-    path: "event/:date",
-    component: EventComponent,
-    canActivate: [dateGuard],
-  },
+  {
+    path: "event/:date",
+    component: EventComponent,
+    canActivate: [dateGuard],
+  },
 ];
 ```
 
-----------------------------------------------------------------------------
-
-### Resolvers in Angular
+## Resolvers in Angular
 
 We are using the resolve property, much like configuring a route guide, with the difference that
 we associate an object with the function, which will be important for the component to consume the
@@ -522,9 +509,7 @@ an object with the diaryApi attribute – the same one we configured in the rout
 When we run our project again, we see that the behavior of the screen does not change externally;
 however, internally, we are fetching information from the gym diary before the component is loaded.
 
-----------------------------------------------------------------------------
-
-### Interceptor Pattern
+## Interceptor Pattern
 
 ```bash
 ng g interceptor login/auth
@@ -568,7 +553,7 @@ true },
 export class AppModule {}
 ```
 
-#### Changing the request route
+### Changing the request route
 
 ```bash
 ng g interceptor shared/host
@@ -611,7 +596,7 @@ true },
 export class AppModule {}
 ```
 
-#### Global loader
+### Global loader
 
 ```bash
 ng generate component loading-overlay
@@ -676,7 +661,7 @@ true },
 export class AppModule {
 ```
 
-#### Angular toasts
+### Angular toasts
 
 ```bash
 npm install ngx-
@@ -707,16 +692,16 @@ export class NotificationInterceptor implements HttpInterceptor {
 ```typescript
 // providers: [
 // . . .
-//    {
-//      provide: HTTP_INTERCEPTORS,
-//      useClass: NotificationInterceptor,
-//      multi: true,
-//    },
+//    {
+//      provide: HTTP_INTERCEPTORS,
+//      useClass: NotificationInterceptor,
+//      multi: true,
+//    },
 // . . .
 // ]
 ```
 
-#### Measuring the performance of a request
+### Measuring the performance of a request
 
 ```bash
 ng g interceptor telemetry/telemetry
@@ -747,11 +732,11 @@ export class TelemetryInterceptor implements HttpInterceptor {
 // . . .
 // providers: [
 // . . .
-//    {
-//      provide: HTTP_INTERCEPTORS,
-//      useClass: TelemetryInterceptor,
-//      multi: true,
-//    },
+//    {
+//      provide: HTTP_INTERCEPTORS,
+//      useClass: TelemetryInterceptor,
+//      multi: true,
+//    },
 // ],
 // . . .
 ```
@@ -763,7 +748,7 @@ getInitialList(): Observable<ExerciseSetListAPI> {
 }
 ```
 
-### RxJS
+## RxJS
 
 The RxJS library that makes up the Angular ecosystem aims to make controlling asynchronous flows simpler using declarative and reactive programming.
 
@@ -773,13 +758,13 @@ The RxJS library that makes up the Angular ecosystem aims to make controlling as
 - Connecting information flows – high-order operators
 - Optimizing data consumption – filter operators
 
-#### Observables and operators
+### Observables and operators
 
 With **observable** data structure, we can capture a series of events in time and declaratively make our application react to these events. Regarding the use of promises for HTTP requests, we can use them, but tasks that are verbose and complex to perform when using promises can be done using observables and RxJS instead.
 
 The **pipe()** method also returns an observable, and when the component calls the subscribe method, its result will go through all the operators and deliver the result.
 
-#### Another way to subscribe – the async pipe
+### Another way to subscribe – the async pipe
 
 One detail that you may have noticed is the $ symbol here. Using this postfix for variables and attributes that are observables is a community convention. It is not an obligation, but you will often see this symbol in code bases that use RxJS.
 
@@ -789,7 +774,7 @@ One detail that you may have noticed is the $ symbol here. Using this postfix fo
 
 Another advantage that the async pipe provides is that the framework controls the life cycle of the observable; that is, when the component is destroyed, Angular automatically triggers the unsubscribe method.
 
-#### Connecting information flows – high-order operators
+### Connecting information flows – high-order operators
 
 ```typescript
 public exercises$ = this.entryForm.valueChanges.pipe(
@@ -799,7 +784,7 @@ public exercises$ = this.entryForm.valueChanges.pipe(
 
 The **switchMap** operator is a higher-order observable because it takes an observable as input and returns an observable as output. This is in contrast to the **map** operator, which takes an observable as input and returns a value as output.
 
-#### Optimizing data consumption – filter operators
+### Optimizing data consumption – filter operators
 
 ```typescript
 const DEBOUNCE_TIME = 300;
@@ -815,7 +800,7 @@ public exercises$ = this.entryForm.valueChanges.pipe(
 
 The distinctUntilChanged operator checks whether the stream’s data, has changed from one iteration to another and triggers the next operator only if the value is different, saving even more unnecessary calls to the backend.
 
-#### Signals
+### Signals
 
 ```typescript
 let a = signal<number>(2);
@@ -830,22 +815,21 @@ console.log(sum());
 
 The computed type is, in our analogy of a spreadsheet, a cell that contains a formula where you can read the values of other cells to determine its value.
 
-
 ```typescript
 export class LoadService {
-  isLoading = signal<Boolean>(false);
-  showLoader() {
-    this.isLoading.set(true);
-  }
-  hideLoader() {
-    this.isLoading.set(false);
-  }
+  isLoading = signal<Boolean>(false);
+  showLoader() {
+    this.isLoading.set(true);
+  }
+  hideLoader() {
+    this.isLoading.set(false);
+  }
 }
 ```
 
 ```tsx
 @if (loadService.isLoading()) {
-  <app-loading-overlay />
+  <app-loading-overlay />
 }
 <router-outlet></router-outlet>
 ```
@@ -853,67 +837,65 @@ export class LoadService {
 ```typescript
 export class ExerciseSetsService {
 // . . .
-  exerciseList = signal<ExerciseSetList>([] as ExerciseSetList);
-  getInitialList() {
-    const headers = new HttpHeaders().set('X-TELEMETRY', 'true');
-    this.httpClient
-      .get<ExerciseSetListAPI>(this.url, { headers })
-      .pipe(map((api) => api?.items))
-      .subscribe((list) => this.exerciseList.set(list));
-  }
-  deleteItem(id: string) {
-    this.httpClient.delete<boolean>(`${this.url}/${id}`).subscribe(()
+  exerciseList = signal<ExerciseSetList>([] as ExerciseSetList);
+  getInitialList() {
+    const headers = new HttpHeaders().set('X-TELEMETRY', 'true');
+    this.httpClient
+      .get<ExerciseSetListAPI>(this.url, { headers })
+      .pipe(map((api) => api?.items))
+      .subscribe((list) => this.exerciseList.set(list));
+  }
+  deleteItem(id: string) {
+    this.httpClient.delete<boolean>(`${this.url}/${id}`).subscribe(()
 => {
-    this.exerciseList.update((list) =>
-      list.filter((exerciseSet) => exerciseSet.id !== id)
-    );
-    });
-  }
+    this.exerciseList.update((list) =>
+      list.filter((exerciseSet) => exerciseSet.id !== id)
+    );
+    });
+  }
 // . . .
 }
 ```
 
 ```typescript
 export class ListEntriesComponent {
-  @Output() editEvent = new EventEmitter<ExerciseSet>();
-  @Output() deleteEvent = new EventEmitter<string>();
-  private exerciseSetsService = inject(ExerciseSetsService);
-  exerciseList = this.exerciseSetsService.exerciseList;
+  @Output() editEvent = new EventEmitter<ExerciseSet>();
+  @Output() deleteEvent = new EventEmitter<string>();
+  private exerciseSetsService = inject(ExerciseSetsService);
+  exerciseList = this.exerciseSetsService.exerciseList;
 }
 ```
 
 ```tsx
 <section class="mb-8">
-  <h2 class="mb-4 text-xl font-bold">List of entries</h2>
-  <ul class="rounded border shadow">
-  @for (item of exerciseList(); track item.id) {
-    <li>
-      <app-entry-item
-        [exercise-set]="item"
-        (deleteEvent)="deleteEvent.emit($event)"
-        (editEvent)="editEvent.emit($event)"
-      />
-    </li>
-    } @empty {
-      <div>
-        No Items!
-      </div>
-    }
-  </ul>
+  <h2 class="mb-4 text-xl font-bold">List of entries</h2>
+  <ul class="rounded border shadow">
+  @for (item of exerciseList(); track item.id) {
+    <li>
+      <app-entry-item
+        [exercise-set]="item"
+        (deleteEvent)="deleteEvent.emit($event)"
+        (editEvent)="editEvent.emit($event)"
+      />
+    </li>
+    } @empty {
+      <div>
+        No Items!
+      </div>
+    }
+  </ul>
 </section>
 ```
 
-----------------------------------------------------------------------------
-
-### Testing
+## Testing
 
 ```typescript
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-     declarations: [AppComponent],
-     imports: [RouterTestingModule],
-   }).compileComponents();
+     declarations: [AppComponent],
+     imports: [RouterTestingModule],
+   }).compileComponents();
   });
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
@@ -942,7 +924,7 @@ beforeEach(() => {
 });
 ```
 
-#### Component testing
+### Component testing
 
 Angular component unit tests not only examine logic but also assess the values that will be presented on the screen.
 
@@ -952,9 +934,9 @@ describe('DiaryComponent', () => {
   let exerciseSetsService: ExerciseSetsService;
   beforeEach(async () => {
   await TestBed.configureTestingModule({
-//    . . .
+//    . . .
   }).compileComponents();
-//    . . .
+//    . . .
     exerciseSetsService = TestBed.inject(ExerciseSetsService);
   });
   it('should call delete method when the button delete is clicked',
@@ -983,7 +965,7 @@ describe('DiaryComponent', () => {
             component: NewEntryFormReactiveComponent, },
         ]),
       ]
-     }).compileComponents();
+     }).compileComponents();
     location = TestBed.inject(Location);
   });
   it('should direct to diary entry edit route', fakeAsync(() => {
@@ -996,7 +978,7 @@ reps: 6, sets: 6, id: '1' };
 });
 ```
 
-#### E2E tests with Cypress
+### E2E tests with Cypress
 
 ```bash
 ng add @cypress/schematic
@@ -1042,7 +1024,7 @@ describe('New Entry Form:', () => {
 
 ----------------------------------------------------------------------------
 
-### Micro frontend
+## Micro frontend
 
 There are several ways to share micro frontends, from the simplest (and obsolete), with the use of iframes, to more modern, but complex, solutions such as module federation.
 
@@ -1127,7 +1109,7 @@ Here, we are declaring the new exercise-form element, and to load it, we use the
 
 To run our project, make sure the micro frontend is being served with the npm run serve-mfe command.
 
-#### Angular elements
+### Angular elements
 
 An Angular element component is a common component but transpiled to the Web Components standard, packaging not only our code but also the Angular rendering engine,
 making it framework agnostic.
@@ -1136,7 +1118,7 @@ making it framework agnostic.
 npm install @angular/elements --save
 ```
 
-### Deploy
+## Deploy
 
 ```bash
 ng generate environments
@@ -1224,29 +1206,29 @@ When running the build in production configurations, Angular performs the follow
 - Uglification: It rewrites generated code for variables, function names, and small, cryptic modules to make it difficult to reverse engineer the frontend code delivered to the user’s browser.
 - Dead code elimination: Also known as tree shaking, this is the process of not including components in bundles that are not referenced in the code and do not need to be present in the production package.
 
-#### Mounting a Docker image with Nginx
+### Mounting a Docker image with Nginx
 
 nginx.default.conf:
 
 ```nginx
 server {
-  listen 80;
-  sendfile on;
-  default_type application/octet-stream;
-  gzip on;
-  gzip_http_version 1.1;
-  gzip_disable      "MSIE [1-6]\.";
-  gzip_min_length   1100;
-  gzip_vary         on;
-  gzip_proxied      expired no-cache no-store private auth;
-  gzip_types        text/plain text/css application/json application/
+  listen 80;
+  sendfile on;
+  default_type application/octet-stream;
+  gzip on;
+  gzip_http_version 1.1;
+  gzip_disable      "MSIE [1-6]\.";
+  gzip_min_length   1100;
+  gzip_vary         on;
+  gzip_proxied      expired no-cache no-store private auth;
+  gzip_types        text/plain text/css application/json application/
 javascript application/x-javascript text/xml application/xml
 application/xml+rss text/javascript;
-  gzip_comp_level   9;
-  root /usr/share/nginx/html;
-  location / {
-    try_files $uri $uri/ /index.html =404;
-  }
+  gzip_comp_level   9;
+  root /usr/share/nginx/html;
+  location / {
+    try_files $uri $uri/ /index.html =404;
+  }
 }
 ```
 
