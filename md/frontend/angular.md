@@ -113,6 +113,7 @@ You can define functions for a component by declaring methods within the compone
   selector: 'todo-list-item',
   template: ` <p>Title: {{ taskTitle }}</p> `,
   styles: ['li { color: papayawhip; }'],
+  imports: [],
 })
 export class TodoListItem {
   /* Component behavior is defined in here */
@@ -130,6 +131,13 @@ export class TodoListItem {
 ```
 
 Angular executes template expressions after every change detection cycle. Many asynchronous activities trigger change detection cycles, such as promise resolutions, HTTP results, timer events, key presses, and mouse moves.
+
+Starting with Angular 15.2, the @Component decorator now includes an imports array. This array isn’t related to TypeScript’s import statement. Instead, it’s specific to Angular and is used to provide the compilation context for standalone components. It includes all other components, directives, pipes, and NgModules that are used in the
+template of the standalone component.
+
+### More about standalone components
+
+- [Tree-shaking in SkyEng](https://habr.com/ru/companies/skyeng/articles/757498/)
 
 ### Conceptual preview of Angular components
 
@@ -188,6 +196,18 @@ prefer composition over inheritance!
 inject() must be called from an injection context such as a constructor, a factory function, a field initializer, or a function used with `runInInjectionContext`.
 
 The singleton pattern is a design pattern of the creational type and allows the creation of objects whose access will be global in the system.
+
+### Component's lifecycle methods
+
+1. **constructor** -> The constructor is called when the component is created. This happens before any Angular-specific initialization methods occurs.
+2. **ngOnChanges** -> Runs after an input/output binding has been changed.
+3. **ngOnInit** ->  Runs after a component has been initialized. Input bindings are ready.
+4. **ngDoCheck** -> Allows developers to perform custom actions during change detection.
+5. **ngAfterContentInit** -> Runs after the content of a component has been initialized. You would typically use ngAfterContentInit when you need to perform some initialization logic based on the content that has been projected into the component using ```<ng-content>```. This is useful for components that accept content from their parent components.
+6. **ngAfterContentChecked** -> Runs after every check of a component's content.
+7. **ngAfterViewInit** ->  Runs after the view of a component has been initialized.  This lifecycle hook is called after Angular has fully initialized a component's view and its child views. It is invoked once after the first ngDoCheck for the component.
+8. **ngAfterViewChecked** -> Runs after every check of a component's view.
+9. **ngOnDestroy** -> Runs before a component is destroyed.
 
 ----------------------------------------------------------------------------
 
