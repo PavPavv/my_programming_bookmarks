@@ -57,6 +57,15 @@ ng serve --open
 ng generate component my-component
 ```
 
+Or
+
+```bash
+ng g c my-component --skip-tests --dry-run
+ng g c my-component --skip-tests
+```
+
+_--dry-run_ flag ask **ng g** command to show what and where will be created.
+
 ### Starting a Development Web Server
 
 ```bash
