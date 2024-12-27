@@ -719,15 +719,15 @@ export class NotificationInterceptor implements HttpInterceptor {
 ```
 
 ```typescript
-// providers: [
-// . . .
-//    {
-//      provide: HTTP_INTERCEPTORS,
-//      useClass: NotificationInterceptor,
-//      multi: true,
-//    },
-// . . .
-// ]
+providers: [
+. . .
+   {
+     provide: HTTP_INTERCEPTORS,
+     useClass: NotificationInterceptor,
+     multi: true,
+   },
+. . .
+]
 ```
 
 ### Measuring the performance of a request
@@ -758,16 +758,16 @@ export class TelemetryInterceptor implements HttpInterceptor {
 ```
 
 ```typescript
-// . . .
-// providers: [
-// . . .
-//    {
-//      provide: HTTP_INTERCEPTORS,
-//      useClass: TelemetryInterceptor,
-//      multi: true,
-//    },
-// ],
-// . . .
+. . .
+providers: [
+. . .
+   {
+     provide: HTTP_INTERCEPTORS,
+     useClass: TelemetryInterceptor,
+     multi: true,
+   },
+],
+. . .
 ```
 
 ```typescript
@@ -1307,4 +1307,28 @@ To run the Docker container locally, use the following command:
 
 ```bash
 docker run -p 8080:80 myapp
+```
+
+## Upgrading Angular
+
+[Update Guide](https://angular.dev/update-guide)
+
+1. ensure the project was on the latest current version of Angular (Angular CURRENT.x to CURRENT.y)
+
+2. 
+
+```bash
+ng update @angular/cli@17 @angular/core@17
+```
+
+2.1 If something went wrong it is safe to stable current npm install with (allowing the install process to continue even if there are incompatible versions):
+
+```bash
+npm install --legacy-peer-­deps
+```
+
+3. Then step by step (version by version) up to the desired latest stable version
+
+```bash
+ng update @angular/cli@18 @angular/core@18
 ```
