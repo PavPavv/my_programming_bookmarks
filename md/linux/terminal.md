@@ -164,6 +164,36 @@ Read pdf file
 evince text.pdf
 ```
 
+Find regEx pattern in certain file or files
+
+```bash
+grep rx package.json
+```
+
+```bash
+grep rx ./*
+```
+
+Find regEx pattern in certain file or files case insensitive
+
+```bash
+grep -i rx package.json
+```
+
+Find all not regEx pattern in certain file or files
+
+```bash
+grep -v rx package.json
+```
+
+### File access rights (change mode)
+
+```bash
+chmod go+r <file-name>
+```
+
+644, 600 (files)- 755, 700, 711 (directories, programs)
+
 ## Manipulate system
 
 Turn off system
@@ -227,6 +257,64 @@ sudo chown -R some/path
 ```
 
 ## Processes
+
+Processes list, managing processes
+
+```bash
+ps
+```
+
+Processes list running by user
+
+```bash
+ps x
+```
+
+All the running processes
+
+```bash
+ps ax
+```
+
+All the running processes with full command names
+
+```bash
+ps w
+```
+
+Kill the process by its id (like Ctrl+D ?)
+
+```bash
+kill <pid>
+```
+
+Freeze the process by its id
+
+```bash
+kill -STOP <pid>
+```
+
+Continue previously freezed process by its id
+
+```bash
+kill -CONT <pid>
+```
+
+Interrupt previously freezed process by its id (like Ctrl+C)
+
+```bash
+kill -INT <pid>
+```
+
+Totally destroy process in CPU's memory by its id (only rare emergency cases)
+
+```bash
+kill -KILL <pid>
+```
+
+```bash
+kill -9 <pid>
+```
 
 > systemd is an init system and system manager and systemctl command is the central management tool for controlling the init system. In systemd, the target of most actions are “units”, which are resources that systemd knows how to manage. For service management tasks, the target unit will be service units, which have unit files with a suffix of .service. However, for most service management commands, you can actually leave off the .service suffix, as systemd is smart enough to know that you probably want to operate on a service when using service management commands.
 
