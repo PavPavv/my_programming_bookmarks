@@ -194,6 +194,30 @@ chmod go+r <file-name>
 
 644, 600 (files)- 755, 700, 711 (directories, programs)
 
+#### File being executed only by its name
+
+1. Write a script with a shebang:
+
+```bash
+#!/usr/bin/env python3
+```
+
+2. Make the Script Executable:
+
+    2.1 To run your script by just typing my_app, you need to move it to a directory that is included in your system's PATH. A common choice is /usr/local/bin or you can create a custom directory for your scripts.
+
+    2.2 In Linux (including Ubuntu), the PATH is an environment variable that specifies a set of directories where executable programs are located. When you type a command in the terminal, the shell searches through these directories in the order they are listed in the PATH variable to find the corresponding executable file.
+
+```bash
+chmod +x my_app.py   
+```
+
+3. Move the Script to a Directory in Your PATH:
+
+```bash
+sudo mv my_app.py /usr/local/bin/my_app
+```
+
 ## Manipulate system
 
 Turn off system
