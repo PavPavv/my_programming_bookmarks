@@ -51,6 +51,7 @@ My most-useful-back-end-links list.
 
 ## Stack
 
+- 🔖 [Python](./py.md)
 - 🔖 [NodeJS](./nodejs.md)
 
 ## Security
