@@ -146,6 +146,8 @@ template of the standalone component.
 
 ### More about standalone components
 
+Standalone components represents SCAM pattern (Single Component Angular Module). [More about it.](https://angular-training-guide.rangle.io/modules/module-scam-pattern)
+
 - [Tree-shaking in SkyEng](https://habr.com/ru/companies/skyeng/articles/757498/)
 
 ### Conceptual preview of Angular components
@@ -267,7 +269,7 @@ Two-way binding allows data to flow in both directions: from the component to th
 <input [(ngModel)]="username" />
 ```
 
-## Unidirectional data flow
+### Unidirectional data flow
 
 A data flow model where the component tree is always checked for changes in one direction from parent to child, which prevents cycles in the change detection graph.
 
@@ -309,6 +311,49 @@ Every component is associated within an element that matches the component's sel
 export class HeroAppComponent {
   /* . . . */
 }
+```
+
+## @ViewChild() decorator
+
+In Angular, @ViewChild is a decorator that allows you to access a child component, directive, or DOM element from a parent component's class. It provides a way to interact with the child component's properties and methods directly.
+
+1. Accessing Child Components: You can use @ViewChild to get a reference to a child component and call its public methods or access its properties.
+
+2. Manipulating DOM Elements: If you need to directly manipulate a DOM element (e.g., focusing an input field), @ViewChild can be used to get a reference to that element.
+
+3. Interacting with Directives: You can also use @ViewChild to access custom directives applied to elements in your template.
+
+```typescript
+import { Component, ViewChild } from '@angular/core';
+
+// parent.component.html:
+// <child-component #childComp></child-component>
+// <input #inputField type="text">
+
+@Component({
+    selector: 'app-parent',
+    templateUrl: './parent.component.html'
+  })
+  export class ParentComponent {
+    @ViewChild('childComp') childComponent!: ChildComponent; // Reference to the child component
+    @ViewChild('inputField') inputField!: ElementRef; // Reference to the input field
+
+    ngAfterViewInit() {
+      // Accessing properties or methods of the child component
+      this.childComponent.someMethod();
+
+      // Manipulating the input field
+      this.inputField.nativeElement.focus();
+    }
+  }
+```
+
+Lifecycle Hooks: You typically access the @ViewChild properties after the view has been initialized, which is why you often see it used in the ngAfterViewInit() lifecycle hook.
+
+Static Option: As of Angular 8, you can specify whether you want to resolve the query results before or after change detection runs by passing an options object as the second argument to @ViewChild. For example:
+
+```typescript
+@ViewChild('childComp', { static: false }) childComponent!: ChildComponent;
 ```
 
 ## Directives
@@ -538,7 +583,7 @@ an object with the diaryApi attribute – the same one we configured in the rout
 When we run our project again, we see that the behavior of the screen does not change externally;
 however, internally, we are fetching information from the gym diary before the component is loaded.
 
-## Interceptor Pattern
+## Interceptor pattern
 
 ```bash
 ng g interceptor login/auth
