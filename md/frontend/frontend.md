@@ -1,9 +1,9 @@
-## Front-end
+# Frontend
 
 My most-useful-front-end-links list.
 By front-end I mean a cluster ot terms and topics as HTML & CSS, native JavaScript, JS-frameworks (React mostly), JS web-instruments (dev tools, bundlers, etc.), TypeScript, TS-frameworks, some browser's construction details that might be helpful with working in JS from the client side, some web-standarts and technologies useful for the client side and etc.
 
-### Front-end tech docs
+## Front-end tech docs
 
 - 🧾 [MDN](https://developer.mozilla.org/en-US/)
 
@@ -21,26 +21,26 @@ By front-end I mean a cluster ot terms and topics as HTML & CSS, native JavaScri
 - 📦 [Markdownlint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
 - 📦 [PathIntellisense](https://marketplace.visualstudio.com/items?itemName=christian-kohler.path-intellisense)
 
-### Environment
+## Environment
 
 - 🧾 [ESLint](https://eslint.org/)
 - 🧾 [ESLint rules](https://eslint.org/docs/rules/)
 - 📋 [ESLint, PreCommitHook settings RU](https://maxpfrontend.ru/vebinary/nastroyka-eslint-prettier-pre-commit-hook-create-react-app-visual-studio-code/)
 - 🔖 [Node package managers commands](./cheatsheets/yarn.md)
 
-### HTML & CSS
+## HTML & CSS
 
 - 🤖 [CanIUse](https://caniuse.com/)
 - 📋 [CSS combinators](https://www.w3schools.com/css/css_combinators.asp)
 - 📋 [Clamp()](https://piccalil.li/quick-tip/use-css-clamp-to-create-a-more-flexible-wrapper-utility/)
 - 🔖 [Most useful css-tips](./cheatsheets/css.md)
 
-### Design
+## Design
 
 - 🤖 [ColorScheme](https://colorscheme.ru/)
 - 🤖 [Free illustrations](https://undraw.co/)
 
-### Bundlers
+## Bundlers
 
 - 📋 [Знакомство с Webpack](https://habr.com/ru/articles/514838/)
 - 🧾 [Webpack](https://webpack.js.org/)
@@ -49,7 +49,7 @@ By front-end I mean a cluster ot terms and topics as HTML & CSS, native JavaScri
 - 🔖 [Build your own webpack. Simple example](https://github.com/PavPavv/wb)
 - 🔖 [Custom webpack set up](./webpack.md)
 
-### Google Browser Engine V8
+## Google Browser Engine V8
 
 - 🧾 [Web events](https://developer.mozilla.org/ru/docs/Web/Events)
 - 📋 [How browser works](https://www.html5rocks.com/en/tutorials/internals/howbrowserswork/)
@@ -57,33 +57,33 @@ By front-end I mean a cluster ot terms and topics as HTML & CSS, native JavaScri
 - 📋 [V8 engine habr ru](https://habr.com/ru/company/ruvds/blog/337460/)
 - 📋 [Deep tricks and explainings](https://mrale.ph/)
 
-### Browser APIs
+## Browser APIs
 
-#### DOM
-
-- 📋 [DOM and BOM](https://medium.com/@fknussel/dom-bom-revisited-cf6124e2a816)
-
-#### BOM
+### DOM
 
 - 📋 [DOM and BOM](https://medium.com/@fknussel/dom-bom-revisited-cf6124e2a816)
 
-#### CCSOM
+### BOM
 
-### Standarts
+- 📋 [DOM and BOM](https://medium.com/@fknussel/dom-bom-revisited-cf6124e2a816)
+
+### CCSOM
+
+## Standarts
 
 - 🧾 [EcmaScript specification](https://tc39.es/ecma262/)
 
-### JavaScript
+## JavaScript
 
 - 📋 [Java Script basics, interview questions, RU](https://github.com/PavPavv/MyJSCheatsheet)
 - 🔖 [JavaScript basics](./js_basics.md)
 - 🔖 [Java Script (hard parts)](./js.md)
 
-### Fetching
+## Fetching
 
 - 🤖 [Fake REST API](https://jsonplaceholder.typicode.com/)
 
-### Native libraries
+## Native libraries
 
 3D:
 
@@ -115,22 +115,28 @@ Maps visualization:
 
 - 📋 [Top map visualization libraries](https://habr.com/ru/post/318600/)
 
-### ReactJS
+## ReactJS
 
 - 🔖 [React JS](./react.md)
 
-### TypeScript
+## TypeScript
 
 - 🔖 [TypeScript](./ts.md)
 
-### NextJS
+## NextJS
 
 - 🔖 [Next JS](./next.md)
 
-### AngularJS
+## AngularJS
 
 - 🔖 [Angular JS](./angular.md)
 
-### Interview
+## Interview
 
 - 📋 [Preparation for frontend interview](https://www.notion.so/Front-End-Preparation-a0ac842415a04ddf9319718ea6ba22a4)
+
+## Testing
+
+- Jest
+- React Testing Library
+- [Cypress]('./testing/cy.md)
