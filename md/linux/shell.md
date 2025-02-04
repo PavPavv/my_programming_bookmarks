@@ -1,4 +1,4 @@
-# Bourne shell
+# Bourne again shell
 
 ## Shebang
 
@@ -24,6 +24,16 @@ bash test.sh
 #!bin/sh
 
 echo Print something!
+```
+
+**printf** formatted output
+
+```bash
+#!/bin/bash
+
+test='TEST'
+
+printf "hello, $test"
 ```
 
 **''** single quotes - pure string literal
@@ -74,3 +84,19 @@ do
   echo $str
 done
 ```
+
+### Scripts
+
+#### Run script, execute script
+
+```bash
+chmod +rx scriptname # read/exe for anybody
+```
+
+```bash
+chmod u+rx scriptname # read/exe only for file's owner
+```
+
+### Redirections
+
+Before a command is executed, its input and output may be redirected using a special notation interpreted by the shell. Redirection allows commands’ file handles to be duplicated, opened, closed, made to refer to different files, and can change the files the command reads from and writes to. Redirection may also be used to modify file handles in the current shell execution environment. The following redirection operators may precede or appear anywhere within a simple command or may follow a command. Redirections are processed in the order they appear, from left to right.
