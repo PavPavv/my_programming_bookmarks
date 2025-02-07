@@ -998,7 +998,7 @@ beforeEach(() => {
 });
 ```
 
-### Component testing
+### Unit testing with Jest
 
 Angular component unit tests not only examine logic but also assess the values that will be presented on the screen.
 
@@ -1049,6 +1049,14 @@ reps: 6, sets: 6, id: '1' };
     tick();
     expect(location.path()).toBe('/home/diary/entry/1');
   }));
+});
+```
+
+If a test is failing, one of the first things to check should be whether the test is failing when it's the only test that runs. To run only one test with Jest, temporarily change that test command to a test.only:
+
+```javascript
+test.only('this will be the only test that runs', () => {
+  expect(true).toBe(false);
 });
 ```
 
