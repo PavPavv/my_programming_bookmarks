@@ -96,6 +96,8 @@ ng test <options...>
 ng build <options...>
 ```
 
+The Angular development tools automatically add script elements to this HTML, which instruct the browser to request the JavaScript files that provide the Angular framework and the custom features defined in the project.
+
 Run end-to-end (integration) tests in existing project:
 
 ```bash
@@ -444,6 +446,61 @@ are singleton.
 
 The onInit method is called after building the component, but before rendering the component.
 
+## Routing
+
+### Root routing
+
+```typescript
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+
+import { NotFoundPageComponent } from './pages/not-found-page/not-found-page.component';
+import { MainPageComponent } from './pages/main-page/main-page.component';
+import { LoginPageComponent } from './pages/login-page/login-page.component';
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { authGuard } from './common/guards';
+
+export const routes: Routes = [
+  {
+    path: '',
+    component: MainPageComponent,
+  },
+  {
+    path: 'login',
+    component: LoginPageComponent,
+  },
+  {
+    path: 'admin',
+    component: AdminPageComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    component: NotFoundPageComponent,
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
+  exports: [RouterModule],
+})
+export class AppRoutingModule {}
+```
+
+### Module(submodule, nested, child) routing
+
+The RouterModule.forChild method is used to define the routing configuration for the feature module,
+which is then included in the module’s imports property.
+
+```typescript
+let routing = RouterModule.forChild([
+    { path: "auth", component: AuthComponent },
+    { path: "main", component: AdminComponent },
+    { path: "**", redirectTo: "auth" }
+]);
+```
+
 ## Modules in Angular + lazy loading + 404 page
 
 ngModel is an object managed by the FormModule module that represents the form’s data model.
@@ -459,12 +516,16 @@ signature described in the ValidatorFn interface. This signature defines that it
 AbstractControl and must return an object of type ValidationErrors that allows the
 template to interpret the new type of validation.
 
+A dynamically loaded module must be self-contained and include all the information that Angular requires, including the routing URLs that are supported and the components they display. If any other part of the application depends on the module, then it will be included in the JavaScript bundle with the rest of
+the application code, which means that all users will have to download code and resources for features they won’t use.
+However, a dynamically loaded module is allowed to declare dependencies on the main part of the application. This module relies on the functionality in the data model module, which has been added to the module’s imports so that components can access the model classes and the repositories.
+
 ```typescript
 private formBuilder = inject(NonNullableFormBuilder);
 
 . . .
-import { ErrorPageComponent } from './error-page/error-page.
-component';
+import { ErrorPageComponent } from './error-page/error-page.component';
+
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   {
