@@ -1,5 +1,27 @@
 # AngularJS
 
+**Table of content:**
+
+1. Start project
+2. Component
+3. Data binding
+4. Event handling
+5. Styles
+6. @ViewChild() decorator
+7. Directives
+8. Services
+9. Routing
+10. Modules in Angular, lazy loading and 404 page
+11. Guards
+12. Resolvers
+13. Interceptor pattern
+14. RxJS
+15. Tests
+16. PWA
+17. Micro frontend
+18. Deploy
+19. Upgrading Angular
+
 ## Start project
 
 ### Generate project template
@@ -1022,7 +1044,7 @@ export class ListEntriesComponent {
 </section>
 ```
 
-## Testing
+## Tests
 
 ```typescript
 describe('AppComponent', () => {
@@ -1166,6 +1188,130 @@ describe('New Entry Form:', () => {
 ```
 
 ----------------------------------------------------------------------------
+
+## PWA
+
+```bash
+ng add @angular/pwa
+```
+
+The _@angular/pwa_ package configures the application so that HTML, JavaScript, and CSS files are cached, which will allow the application to be started even when there is no network available.
+
+In an Angular application, especially when using the Angular Service Worker (SW) for Progressive Web Apps (PWAs), the ngsw-config.json file plays a crucial role in configuring the behavior of the service worker. This file is used by the Angular CLI to create a service worker configuration, allowing developers to define caching strategies, data paths, and other service worker-related settings.
+
+Caching Strategy: It defines how different assets (like application shell files, images, API responses, etc.) should be cached and served. You can specify different strategies (e.g., "cache-first," "network-first," etc.) for different types of resources.
+
+Asset Management: You can specify which files or assets should be included in the caching strategy. This includes the files that need to be pre-cached when the service worker is installed.
+
+Data Groups: For dynamic content (like API calls), you can define data groups that describe how the data should be fetched, cached, and refreshed, which is essential for ensuring that users get the latest data while still benefiting from offline capabilities.
+
+Versioning: It can help manage cache invalidation by allowing you to specify a version for your service worker. When you update the version, previously cached files are invalidated, prompting the service worker to fetch and cache the latest resources.
+
+Basic example:
+
+```json
+{
+  "index": "/index.html",
+  "assetGroups": [
+    {
+      "name": "app",
+      "installMode": "prefetch",
+      "resources": {
+        "files": [
+          "/favicon.ico",
+          "/index.html",
+          "/assets/**",
+          "/styles.css",
+          "/main.js"
+        ]
+      }
+    },
+    {
+      "name": "icons",
+      "installMode": "lazy",
+      "resources": {
+        "files": [
+          "/assets/icons/**"
+        ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "api",
+      "urls": [
+        "https://api.example.com/**"
+      ],
+      "cacheConfig": {
+        "maxSize": 100,
+        "maxAge": "1h",
+        "timeout": "10s",
+        "version": 1
+      }
+    }
+  ]
+}
+```
+
+```typescript
+import { Injectable } from "@angular/core";
+import { Observable, Subject } from "rxjs";
+
+@Injectable()
+export class ConnectionService {
+    private connEvents: Subject<boolean>;
+
+    constructor() {
+        this.connEvents = new Subject<boolean>();
+        window.addEventListener("online",
+            (e) => this.handleConnectionChange(e));
+        window.addEventListener("offline",
+            (e) => this.handleConnectionChange(e));
+    }
+
+    private handleConnectionChange(event: any) {
+        this.connEvents.next(this.connected);
+    }
+
+    get connected() : boolean {
+        return window.navigator.onLine;
+    }
+
+    get changes(): Observable<boolean> {
+        return this.connEvents;
+    }
+}
+```
+
+```typescript
+@Component({
+    templateUrl: "cartDetail.component.html"
+})
+export class CartDetailComponent {
+    public connected: boolean = true;
+    constructor(public cart: Cart, private connection: ConnectionService) {
+        this.connected = this.connection.connected;
+        connection.Changes.subscribe((state) => this.connected = state);
+    }
+}
+```
+
+```html
+<div class="row">
+  <div class="col">
+  <div class="text-center">
+    <button class="btn btn-primary m-1" routerLink="/store">
+        Continue Shopping
+    </button>
+    <button class="btn btn-secondary m-1" routerLink="/checkout"
+            [disabled]="cart.lines.length == 0 || !connected">
+      {{  connected ?  'Checkout' : 'Offline' }}
+    </button>
+  </div>
+</div>
+```
+
+> When you add progressive features to an application, you must deploy it so that it can be accessed over secure HTTP connections. If you do not, the progressive features will not work because the underlying technology—called service workers—won’t be allowed by the browser over regular HTTP connections. You can test progressive features using localhost, as I demonstrate shortly, but an SSL(Secure Sockets Layer)/TLS(Transport Layer Security) certificate is required when you deploy the application.
 
 ## Micro frontend
 
@@ -1420,7 +1566,8 @@ The line ["nginx", "-g", "daemon off;"] runs Nginx and makes it ready to deliver
 To run the Docker container locally, use the following command:
 
 ```bash
-docker run -p 8080:80 myapp
+sudo docker build -t my-image .
+sudo docker run --name my-container -d -rm -p 8080:80 myapp
 ```
 
 ## Upgrading Angular

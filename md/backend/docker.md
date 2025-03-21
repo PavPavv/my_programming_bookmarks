@@ -47,9 +47,80 @@ To run Docker you need a Dockerfile. Who has an image can create a containers. I
 2. Temporary App Data (read/write, stored in Containers)
 3. Permanent App Data (read + write, stored with Container & Volumes)
 
+### Images (theory)
+
+### Containers (theory)
+
+In Docker, containers can be run in two main modes: attached mode and detached mode.
+
+Attached mode.
+When you run a Docker container in attached mode, your terminal session is directly connected to the container's standard input (stdin), standard output (stdout), and standard error (stderr). This means that you can see the output of the application running inside the container in real-time, and you can interact with it directly through your terminal. In this case, if you run a container interactively, you would typically use the -it flags (interactive and TTY).
+
+Detached Mode
+In detached mode, the container runs in the background, and you do not have a direct connection to its standard input or output. This mode is useful for running long-lived processes that do not require interactive user input, such as web servers or background tasks.
+To run a container in detached mode, you use the -d flag.
+
+The **docker run** command is used to create and start a new container from a specified image. It not only starts the container but also creates it in the process if it doesn’t already exist. When you run **docker run**, you can specify a variety of options such as environment variables, port mappings, volume mounts, and more. Once executed, a new container instance is created and started.
+
+Purpose: The **docker start** command is used to start an existing, stopped container. It does not create a new container; instead, it starts a container that has been previously created but is in the stopped state. This command will start the container with the same settings and state it was in when it was stopped (including any internal state, process, etc.). Use **docker start** when you want to restart a container that is already created and configured, without changing its existing settings.
+
 ### Volumes (theory)
 
 Volumes unlike Containers and Images hosts on a local machine. That means that data in Volumes survive Image or Container removing.
+A Docker-managed storage mechanism that is completely managed by Docker. They are stored in a part of the host filesystem that is managed by the Docker daemon (/var/lib/docker/volumes/ on Linux systems). Created, listed, and managed using Docker CLI commands (**docker volume create**, **docker volume ls**, etc.). Docker takes care of the lifecycle of volumes.
+Best for shared data between containers and scenarios where you need to keep data after a container is deleted. Volumes are preferred when you want data to persist beyond the lifecycle of the container.
+Generally provide better performance since they are optimized for Docker and can take advantage of Docker's storage drivers.
+Volumes offer better isolation since they are controlled by Docker, and their contents do not depend on or automatically change with the host’s filesystem.
+
+You can create a Docker volume using the docker volume create command. The basic syntax is:
+
+```bash
+docker volume create <volume_name>
+```
+
+To use the volume in a Docker container, you can specify it with the -v or --mount option when running the container.
+
+```bash
+docker run -v <volume_name>:/container/path <image>
+```
+
+or 
+
+```bash
+docker run --mount type=volume,source=<volume_name>,target=/container/path <image>
+```
+
+### Bind Mounts (theory)
+
+Development only! In production we always want a snapshot of our code!
+
+A way to specify a host directory or file to use as a mount point inside the container. The directory or file must exist on the host, and it can be located anywhere in the filesystem. Managed by the host operating system, and changes made to files in a bind mount are reflected immediately in both the host and container.
+Useful for development environments where you want to have direct access to the files on your host system. For example, you might want to mount a local directory into a container to see changes in real-time without rebuilding the container.
+Performance can depend on the underlying host filesystem and how Docker interacts with it, which may be less optimal than using volumes.
+Bind Mounts can potentially lead to issues with differences in file permissions and configurations on the host, since they directly map to the host's filesystem.
+
+To create a bind mount in Docker, you can use the -v or --mount option when you run a container. You can create a bind mount using the -v option. The basic syntax is:
+
+```bash
+docker run -v /host/path:/container/path <image>
+```
+
+Alternatively, you can use the more explicit --mount flag, which provides more options for configuring the mount.
+
+```bash
+docker run --mount type=bind,source=/host/path,target=/container/path <image>
+```
+
+**docker run** command here start the container with volume mounts and port mappings for local Node.js development:
+
+```bash
+docker run -d \                 # Run the container in detached mode
+  --name <container-name> \     # Name the container
+  -v $(pwd):/app \              # Mount the current directory to /app
+  -v /app/node_modules \        # Preserve node_modules in the container
+  -p 3000:3000 \                # Map port 3000 on host to port 3000 in the container
+  <image-name>                  # Use the built image
+```
 
 ### Networks (theory)
 
@@ -92,7 +163,7 @@ docker build .
 (Create named image)
 
 ```bash
-docker build -t <your-image-name> .
+docker build -t <your-image-name>:<your-image-tag> .
 ```
 
 Rebuild the image (the same exact command)
