@@ -274,6 +274,20 @@ Change text of the last commit without changing codebase
 git commit --amend --no-edit
 ```
 
+Rename commit last local commit:
+
+```bash
+git commit --amend -m "New commit message"
+```
+
+Rename commit last remote commit:
+
+```bash
+git commit --amend -m "New commit message"
+# on the target branch
+git push --force-with-lease origin HEAD
+```
+
 ## Merging
 
 Merge without creating new commit for it

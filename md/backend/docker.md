@@ -49,6 +49,8 @@ To run Docker you need a Dockerfile. Who has an image can create a containers. I
 
 ### Images (theory)
 
+In Docker, an image is a lightweight, standalone, and executable package that includes everything needed to run a piece of software, including the code, runtime, libraries, environment variables, and configuration files. Think of it as a template or blueprint for creating a live instance known as a container.
+
 ### Containers (theory)
 
 In Docker, containers can be run in two main modes: attached mode and detached mode.
@@ -71,24 +73,6 @@ A Docker-managed storage mechanism that is completely managed by Docker. They ar
 Best for shared data between containers and scenarios where you need to keep data after a container is deleted. Volumes are preferred when you want data to persist beyond the lifecycle of the container.
 Generally provide better performance since they are optimized for Docker and can take advantage of Docker's storage drivers.
 Volumes offer better isolation since they are controlled by Docker, and their contents do not depend on or automatically change with the host’s filesystem.
-
-You can create a Docker volume using the docker volume create command. The basic syntax is:
-
-```bash
-docker volume create <volume_name>
-```
-
-To use the volume in a Docker container, you can specify it with the -v or --mount option when running the container.
-
-```bash
-docker run -v <volume_name>:/container/path <image>
-```
-
-or 
-
-```bash
-docker run --mount type=volume,source=<volume_name>,target=/container/path <image>
-```
 
 ### Bind Mounts (theory)
 
@@ -124,6 +108,9 @@ docker run -d \                 # Run the container in detached mode
 
 ### Networks (theory)
 
+Use networks to communicate between multiple container. Sending http requests from the container to the outside works by default.
+
+---
 ---
 
 ## Use Docker
@@ -259,6 +246,26 @@ sudo docker container prune
 docker run --env-file ./.env -v $(pwd)/src:/app/src:ro -d -p 3000:5173 --name <your-container-name> <your-image-name>
 ```
 
+### Volumes
+
+You can create a Docker volume using the docker volume create command. The basic syntax is:
+
+```bash
+docker volume create <volume_name>
+```
+
+To use the volume in a Docker container, you can specify it with the -v or --mount option when running the container.
+
+```bash
+docker run -v <volume_name>:/container/path <image>
+```
+
+or 
+
+```bash
+docker run --mount type=volume,source=<volume_name>,target=/container/path <image>
+```
+
 ### Networks
 
 1. List on all the networks
@@ -267,7 +274,26 @@ docker run --env-file ./.env -v $(pwd)/src:/app/src:ro -d -p 3000:5173 --name <y
 sudo network ls
 ```
 
-### Volumes
+2. Multiple containers for server and database
+
+Dockerfile for server:
+
+```Dockerfile
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package.json .
+
+RUN npm install
+
+COPY . .
+
+CMD ["node", "app.js"]
+```
+
+---
+---
 
 ### docker-compose
 

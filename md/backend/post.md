@@ -39,3 +39,9 @@ psql
 ```bash
 \du
 ```
+
+### Exit from psql shell regime
+
+```bash
+\q
+```
