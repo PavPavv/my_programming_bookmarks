@@ -7,6 +7,7 @@
 - 📋 [Cheatsheet](https://devhints.io/react)
 - 📋 [React total, RU](https://github.com/harryheman/React-Total)
 - 🔖 [My React cheat sheet](https://github.com/PavPavv/MyJSCheatsheet/blob/master/interview_EN/react.md)
+- 🔖 [My React helpers](./frontend_helpers/react_helpers.md)
 
 ## Utils
 
@@ -55,7 +56,7 @@
 
 - 📦 [React Router](https://v5.reactrouter.com/web/api/Hooks)
 
-#### Forms, validation
+### Forms, validation
 
 - 📋 [Formik + Yup example](https://www.devcript.com/formik-yup/)
 - 📦 [Formik](https://formik.org/)
