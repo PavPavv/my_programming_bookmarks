@@ -266,7 +266,7 @@ or
 docker run --mount type=volume,source=<volume_name>,target=/container/path <image>
 ```
 
-### Networks
+### Networks (Container networks)
 
 1. List on all the networks
 
@@ -274,7 +274,16 @@ docker run --mount type=volume,source=<volume_name>,target=/container/path <imag
 sudo network ls
 ```
 
-2. Multiple containers for server and database
+2. Run network from terminal
+
+```bash
+sudo docker network create some-net-name
+sudo docker run -d --name container-name --network some-net-name image-name
+# add another container to the same network
+sudo docker run --name another-container-name --network some-net-name -d --rm -p 3000:3000 another-image-name
+```
+
+3. Multiple containers for server and database
 
 Dockerfile for server:
 
