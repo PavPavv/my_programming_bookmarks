@@ -126,6 +126,11 @@ Run end-to-end (integration) tests in existing project:
 ng e2e <options...>
 ```
 
+### Root module
+
+The term module does double duty in an Angular application and refers to both a JavaScript module and an Angular module. JavaScript modules are used to track dependencies in the application and ensure that the browser receives only the code it requires. Angular modules are used to configure a part of the Angular application.
+Every application has a root Angular module, which is responsible for describing the application to Angular. For applications created with the ng new command, the root module is called AppModule, and it is defined in the app.module.ts file in the src/app folder.
+
 ## Component
 
 An Angular component can be identified by the component suffix (e.g., _my-custom-name.component.ts_) and has the following:

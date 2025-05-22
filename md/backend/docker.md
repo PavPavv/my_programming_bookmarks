@@ -66,6 +66,8 @@ The **docker run** command is used to create and start a new container from a sp
 
 Purpose: The **docker start** command is used to start an existing, stopped container. It does not create a new container; instead, it starts a container that has been previously created but is in the stopped state. This command will start the container with the same settings and state it was in when it was stopped (including any internal state, process, etc.). Use **docker start** when you want to restart a container that is already created and configured, without changing its existing settings.
 
+Request to outer servers are always possible in containers. Request to the local machine servers and other containers possible in Docker via networks.
+
 ### Volumes (theory)
 
 Volumes unlike Containers and Images hosts on a local machine. That means that data in Volumes survive Image or Container removing.
