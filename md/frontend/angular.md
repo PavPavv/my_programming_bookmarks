@@ -131,6 +131,9 @@ ng e2e <options...>
 The term module does double duty in an Angular application and refers to both a JavaScript module and an Angular module. JavaScript modules are used to track dependencies in the application and ensure that the browser receives only the code it requires. Angular modules are used to configure a part of the Angular application.
 Every application has a root Angular module, which is responsible for describing the application to Angular. For applications created with the ng new command, the root module is called AppModule, and it is defined in the app.module.ts file in the src/app folder.
 
+When the application starts, Angular processes the index.html file, locates the element that matches the root component’s selector property, and replaces it with the contents of the files specified by the root component’s templateUrl and styleUrls properties. This is done using the Domain Object Model (DOM)
+API provided by the browser for JavaScript applications.
+
 ## Component
 
 An Angular component can be identified by the component suffix (e.g., _my-custom-name.component.ts_) and has the following:
@@ -1413,6 +1416,12 @@ npm install @angular/elements --save
 ```
 
 ## Deploy
+
+The ng build command performs the production compilation process, and the bundles it produces are smaller and contain only the code that is required by the application.
+
+```bash
+ng build
+```
 
 ```bash
 ng generate environments
