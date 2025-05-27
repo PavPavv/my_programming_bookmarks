@@ -2,9 +2,15 @@
 
 ## Event loop
 
+<!-- ADD -->
+
 ## Module system
 
+<!-- ADD -->
+
 ## Filesystem (fs+path)
+
+<!-- ADD -->
 
 ## Streams
 
@@ -60,3 +66,9 @@ EXPOSE 4800
 
 CMD ["node", "src/index.js"]
 ```
+
+#### Things to watch out for
+
+- **Bind Mounts** should not be used in Production!
+- Containerized apps might need a build step (frontend mostly)
+- Multi-container projects might need to be split (or should be split) across multiple hosts/remote machines (docker-compose)
