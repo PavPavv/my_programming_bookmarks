@@ -112,6 +112,15 @@ docker run -d \                 # Run the container in detached mode
 
 Use networks to communicate between multiple container. Sending http requests from the container to the outside works by default.
 
+### Deploy
+
+#### Things to watch out for
+
+- **Bind Mounts** should not be used in Production!
+- Containerized apps might need a build step (frontend mostly)
+- Multi-container projects might need to be split (or should be split) across multiple hosts/remote machines (docker-compose)
+- Use **COPY** to copy a code snapshot into the image
+
 ---
 ---
 

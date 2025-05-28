@@ -67,8 +67,7 @@ EXPOSE 4800
 CMD ["node", "src/index.js"]
 ```
 
-#### Things to watch out for
+#### Deploy
 
-- **Bind Mounts** should not be used in Production!
-- Containerized apps might need a build step (frontend mostly)
-- Multi-container projects might need to be split (or should be split) across multiple hosts/remote machines (docker-compose)
+1. Rent a remote server
+2. Install Node, git and Docker there via ssh command
