@@ -2,11 +2,47 @@
 
 ## Add "Dockerfile" to the root of your project
 
-## Describe "Dockerfile"
+### Describe development "Dockerfile"
 
-```bash
+```Dockerfile
 # Specify platform and it's version
-FROM node
+FROM node:20-alpine
+
+# Specify working directory
+WORKDIR /app
+
+# Copy main file with all of the dependencies for caching necessary
+# in order not to run npm install every time we change the code base
+COPY package*.json .
+
+# Install node_modules into the container
+RUN npm install
+
+# Copy rest of the code to the same container
+# Every time we change the code we re-run COPY command of the Docker
+COPY . .
+
+EXPOSE 3000
+
+# CMD ["npm","start"] also possible
+# React with npm:
+CMD ["npm", "run", "start"]
+
+# React with pnpm:
+# CMD ["pnpm", "run", "dev"]
+
+# Angular with npm:
+# CMD ["npx", "ng", "serve"]
+
+# Start the Angular development server with live reload
+# CMD ["npx", "ng", "serve", "--host", "0.0.0.0"]
+```
+
+### Describe production "Dockerfile" (so called "Multi-Stage Builds")
+
+```Dockerfile
+# Specify platform and it's version
+FROM node:14-alpine as build
 
 # Specify working directory
 WORKDIR /app
@@ -22,9 +58,20 @@ RUN npm install
 # Every time we change the code we re-run COPY command of the Docker
 COPY . .
 
-EXPOSE 3000
+# CMD ["npm", "run", "build"]
+RUN npm run build
 
-CMD ["npm", "run", "dev"]
+#########################################################################
+# Next stage begins here in the second FROM
+FROM nginx:stable-alpine
+
+# Get the final result from the previous stage (build) here
+# path should have a frontend app build result directory
+COPY --from=build /app/build /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;]
 ```
 
 ## Build Docker image from Dockerfile
@@ -147,6 +194,30 @@ services:
       - ./.env
 ```
 
+docker-compose.dev.yml:
+
+```yml
+version: '3.8'
+
+services:
+  angular:
+    build: .
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    # for hot reloading
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+```
+
+To run it:
+
+```bash
+docker-compose -f docker-compose.dev.yml up --build
+```
+
 2. Run the target containers by running docker-compose:
 
 ```bash
@@ -170,3 +241,5 @@ docker-compose down
 ```bash
 sudo docker-compose -f docker-compose.yml -f docker-compose-prod.yml up -d --build
 ```
+
+

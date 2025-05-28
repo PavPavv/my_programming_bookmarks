@@ -120,6 +120,8 @@ Use networks to communicate between multiple container. Sending http requests fr
 - Containerized apps might need a build step (frontend mostly)
 - Multi-container projects might need to be split (or should be split) across multiple hosts/remote machines (docker-compose)
 - Use **COPY** to copy a code snapshot into the image
+- Stages can copy results (created files and folders) from each other
+- You can either build the complete image or select individual stages
 
 ---
 ---
