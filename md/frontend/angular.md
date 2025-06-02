@@ -252,6 +252,49 @@ The singleton pattern is a design pattern of the creational type and allows the 
 8. **ngAfterViewChecked** -> Runs after every check of a component's view.
 9. **ngOnDestroy** -> Runs before a component is destroyed.
 
+### Component's core services
+
+#### ChangeDetectorRef
+
+ChangeDetectorRef is a service that is part of the @angular/core package. It is used to control the change detection mechanism of Angular applications. Change detection is the process by which Angular checks for changes in component data and updates the view accordingly.
+
+Purpose: ChangeDetectorRef allows you to manually trigger change detection or control how it operates in your components. This can be particularly useful in scenarios where Angular's default change detection strategy does not behave as expected, such as when working with third-party libraries, asynchronous operations, or when optimizing performance.
+
+- **detectChanges()**: This method can be called to run change detection for the component and its children immediately. It is useful when you know that the data has changed, but Angular hasn't detected it.
+
+- **markForCheck()**: Marks the component and its ancestors as needing to be checked for changes. This is useful when using the OnPush change detection strategy.
+
+- **detach()**: Detaches the change detector from the change detection tree, meaning that Angular will not check this component for changes unless it is explicitly reattached.
+
+- **reattach()**: Reattaches a previously detached change detector, allowing Angular to check for changes again.
+
+#### Change Detection Strategies
+
+Angular uses two change detection strategies: _Default_ and _OnPush_.
+The default strategy checks the component and all its children whenever any event occurs.
+**On Push** strategy only checks the component when its input properties change, an event occurs within the component, or a manual trigger occurs (like calling **markForCheck()**).
+
+```typescript
+import { Component, ChangeDetectorRef } from '@angular/core';
+
+@Component({
+  selector: 'app-example',
+  template: <div>{{data}}</div>
+             <button (click)="updateData()">Update Data</button>
+})
+export class ExampleComponent {
+  data: string = 'Initial Data';
+
+  constructor(private cdr: ChangeDetectorRef) {}
+
+  updateData() {
+    this.data = 'Updated Data';
+    // Manually trigger change detection
+    this.cdr.detectChanges();
+  }
+}
+```
+
 ----------------------------------------------------------------------------
 
 ## Data binding
