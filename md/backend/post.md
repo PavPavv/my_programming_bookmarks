@@ -22,10 +22,43 @@ psql
 
 ## Basics
 
-### Connect to db
+- "\h" for help with SQL commands
+- "\?" for help with psql commands
+- "\g" or terminate with semicolon(";") to execute query
+- "\q" to quit
+
+### Help
+
+```bash
+\?
+```
+
+### Tables list
+
+```bash
+\l
+```
+
+### Connect to db table
 
 ```bash
 \connect <db-name>
+```
+
+### Tables relations description
+
+```bash
+\d
+```
+
+### Table relations description
+
+```bash
+\d <bd-name>
+```
+
+```bash
+\d "BdName"
 ```
 
 ### Check db tables
