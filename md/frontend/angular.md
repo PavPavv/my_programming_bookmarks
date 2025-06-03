@@ -301,6 +301,8 @@ export class ExampleComponent {
 
 In Angular, data binding is a core concept that allows you to synchronize data between the model (component) and the view (template). There are two main types of data binding: one-way binding and two-way binding.
 
+Data bindings can be applied to any HTML element in a template, and an element can have multiple bindings, each of which can manage a different aspect of the element’s appearance or behavior.
+
 ### One-way binding
 
 One-way binding means that data flows in one direction only, either from the component to the view or from the view to the component.
@@ -335,6 +337,22 @@ When you need to dynamically set the value of attributes in an HTML element, the
 ```typescript
 <button [disabled]="hasPendingChanges"></button>
 ```
+
+If the binding target doesn’t correspond to a directive, then Angular checks to see whether the target can be used to create a property binding. There are five different types of property binding:
+
+- [property]
+- [attr.name]
+- [class.name]
+- [style.name]
+
+The square brackets (the [ and ] characters) tell Angular that this is a one-way data binding that has an expression that should be evaluated. Angular will still process the binding if you omit the brackets and the target is a directive, but the expression won’t be evaluated, and the content between the quote characters will be passed to the directive as a literal value.
+
+The Angular Brackets:
+
+1. [target]="expr" - The square brackets indicate a one-way data binding where data flows from the expression to the target. The different forms of this type of binding are the topic of this chapter.
+2. {{expression}} - This is the string interpolation binding.
+3. (target) ="expr" - The round brackets indicate a one-way binding where the data flows from the target to the destination specified by the expression. This is the binding used to handle events.
+4. [(target)] ="expr" - This combination of brackets—known as the banana-in-a-box—indicates a two-way binding, where data flows in both directions between the target and the destination specified by the expression.
 
 ### Two-way binding
 
@@ -432,6 +450,17 @@ Static Option: As of Angular 8, you can specify whether you want to resolve the 
 ```
 
 ## Directives
+
+### The Basic Built-in Angular Directives
+
+- ngClass
+- ngStyle
+- ngIf
+- ngFor
+- ngSwitch
+- ngSwitchCase
+- ngSwitchDefault
+- ngTemplateOutlet
 
 ### Conditional rendering (\*ngIf)
 
