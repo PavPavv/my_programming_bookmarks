@@ -134,6 +134,28 @@ Every application has a root Angular module, which is responsible for describing
 When the application starts, Angular processes the index.html file, locates the element that matches the root component’s selector property, and replaces it with the contents of the files specified by the root component’s templateUrl and styleUrls properties. This is done using the Domain Object Model (DOM)
 API provided by the browser for JavaScript applications.
 
+## Styles
+
+By default, a component's style will only apply to elements in that component's template in order to limit the side effects.
+
+While Angular's default style encapsulation prevents component styles from affecting other components, global styles affect all components on the page. This includes &**::ng-deep**, which promotes a component style to a global style.
+
+Every component is associated within an element that matches the component's selector. This element, into which the template is rendered, is called the host element. The **:host** pseudo-class selector may be used to create styles that target the host element itself, as opposed to targeting elements inside the host.
+
+```typescript
+@Component({
+  selector: 'app-root',
+  template: `
+    <h1>Tour of Heroes</h1>
+    <app-hero-main [hero]="hero"></app-hero-main>
+  `,
+  styleUrls: ['./hero-app.component.css'],
+})
+export class HeroAppComponent {
+  /* . . . */
+}
+```
+
 ## Component
 
 An Angular component can be identified by the component suffix (e.g., _my-custom-name.component.ts_) and has the following:
@@ -295,6 +317,49 @@ export class ExampleComponent {
 }
 ```
 
+### @ViewChild() decorator
+
+In Angular, @ViewChild is a decorator that allows you to access a child component, directive, or DOM element from a parent component's class. It provides a way to interact with the child component's properties and methods directly.
+
+1. Accessing Child Components: You can use @ViewChild to get a reference to a child component and call its public methods or access its properties.
+
+2. Manipulating DOM Elements: If you need to directly manipulate a DOM element (e.g., focusing an input field), @ViewChild can be used to get a reference to that element.
+
+3. Interacting with Directives: You can also use @ViewChild to access custom directives applied to elements in your template.
+
+```typescript
+import { Component, ViewChild } from '@angular/core';
+
+// parent.component.html:
+// <child-component #childComp></child-component>
+// <input #inputField type="text">
+
+@Component({
+    selector: 'app-parent',
+    templateUrl: './parent.component.html'
+  })
+  export class ParentComponent {
+    @ViewChild('childComp') childComponent!: ChildComponent; // Reference to the child component
+    @ViewChild('inputField') inputField!: ElementRef; // Reference to the input field
+
+    ngAfterViewInit() {
+      // Accessing properties or methods of the child component
+      this.childComponent.someMethod();
+
+      // Manipulating the input field
+      this.inputField.nativeElement.focus();
+    }
+  }
+```
+
+Lifecycle Hooks: You typically access the @ViewChild properties after the view has been initialized, which is why you often see it used in the ngAfterViewInit() lifecycle hook.
+
+Static Option: As of Angular 8, you can specify whether you want to resolve the query results before or after change detection runs by passing an options object as the second argument to @ViewChild. For example:
+
+```typescript
+@ViewChild('childComp', { static: false }) childComponent!: ChildComponent;
+```
+
 ----------------------------------------------------------------------------
 
 ## Data binding
@@ -354,13 +419,49 @@ The Angular Brackets:
 3. (target) ="expr" - The round brackets indicate a one-way binding where the data flows from the target to the destination specified by the expression. This is the binding used to handle events.
 4. [(target)] ="expr" - This combination of brackets—known as the banana-in-a-box—indicates a two-way binding, where data flows in both directions between the target and the destination specified by the expression.
 
+One-way data bindings must be idempotent, meaning that they can be evaluated repeatedly without changing the state of the application.
+
+The expression context means you can’t access objects defined outside of the template’s component, and in particular, templates can’t access the global namespace.
+If you want to access functionality in the global namespace, then it must be provided by the component, acting on behalf of the template.
+
+### Event one-way binding
+
+Reference variables are defined using the # character, followed by the variable name.
+Angular won’t update the data bindings in the template when the user edits the contents of the input
+element unless there is an event binding on that element. Setting the binding to false gives Angular
+something to evaluate just so the update process will begin and distribute the current contents of the input element throughout the template.
+
+```html
+<input #product class="form-control" (input)="false" />
+
+<td (mouseover)="product.value = item.name ?? ''">{{i + 1}}</td>
+```
+
 ### Two-way binding
 
 Two-way binding allows data to flow in both directions: from the component to the view and from the view back to the component. This is particularly useful for form inputs where you want to keep the component's state in sync with user input.
 
-```tsx
-<input [(ngModel)]="username" />
+```html
+<input
+  class="form-control
+  (input)="selectedProduct=$any($event).target.value"
+  [value]="selectedProduct ?? ''"
+/>
 ```
+
+#### Using the ngModel Directive
+
+```html
+<input [(ngModel)]="username" />
+<input class="form-control" [(ngModel)]="selectedProduct" />
+```
+
+The target for the binding is the ngModel directive, which is included in Angular to simplify creating two-way data bindings on form elements, such as the input elements used in the example.
+The ngModel directive knows the combination of events and properties that the standard HTML
+elements define. Behind the scenes, an event binding is applied to the input event, and a property binding is applied to the value property.
+You must remember to use both brackets and parentheses with the ngModel binding. If you use
+just parentheses—(ngModel)—then you are setting an event binding for an event called ngModel, which
+doesn’t exist. The result is an element that won’t be updated or won’t update the rest of the application. You can use the ngModel directive with just square brackets—[ngModel]—and Angular will set the initial value of the element but won’t listen for events, which means that changes made by the user won’t be automatically reflected in the application model.
 
 ### Unidirectional data flow
 
@@ -370,112 +471,97 @@ In practice, this means that data in Angular flows downward during change detect
 
 To avoid this error, a lifecycle hook method that seeks to make such a change should trigger a new change detection run. The new run follows the same direction as before, but succeeds in picking up the new value.
 
-## Event Handling
-
-You can bind event listeners by specifying the event name in parenthesis and invoking a method on the right-hand-side of the equals sign:
-
-```typescript
-<button (click)="saveChanges()">Save Changes</button>
-```
-
-If you need to pass the event object to your event listener, Angular provides an implicit $event variable that can be used inside the function call:
-
-```typescript
-<button (click)="saveChanges($event)">Save Changes</button>
-```
-
-## Styles
-
-By default, a component's style will only apply to elements in that component's template in order to limit the side effects.
-
-While Angular's default style encapsulation prevents component styles from affecting other components, global styles affect all components on the page. This includes &**::ng-deep**, which promotes a component style to a global style.
-
-Every component is associated within an element that matches the component's selector. This element, into which the template is rendered, is called the host element. The **:host** pseudo-class selector may be used to create styles that target the host element itself, as opposed to targeting elements inside the host.
-
-```typescript
-@Component({
-  selector: 'app-root',
-  template: `
-    <h1>Tour of Heroes</h1>
-    <app-hero-main [hero]="hero"></app-hero-main>
-  `,
-  styleUrls: ['./hero-app.component.css'],
-})
-export class HeroAppComponent {
-  /* . . . */
-}
-```
-
-## @ViewChild() decorator
-
-In Angular, @ViewChild is a decorator that allows you to access a child component, directive, or DOM element from a parent component's class. It provides a way to interact with the child component's properties and methods directly.
-
-1. Accessing Child Components: You can use @ViewChild to get a reference to a child component and call its public methods or access its properties.
-
-2. Manipulating DOM Elements: If you need to directly manipulate a DOM element (e.g., focusing an input field), @ViewChild can be used to get a reference to that element.
-
-3. Interacting with Directives: You can also use @ViewChild to access custom directives applied to elements in your template.
-
-```typescript
-import { Component, ViewChild } from '@angular/core';
-
-// parent.component.html:
-// <child-component #childComp></child-component>
-// <input #inputField type="text">
-
-@Component({
-    selector: 'app-parent',
-    templateUrl: './parent.component.html'
-  })
-  export class ParentComponent {
-    @ViewChild('childComp') childComponent!: ChildComponent; // Reference to the child component
-    @ViewChild('inputField') inputField!: ElementRef; // Reference to the input field
-
-    ngAfterViewInit() {
-      // Accessing properties or methods of the child component
-      this.childComponent.someMethod();
-
-      // Manipulating the input field
-      this.inputField.nativeElement.focus();
-    }
-  }
-```
-
-Lifecycle Hooks: You typically access the @ViewChild properties after the view has been initialized, which is why you often see it used in the ngAfterViewInit() lifecycle hook.
-
-Static Option: As of Angular 8, you can specify whether you want to resolve the query results before or after change detection runs by passing an options object as the second argument to @ViewChild. For example:
-
-```typescript
-@ViewChild('childComp', { static: false }) childComponent!: ChildComponent;
-```
-
 ## Directives
 
 ### The Basic Built-in Angular Directives
 
-- ngClass
-- ngStyle
-- ngIf
-- ngFor
-- ngSwitch
-- ngSwitchCase
-- ngSwitchDefault
-- ngTemplateOutlet
+- *ngClass
+- *ngStyle
+- *ngIf
+- *ngFor
+- *ngSwitch
+- *ngSwitchCase
+- *ngSwitchDefault
+- *ngTemplateOutlet
 
-### Conditional rendering (\*ngIf)
+The asterisk before the name of directive is required because the directive is using a micro-template.
+
+#### *ngFor
+
+```html
+<tr *ngFor="let item of getProducts(); let i = index; let c = count; let d = odd; let e = even; let f = first; let g = last; trackBy:getKey">
+```
+
+```typescript
+getKey(index: number, product: Product) {
+  return product.id;
+}
+```
+
+*ngTemplate + *ngFor:
+
+```html
+<table class="table table-sm table-bordered text-dark">
+    <tr><th></th><th>Name</th><th>Category</th><th>Price</th></tr>
+     <ng-template ngFor let-item [ngForOf]="getProducts()"
+             let-i="index"  let-c="count" let-odd="odd">
+         <tr class="text-white" [class.bg-primary]="odd" [class.bg-info]="!odd">
+            <td>{{ i + 1 }} of {{ c }}</td>
+            <td>{{item.name}}</td>
+            <td>{{item.category}}</td>
+            <td>{{item.price}}</td>
+         </tr>
+     </ng-template>
+</table>
+```
+
+When there is a change to the data model, the ngFor directive evaluates its expression and updates the elements that represent its data objects. The update process can be expensive, especially if the data source is replaced with one that contains different objects representing the same data.
+
+#### *ngTemplateOutlet and *ngTemplateOutletContext
+
+The **ngTemplateOutlet** directive is used to repeat a block of content at a specified location, which can be useful when you need to generate the same content in different places and want to avoid duplication.
+
+```html
+<ng-template #titleTemplate let-title="title">
+    <h4 class="p-2 bg-success text-white">Repeated Content</h4>
+</ng-template>
+
+<ng-template [ngTemplateOutlet]="titleTemplate"></ng-template>
+  
+<div class="bg-info p-2 m-2 text-white">
+  There are {{getProductCount()}} products.
+</div>
+
+<ng-template [ngTemplateOutlet]="titleTemplate"></ng-template>
+```
+
+The **ngTemplateOutlet** directive can be used to provide the repeated content with a context object that can be used in data bindings defined within the element.
+To receive the context data, the **ng-template** element that contains the repeated content defines a _let-attribute_ that specifies the name of a variable, similar to the expanded syntax used for the **ngFor** directive. The value of the expression assigns the _let-variable_ a value.
+
+```html
+<ng-template #titleTemplate let-title="title">
+    <h4 class="p-2 bg-success text-white">{{ text }}</h4>
+</ng-template>
+
+<ng-template [ngTemplateOutlet]="titleTemplate" [ngTemplateOutletContext]="{title: 'Header'}"></ng-template>
+  
+<div class="bg-info p-2 m-2 text-white">
+  There are {{getProductCount()}} products.
+</div>
+
+<ng-template [ngTemplateOutlet]="titleTemplate" [ngTemplateOutletContext]="{title: 'Footer'}"></ng-template>
+```
+
+#### *ng-container
+
+The ng-container element doesn’t appear in the HTML displayed by the browser, which means that it can be used to generate content within elements.
+
+#### *ngIf
 
 ```html
 <section class="admin-controls" *ngIf="hasAdminPrivileges">
   The content you are looking for is here.
 </section>
-```
-
-### Rendering a list (\*ngFor)
-
-```html
-<ul class="ingredient-list">
-  <li *ngFor="let task of taskList">{{ task }}</li>
-</ul>
 ```
 
 ### Custom directives
@@ -498,7 +584,112 @@ export class HighlightDirective {
 <p appHighlight>Look at me!</p>
 ```
 
-Directives can also leverage user events, take input for additional customization...
+Directives can also leverage user events, take input for additional customization.
+
+## Event Handling
+
+You can bind event listeners by specifying the event name in parenthesis and invoking a method on the right-hand-side of the equals sign:
+
+```typescript
+<button (click)="saveChanges()">Save Changes</button>
+```
+
+If you need to pass the event object to your event listener, Angular provides an implicit $event variable that can be used inside the function call:
+
+```typescript
+<button (click)="saveChanges($event)">Save Changes</button>
+```
+
+### Mouse bindings
+
+```html
+<td (mouseover)="selectedProduct=item.name">{{i + 1}}</td>
+```
+
+The event binding can also be used to introduce data from the event itself, using details that are provided by the browser - **$event**.
+
+```html
+<input class="form-control" (input)="selectedProduct=$any($event).target.value" />
+```
+
+When the browser triggers an event, it provides an Event object that describes it. There are different types of event objects for different categories of events (mouse events, keyboard events, form events, and so on), but all events share the three properties:
+
+- **type** (This property returns a string that identifies the type of event that has been triggered.)
+- **target** (This property returns the object that triggered the event, which will generally be the object that represents the HTML element in the DOM.)
+- **timeStamp** (This property returns a number that contains the time that the event was triggered,
+expressed as milliseconds since January 1, 1970.)
+
+Unfortunately, Angular assumes that the $event variable is always assigned an **Event object**, which defines the features common to all events. The Event.target property returns an InputTarget object, which defines just the methods required to set up event handlers and doesn’t provide access to element-specific features.
+Angular templates do support the special $any function, which disables type checking by treating a
+value as the special any type:
+
+```html
+<input class="form-control" (input)="selectedProduct=$any($event).target.value" />
+```
+
+```typescript
+handleInputEvent(ev: Event) {
+  if (ev.target instanceof HTMLInputElement) {
+    this.selectedProduct = ev.target.value
+  }
+}
+```
+
+By passing $event to the $any function, I can read the target.value property without causing a compiler error.
+
+## Forms
+
+### Importing the Forms Module
+
+Declaring a Dependency in the app.module.ts File in the src/app Folder:
+
+```typescript
+import { FormsModule } from "@angular/forms";
+
+@NgModule({
+  declarations: [ProductComponent],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule
+  ],
+  providers: [],
+  bootstrap: [ProductComponent]
+})
+export class AppModule { }
+```
+
+When using a form element, the convention is to use an event binding for a special event called
+ngSubmit like this:
+
+```html
+<form (ngSubmit)="addProduct(newProduct)">
+```
+
+In Angular forms there are three pairs of validation classes:
+
+- ng-untouched/ng-touched
+- ng-pristine/ng-dirty
+- ng-valid/ng-invalid
+- ng-pending
+
+Display error messages:
+
+```html
+<ul class="text-danger list-unstyled mt-1"
+    *ngIf="name.dirty && name.invalid">
+    <li *ngIf="name.errors?.['required']">
+       You must enter a product name
+     </li>
+     <li *ngIf="name.errors?.['pattern']">
+        Product names can only contain letters and spaces
+     </li>
+     <li *ngIf="name.errors?.['minlength']">
+       Product names must be at least
+       {{ name.errors?.['minlength'].requiredLength }} characters
+     </li>
+</ul>
+```
 
 ## Services
 
