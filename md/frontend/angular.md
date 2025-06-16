@@ -566,7 +566,14 @@ The ng-container element doesn’t appear in the HTML displayed by the browser, 
 
 ### Custom directives
 
+Directives are classes to which the @Directive decorator has been applied. The decorator requires
+the selector property, which is used to specify how the directive is applied to elements, expressed using a standard CSS style selector.
 Custom Angular directives can be identified by the directive suffix (e.g., _my-custom-name.directive.ts_).
+
+> The prefix Ng/ng is reserved for use for built-in Angular features and should not be used.
+
+The directive constructor defines a single ElementRef parameter, which Angular provides when it
+creates a new instance of the directive and which represents the host element. The ElementRef class defines a single property, nativeElement, which returns the object used by the browser to represent the element in the Domain Object Model. This object provides access to the methods and properties that manipulate the element and its contents, including the classList property.
 
 ```typescript
 @Directive({
@@ -585,6 +592,85 @@ export class HighlightDirective {
 ```
 
 Directives can also leverage user events, take input for additional customization.
+
+```typescript
+import { Directive, ElementRef, Attribute } from "@angular/core";
+
+@Directive({
+    selector: "[pa-attr]",
+})
+export class PaAttrDirective {
+    constructor(element: ElementRef, @Attribute("pa-attr-class") bgClass: string) {
+        element.nativeElement.classList.add(bgClass || "table-success", "fw-bold");
+    }
+}
+```
+
+```html
+<td pa-attr pa-attr-class="table-warning">{{item.category}}</td>
+```
+
+```typescript
+import { Directive, ElementRef, Attribute } from "@angular/core";
+
+@Directive({
+    selector: "[pa-attr]",
+})
+export class PaAttrDirective {
+    constructor(element: ElementRef, @Attribute("pa-attr-class") bgClass: string) {
+        element.nativeElement.classList.add(bgClass || "table-success", "fw-bold");
+    }
+}
+```
+
+```html
+<td pa-attr pa-attr-class="table-warning">{{item.category}}</td>
+```
+
+Directives can support two-way bindings, which means they can be used with the banana-in-a-box bracket style that ngModel uses and can bind to a model property in both directions.
+
+```typescript
+import {
+    Input, Output, EventEmitter, Directive,
+    HostBinding, HostListener, SimpleChange
+} from "@angular/core";
+
+@Directive({
+    selector: "input[paModel]"
+})
+export class PaModel {
+    @Input("paModel")
+    modelProperty: string | undefined = "";
+
+    @HostBinding("value")
+    fieldValue: string = "";
+
+    ngOnChanges(changes: { [property: string]: SimpleChange }) {
+        let change = changes["modelProperty"];
+        if (change.currentValue != this.fieldValue) {
+            this.fieldValue = changes["modelProperty"].currentValue || "";
+        }
+    }
+
+    @Output("paModelChange")
+    update = new EventEmitter<string>();
+
+    @HostListener("input", ["$event.target.value"])
+    updateValue(newValue: string) {
+        this.fieldValue = newValue;
+        this.update.emit(newValue);
+    }
+}
+```
+
+```html
+    <div class="form-group bg-info text-white p-2">
+        <label>Name:</label>
+        <input class="bg-primary text-white form-control"
+            [paModel]="newProduct.name"
+            (paModelChange)="newProduct.name = $event" />
+    </div>
+```
 
 ## Event Handling
 
@@ -636,6 +722,27 @@ handleInputEvent(ev: Event) {
 ```
 
 By passing $event to the $any function, I can read the target.value property without causing a compiler error.
+
+> Behind the scenes, Angular uses the Reactive Extensions package to distribute events. The **EventEmitter<T>** interface extends the RxJS **Subject<T>** interface, which, in turn, extends the **Observable<T>** interface.
+
+Bindings on the host element are defined using two decorators, @HostBinding and @HostListener, both
+of which are defined in the @angular/core module.
+
+The **@HostBinding** decorator is used to set up a property binding on the host element and is applied to a directive property. The listing sets up a binding between the class property on the host element and the decorator’s bgClass property.
+
+```typescript
+@HostBinding("class")
+
+The @HostListener decorator is used to set up an event binding on the host element and is applied to
+a method.
+
+@HostListener("click")
+  triggerCustomEvent() {
+    if (this.product != null) {
+      this.click.emit(this.product.category);
+    }
+  }
+```
 
 ## Forms
 
@@ -689,6 +796,69 @@ Display error messages:
        {{ name.errors?.['minlength'].requiredLength }} characters
      </li>
 </ul>
+```
+
+### Form validation
+
+```typescript
+import { Component } from "@angular/core";
+import { Model } from "./repository.model";
+import { Product } from "./product.model";
+import { NgModel, ValidationErrors, NgForm } from "@angular/forms";
+
+@Component({
+    selector: "app",
+    templateUrl: "template.html"
+})
+export class ProductComponent {
+    model: Model = new Model();
+    // ...other methods omitted for brevity...
+    formSubmitted: boolean = false;
+    submitForm(form: NgForm) {
+        this.formSubmitted = true;
+        if (form.valid) {
+            this.addProduct(this.newProduct);
+            this.newProduct = new Product();
+            form.resetForm();
+            this.formSubmitted = false;
+        }
+    }
+}
+```
+
+```html
+<div class="p-2">
+    <form ngForm="productForm" #form="ngForm" (ngSubmit)="submitForm(form)">
+        <div class="bg-danger text-white p-2 mb-2"
+                *ngIf="formSubmitted && form.invalid">
+             There are problems with the form
+        </div>
+        <div class="form-group">
+            <label>Name</label>
+            <input class="form-control"
+                name="name"
+                [(ngModel)]="newProduct.name"
+                #name="ngModel"
+                required
+                minlength="5"
+                pattern="^[A-Za-z ]+$" />
+            <ul class="text-danger list-unstyled mt-1"
+                    *ngIf="(formSubmitted || name.dirty) && name.invalid">
+                <li *ngFor="let error of getValidationMessages(name)">
+                    {{error}}
+                </li>
+            </ul>
+        </div>
+        <button
+          class="btn btn-primary mt-2"
+          type="submit"
+          [disabled]="formSubmitted && form.invalid"
+          [class.btn-secondary]="formSubmitted && form.invalid"
+        >
+            Create
+        </button>
+    </form>
+</div>
 ```
 
 ## Services
