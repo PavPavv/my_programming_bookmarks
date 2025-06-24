@@ -10,9 +10,112 @@
 
 ## Filesystem (fs+path)
 
-<!-- ADD -->
+There are two ways to create, read, write and delete file in Node.js synchronously and asynchronously.
+
+### Sync create and write
+
+```javascript
+const fs = require('fs');
+
+try {
+  fs.writeFileSync('example_sync.txt', 'Synchronous write!');
+  console.log('Synchronous file write successful!');
+} catch (err) {
+  console.error(err);
+}
+```
+
+#### Sync add data to existing file
+
+```javascript
+const fs = require('fs');
+
+try {
+  fs.appendFileSync('log_sync.txt', 'Another synchronous log entry\n');
+  console.log('Synchronous data appended!');
+} catch (err) {
+  console.error(err);
+}
+```
+
+### Async create and write
+
+```javascript
+const fs = require('fs');
+
+fs.writeFile('example.txt', 'Hello, Node.js!', (err) => {
+  if (err) throw err;
+  console.log('File written successfully!');
+});
+```
+
+#### Async add data to existing file
+
+1. Callbacks
+
+```javascript
+const fs = require('fs');
+
+fs.appendFile('log.txt', 'New log entry\n', (err) => {
+  if (err) throw err;
+  console.log('Data appended to file!');
+});
+```
+
+2. Promises
+
+```javascript
+const fs = require('node:fs/promises');
+
+async function example() {
+  try {
+    const content = 'Some content!';
+    await fs.writeFile('/Users/joe/test.txt', content);
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+example();
+```
+
+3. Streams
+
+```javascript
+const fs = require('fs');
+
+const writeStream = fs.createWriteStream('large_file.txt');
+writeStream.write('Part 1 of large data...\n');
+writeStream.write('Part 2 of large data...\n');
+writeStream.end('End of large data.');
+
+writeStream.on('finish', () => {
+  console.log('Large file written using streams!');
+});
+
+writeStream.on('error', (err) => {
+  console.error('Error writing large file:', err);
+});
+```
 
 ## Streams
+
+```javascript
+const fs = require('fs');
+
+const writeStream = fs.createWriteStream('large_file.txt');
+writeStream.write('Part 1 of large data...\n');
+writeStream.write('Part 2 of large data...\n');
+writeStream.end('End of large data.');
+
+writeStream.on('finish', () => {
+  console.log('Large file written using streams!');
+});
+
+writeStream.on('error', (err) => {
+  console.error('Error writing large file:', err);
+});
+```
 
 ### What is objectMode?
 
