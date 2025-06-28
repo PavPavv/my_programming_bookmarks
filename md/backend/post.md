@@ -10,6 +10,8 @@ sudo apt install postgresql
 
 ### Enter into postgresql local server
 
+New super user created automatically
+
 ```bash
 sudo -i -u postgres
 ```
@@ -77,4 +79,42 @@ psql
 
 ```bash
 \q
+```
+
+### Setup custom superuser login and password
+
+```sql
+ALTER USER newusername WITH PASSWORD 'new-password';
+```
+
+### Create new user
+
+```sql
+CREATE USER username WITH PASSWORD 'user-password';
+```
+
+### Give super rights to user
+
+```sql
+ALTER USER username WITH SUPERUSER;
+```
+
+### Remove user
+
+```sql
+DROP USER username;
+```
+
+## Tables
+
+### Select all the table
+
+```sql
+SELECT * FROM table_name;
+```
+
+### Inset into table
+
+```sql
+INSERT INTO table_name (col1, col2, ...) VALUES (val1, val2, ...) 
 ```
