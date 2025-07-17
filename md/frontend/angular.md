@@ -2,29 +2,81 @@
 
 **Table of content:**
 
-1. Start project
-2. Component
-3. Data binding
-4. Event handling
-5. Styles
-6. @ViewChild() decorator
-7. Directives
+1. Start
+    1. Generate project template
+    2. Generating
+    3. Starting a Development Web Server
+    4. Checking Your Coding Style
+    5. Running Unit Tests
+    6. Building Your Projects
+    7. Root module
+2. Styles
+    1.Basics
+3. Component
+    1. Basics
+    2. More about standalone components
+    3. Conceptual preview of Angular components
+    4. Input()
+    5. Dependency injection
+    6. Component's lifecycle methods
+    7. Component's core services
+    8. @ViewChild() decorator
+4. Data
+    1. One-way binding
+    2. Event one-way binding
+    3. Two-way binding
+    4. Data flow direction
+5. Event
+    1. Basics
+    2. Mouse bindings
+6. Directives
+    1. The Basic Built-in Angular Directives
+    2. Custom directives
+7. Forms
+    1. Importing the Forms Module
+    2. Form validation
 8. Services
+    1. Basics
 9. Routing
+    1. Root routing
+    2. Module(submodule, nested, child) routing
 10. Modules in Angular, lazy loading and 404 page
+    1. Basics
 11. Guards
+    1. Basics
 12. Resolvers
+    1. Basics
 13. Interceptor pattern
+    1. Basics
+    2. Changing the request route
+    3. Global loader
+    4. Angular toasts
+    5. Measuring the performance of a request
 14. RxJS
+    1. Basics
+    2. Observables and operators
+    3. Another way to subscribe – the async pipe
+    4. Connecting information flows – high-order operators
+    5. Optimizing data consumption – filter operators
+    6. Signals
 15. Tests
+    1. Basics
+    2. Unit testing with Jest
+    3. E2E tests with Cypress
 16. PWA
+    1. Basics
 17. Micro frontend
+    1. Basics
+    2. Angular elements
 18. Deploy
+    1. Basics
+    2. Mounting a Docker image with Nginx
 19. Upgrading Angular
+    1. Basics
 
-## Start project
+## 1. Start project
 
-### Generate project template
+### 1.1 Generate project template
 
 ```bash
 ng new <options...>
@@ -38,7 +90,7 @@ ng new <options...>
 - _--prefix_ (String) (Default: app) – The prefix to use for all component selectors.
 - _--routing_ (Boolean) (Default: false) – Generate a routing module.
 
-### Generating
+### 1.2 Generating
 
 ```bash
 ng generate <blueprint> <options...>
@@ -88,7 +140,7 @@ ng g c my-component --skip-tests
 
 _--dry-run_ flag ask **ng g** command to show what and where will be created.
 
-### Starting a Development Web Server
+### 1.3 Starting a Development Web Server
 
 ```bash
 ng serve <options...>
@@ -98,7 +150,7 @@ ng serve <options...>
 - _--port_ (Number): Allows you to override the port served.
 - _--open_ Causes the CLI to open your default browser automatically.
 
-### Checking Your Coding Style
+### 1.4 Checking Your Coding Style
 
 ```bash
 ng lint <options...>
@@ -106,13 +158,13 @@ ng lint <options...>
 
 - _--fix=true_ Recommended you only run this option on a pristine git repository, making it easy to undo if it breaks something.
 
-### Running Unit Tests
+### 1.5Running Unit Tests
 
 ```bash
 ng test <options...>
 ```
 
-### Building Your Projects
+### 1.6 Building Your Projects
 
 ```bash
 ng build <options...>
@@ -126,7 +178,7 @@ Run end-to-end (integration) tests in existing project:
 ng e2e <options...>
 ```
 
-### Root module
+### 1.7 Root module
 
 The term module does double duty in an Angular application and refers to both a JavaScript module and an Angular module. JavaScript modules are used to track dependencies in the application and ensure that the browser receives only the code it requires. Angular modules are used to configure a part of the Angular application.
 Every application has a root Angular module, which is responsible for describing the application to Angular. For applications created with the ng new command, the root module is called AppModule, and it is defined in the app.module.ts file in the src/app folder.
@@ -134,7 +186,9 @@ Every application has a root Angular module, which is responsible for describing
 When the application starts, Angular processes the index.html file, locates the element that matches the root component’s selector property, and replaces it with the contents of the files specified by the root component’s templateUrl and styleUrls properties. This is done using the Domain Object Model (DOM)
 API provided by the browser for JavaScript applications.
 
-## Styles
+## 2.Styles
+
+### 2.1 Basics
 
 By default, a component's style will only apply to elements in that component's template in order to limit the side effects.
 
@@ -156,7 +210,9 @@ export class HeroAppComponent {
 }
 ```
 
-## Component
+## 3.Component
+
+### 3.1 Basics
 
 An Angular component can be identified by the component suffix (e.g., _my-custom-name.component.ts_) and has the following:
 
@@ -198,13 +254,13 @@ Angular executes template expressions after every change detection cycle. Many a
 Starting with Angular 15.2, the @Component decorator now includes an imports array. This array isn’t related to TypeScript’s import statement. Instead, it’s specific to Angular and is used to provide the compilation context for standalone components. It includes all other components, directives, pipes, and NgModules that are used in the
 template of the standalone component.
 
-### More about standalone components
+### 3.2 More about standalone components
 
 Standalone components represents SCAM pattern (Single Component Angular Module). [More about it.](https://angular-training-guide.rangle.io/modules/module-scam-pattern)
 
 - [Tree-shaking in SkyEng](https://habr.com/ru/companies/skyeng/articles/757498/)
 
-### Conceptual preview of Angular components
+### 3.3 Conceptual preview of Angular components
 
 Angular apps are built around components, which are Angular's building blocks. Components contain the code, HTML layout, and CSS style information that provide the function and appearance of an element in the app. In Angular, components can contain other components. An app's functions and appearance can be divided and partitioned into components.
 
@@ -219,7 +275,7 @@ In Angular, components have metadata that define its properties. When you create
 starting with Angular 15.2, the **@Component** decorator now includes an imports array. This array isn’t related to TypeScript’s import statement. Instead, it’s specific to Angular and is used
 to provide the compilation context for **standalone components**. It includes all other components, directives, pipes, and NgModules that are used in the template of the standalone component.
 
-### Input()
+### 3.4 Input()
 
 ```typescript
 @Input('exercise-set') exerciseSet!:ExerciseSet; or @Input() exerciseList!: ExerciseSetList;
@@ -235,7 +291,7 @@ determine what type of object we are going to emit to the parent component.
 @Output attribute must be done with parentheses –
 ( ) – and this $event parameter represents the object that the child component will emit.
 
-### Dependency injection
+### 3.5 Dependency injection
 
 Angular has a dependency injection mechanism. This feature allows us to compose a class just by declaring the object we need in its constructor (args).
 
@@ -262,7 +318,7 @@ inject() must be called from an injection context such as a constructor, a facto
 
 The singleton pattern is a design pattern of the creational type and allows the creation of objects whose access will be global in the system.
 
-### Component's lifecycle methods
+### 3.6 Component's lifecycle methods
 
 1. **constructor** -> The constructor is called when the component is created. This happens before any Angular-specific initialization methods occurs.
 2. **ngOnChanges** -> Runs after an input/output binding has been changed.
@@ -274,7 +330,7 @@ The singleton pattern is a design pattern of the creational type and allows the 
 8. **ngAfterViewChecked** -> Runs after every check of a component's view.
 9. **ngOnDestroy** -> Runs before a component is destroyed.
 
-### Component's core services
+### 3.7 Component's core services
 
 #### ChangeDetectorRef
 
@@ -317,7 +373,7 @@ export class ExampleComponent {
 }
 ```
 
-### @ViewChild() decorator
+### 3.8 @ViewChild() decorator
 
 In Angular, @ViewChild is a decorator that allows you to access a child component, directive, or DOM element from a parent component's class. It provides a way to interact with the child component's properties and methods directly.
 
@@ -362,13 +418,13 @@ Static Option: As of Angular 8, you can specify whether you want to resolve the 
 
 ----------------------------------------------------------------------------
 
-## Data binding
+## 4.Data binding
 
 In Angular, data binding is a core concept that allows you to synchronize data between the model (component) and the view (template). There are two main types of data binding: one-way binding and two-way binding.
 
 Data bindings can be applied to any HTML element in a template, and an element can have multiple bindings, each of which can manage a different aspect of the element’s appearance or behavior.
 
-### One-way binding
+### 4.1 One-way binding
 
 One-way binding means that data flows in one direction only, either from the component to the view or from the view to the component.
 
@@ -424,7 +480,7 @@ One-way data bindings must be idempotent, meaning that they can be evaluated rep
 The expression context means you can’t access objects defined outside of the template’s component, and in particular, templates can’t access the global namespace.
 If you want to access functionality in the global namespace, then it must be provided by the component, acting on behalf of the template.
 
-### Event one-way binding
+### 4.2 Event one-way binding
 
 Reference variables are defined using the # character, followed by the variable name.
 Angular won’t update the data bindings in the template when the user edits the contents of the input
@@ -437,7 +493,7 @@ something to evaluate just so the update process will begin and distribute the c
 <td (mouseover)="product.value = item.name ?? ''">{{i + 1}}</td>
 ```
 
-### Two-way binding
+### 4.3 Two-way binding
 
 Two-way binding allows data to flow in both directions: from the component to the view and from the view back to the component. This is particularly useful for form inputs where you want to keep the component's state in sync with user input.
 
@@ -463,7 +519,7 @@ You must remember to use both brackets and parentheses with the ngModel binding.
 just parentheses—(ngModel)—then you are setting an event binding for an event called ngModel, which
 doesn’t exist. The result is an element that won’t be updated or won’t update the rest of the application. You can use the ngModel directive with just square brackets—[ngModel]—and Angular will set the initial value of the element but won’t listen for events, which means that changes made by the user won’t be automatically reflected in the application model.
 
-### Unidirectional data flow
+### 4.4 Data flow direction
 
 A data flow model where the component tree is always checked for changes in one direction from parent to child, which prevents cycles in the change detection graph.
 
@@ -471,9 +527,83 @@ In practice, this means that data in Angular flows downward during change detect
 
 To avoid this error, a lifecycle hook method that seeks to make such a change should trigger a new change detection run. The new run follows the same direction as before, but succeeds in picking up the new value.
 
-## Directives
+## 5.Event Handling
 
-### The Basic Built-in Angular Directives
+### 5.1 Basics
+
+You can bind event listeners by specifying the event name in parenthesis and invoking a method on the right-hand-side of the equals sign:
+
+```typescript
+<button (click)="saveChanges()">Save Changes</button>
+```
+
+If you need to pass the event object to your event listener, Angular provides an implicit $event variable that can be used inside the function call:
+
+```typescript
+<button (click)="saveChanges($event)">Save Changes</button>
+```
+
+### 5.2 Mouse bindings
+
+```html
+<td (mouseover)="selectedProduct=item.name">{{i + 1}}</td>
+```
+
+The event binding can also be used to introduce data from the event itself, using details that are provided by the browser - **$event**.
+
+```html
+<input class="form-control" (input)="selectedProduct=$any($event).target.value" />
+```
+
+When the browser triggers an event, it provides an Event object that describes it. There are different types of event objects for different categories of events (mouse events, keyboard events, form events, and so on), but all events share the three properties:
+
+- **type** (This property returns a string that identifies the type of event that has been triggered.)
+- **target** (This property returns the object that triggered the event, which will generally be the object that represents the HTML element in the DOM.)
+- **timeStamp** (This property returns a number that contains the time that the event was triggered,
+expressed as milliseconds since January 1, 1970.)
+
+Unfortunately, Angular assumes that the $event variable is always assigned an **Event object**, which defines the features common to all events. The Event.target property returns an InputTarget object, which defines just the methods required to set up event handlers and doesn’t provide access to element-specific features.
+Angular templates do support the special $any function, which disables type checking by treating a
+value as the special any type:
+
+```html
+<input class="form-control" (input)="selectedProduct=$any($event).target.value" />
+```
+
+```typescript
+handleInputEvent(ev: Event) {
+  if (ev.target instanceof HTMLInputElement) {
+    this.selectedProduct = ev.target.value
+  }
+}
+```
+
+By passing $event to the $any function, I can read the target.value property without causing a compiler error.
+
+> Behind the scenes, Angular uses the Reactive Extensions package to distribute events. The **EventEmitter<T>** interface extends the RxJS **Subject<T>** interface, which, in turn, extends the **Observable<T>** interface.
+
+Bindings on the host element are defined using two decorators, @HostBinding and @HostListener, both
+of which are defined in the @angular/core module.
+
+The **@HostBinding** decorator is used to set up a property binding on the host element and is applied to a directive property. The listing sets up a binding between the class property on the host element and the decorator’s bgClass property.
+
+```typescript
+@HostBinding("class")
+
+The @HostListener decorator is used to set up an event binding on the host element and is applied to
+a method.
+
+@HostListener("click")
+  triggerCustomEvent() {
+    if (this.product != null) {
+      this.click.emit(this.product.category);
+    }
+  }
+```
+
+## 6.Directives
+
+### 6.1 The Basic Built-in Angular Directives
 
 - *ngClass
 - *ngStyle
@@ -564,7 +694,7 @@ The ng-container element doesn’t appear in the HTML displayed by the browser, 
 </section>
 ```
 
-### Custom directives
+### 6.2 Custom directives
 
 Directives are classes to which the @Directive decorator has been applied. The decorator requires
 the selector property, which is used to specify how the directive is applied to elements, expressed using a standard CSS style selector.
@@ -572,8 +702,7 @@ Custom Angular directives can be identified by the directive suffix (e.g., _my-c
 
 > The prefix Ng/ng is reserved for use for built-in Angular features and should not be used.
 
-The directive constructor defines a single ElementRef parameter, which Angular provides when it
-creates a new instance of the directive and which represents the host element. The ElementRef class defines a single property, nativeElement, which returns the object used by the browser to represent the element in the Domain Object Model. This object provides access to the methods and properties that manipulate the element and its contents, including the classList property.
+The directive constructor defines a single ElementRef parameter, which Angular provides when it creates a new instance of the directive and which represents the host element. The ElementRef class defines a single property, nativeElement, which returns the object used by the browser to represent the element in the Document Object Model(DOM). This object provides access to the methods and properties that manipulate the element and its contents, including the classList property.
 
 ```typescript
 @Directive({
@@ -672,81 +801,9 @@ export class PaModel {
     </div>
 ```
 
-## Event Handling
+## 7.Forms
 
-You can bind event listeners by specifying the event name in parenthesis and invoking a method on the right-hand-side of the equals sign:
-
-```typescript
-<button (click)="saveChanges()">Save Changes</button>
-```
-
-If you need to pass the event object to your event listener, Angular provides an implicit $event variable that can be used inside the function call:
-
-```typescript
-<button (click)="saveChanges($event)">Save Changes</button>
-```
-
-### Mouse bindings
-
-```html
-<td (mouseover)="selectedProduct=item.name">{{i + 1}}</td>
-```
-
-The event binding can also be used to introduce data from the event itself, using details that are provided by the browser - **$event**.
-
-```html
-<input class="form-control" (input)="selectedProduct=$any($event).target.value" />
-```
-
-When the browser triggers an event, it provides an Event object that describes it. There are different types of event objects for different categories of events (mouse events, keyboard events, form events, and so on), but all events share the three properties:
-
-- **type** (This property returns a string that identifies the type of event that has been triggered.)
-- **target** (This property returns the object that triggered the event, which will generally be the object that represents the HTML element in the DOM.)
-- **timeStamp** (This property returns a number that contains the time that the event was triggered,
-expressed as milliseconds since January 1, 1970.)
-
-Unfortunately, Angular assumes that the $event variable is always assigned an **Event object**, which defines the features common to all events. The Event.target property returns an InputTarget object, which defines just the methods required to set up event handlers and doesn’t provide access to element-specific features.
-Angular templates do support the special $any function, which disables type checking by treating a
-value as the special any type:
-
-```html
-<input class="form-control" (input)="selectedProduct=$any($event).target.value" />
-```
-
-```typescript
-handleInputEvent(ev: Event) {
-  if (ev.target instanceof HTMLInputElement) {
-    this.selectedProduct = ev.target.value
-  }
-}
-```
-
-By passing $event to the $any function, I can read the target.value property without causing a compiler error.
-
-> Behind the scenes, Angular uses the Reactive Extensions package to distribute events. The **EventEmitter<T>** interface extends the RxJS **Subject<T>** interface, which, in turn, extends the **Observable<T>** interface.
-
-Bindings on the host element are defined using two decorators, @HostBinding and @HostListener, both
-of which are defined in the @angular/core module.
-
-The **@HostBinding** decorator is used to set up a property binding on the host element and is applied to a directive property. The listing sets up a binding between the class property on the host element and the decorator’s bgClass property.
-
-```typescript
-@HostBinding("class")
-
-The @HostListener decorator is used to set up an event binding on the host element and is applied to
-a method.
-
-@HostListener("click")
-  triggerCustomEvent() {
-    if (this.product != null) {
-      this.click.emit(this.product.category);
-    }
-  }
-```
-
-## Forms
-
-### Importing the Forms Module
+### 7.1 Importing the Forms Module
 
 Declaring a Dependency in the app.module.ts File in the src/app Folder:
 
@@ -798,7 +855,7 @@ Display error messages:
 </ul>
 ```
 
-### Form validation
+### 7.2 Form validation
 
 ```typescript
 import { Component } from "@angular/core";
@@ -861,7 +918,9 @@ export class ProductComponent {
 </div>
 ```
 
-## Services
+## 8.Services
+
+### 8.1 Basics
 
 When you need to share logic between components, Angular allows you to create a “service” which allows you to inject code into components while managing it from a single source of truth.
 
@@ -909,9 +968,9 @@ are singleton.
 
 The onInit method is called after building the component, but before rendering the component.
 
-## Routing
+## 9.Routing
 
-### Root routing
+### 9.1 Root routing
 
 ```typescript
 import { NgModule } from '@angular/core';
@@ -951,7 +1010,7 @@ export const routes: Routes = [
 export class AppRoutingModule {}
 ```
 
-### Module(submodule, nested, child) routing
+### 9.2 Module(submodule, nested, child) routing
 
 The RouterModule.forChild method is used to define the routing configuration for the feature module,
 which is then included in the module’s imports property.
@@ -964,7 +1023,9 @@ let routing = RouterModule.forChild([
 ]);
 ```
 
-## Modules in Angular + lazy loading + 404 page
+## 10.Modules in Angular + lazy loading + 404 page
+
+### 10.1 Basics
 
 ngModel is an object managed by the FormModule module that represents the form’s data model.
 
@@ -1011,7 +1072,9 @@ const routes: Routes = [
   }
 ```
   
-## Guards in Angular
+## 11.Guards in Angular
+
+### 11.1 Basics
 
 Angular offers several built-in guard types like **CanActivate**, **CanDeactivate**, **CanLoad**, and **Resolve**, each serving a specific purpose in the navigation life cycle.
 
@@ -1062,7 +1125,9 @@ const routes: Routes = [
 ];
 ```
 
-## Resolvers in Angular
+## 12.Resolvers in Angular
+
+### 12.1 Basics
 
 We are using the resolve property, much like configuring a route guide, with the difference that
 we associate an object with the function, which will be important for the component to consume the
@@ -1107,7 +1172,9 @@ an object with the diaryApi attribute – the same one we configured in the rout
 When we run our project again, we see that the behavior of the screen does not change externally;
 however, internally, we are fetching information from the gym diary before the component is loaded.
 
-## Interceptor pattern
+## 13.Interceptor pattern
+
+### 13.1 Basics
 
 ```bash
 ng g interceptor login/auth
@@ -1151,7 +1218,7 @@ true },
 export class AppModule {}
 ```
 
-### Changing the request route
+### 13.2 Changing the request route
 
 ```bash
 ng g interceptor shared/host
@@ -1194,7 +1261,7 @@ true },
 export class AppModule {}
 ```
 
-### Global loader
+### 13.3 Global loader
 
 ```bash
 ng generate component loading-overlay
@@ -1259,7 +1326,7 @@ true },
 export class AppModule {
 ```
 
-### Angular toasts
+### 13.4 Angular toasts
 
 ```bash
 npm install ngx-
@@ -1299,7 +1366,7 @@ providers: [
 ]
 ```
 
-### Measuring the performance of a request
+### 13.5 Measuring the performance of a request
 
 ```bash
 ng g interceptor telemetry/telemetry
@@ -1346,7 +1413,9 @@ getInitialList(): Observable<ExerciseSetListAPI> {
 }
 ```
 
-## RxJS
+## 14.RxJS
+
+### 14.1 Basics
 
 The RxJS library that makes up the Angular ecosystem aims to make controlling asynchronous flows simpler using declarative and reactive programming.
 
@@ -1356,13 +1425,13 @@ The RxJS library that makes up the Angular ecosystem aims to make controlling as
 - Connecting information flows – high-order operators
 - Optimizing data consumption – filter operators
 
-### Observables and operators
+### 14.2 Observables and operators
 
 With **observable** data structure, we can capture a series of events in time and declaratively make our application react to these events. Regarding the use of promises for HTTP requests, we can use them, but tasks that are verbose and complex to perform when using promises can be done using observables and RxJS instead.
 
 The **pipe()** method also returns an observable, and when the component calls the subscribe method, its result will go through all the operators and deliver the result.
 
-### Another way to subscribe – the async pipe
+### 14.3 Another way to subscribe – the async pipe
 
 One detail that you may have noticed is the $ symbol here. Using this postfix for variables and attributes that are observables is a community convention. It is not an obligation, but you will often see this symbol in code bases that use RxJS.
 
@@ -1372,7 +1441,7 @@ One detail that you may have noticed is the $ symbol here. Using this postfix fo
 
 Another advantage that the async pipe provides is that the framework controls the life cycle of the observable; that is, when the component is destroyed, Angular automatically triggers the unsubscribe method.
 
-### Connecting information flows – high-order operators
+### 14.4 Connecting information flows – high-order operators
 
 ```typescript
 public exercises$ = this.entryForm.valueChanges.pipe(
@@ -1382,7 +1451,7 @@ public exercises$ = this.entryForm.valueChanges.pipe(
 
 The **switchMap** operator is a higher-order observable because it takes an observable as input and returns an observable as output. This is in contrast to the **map** operator, which takes an observable as input and returns a value as output.
 
-### Optimizing data consumption – filter operators
+### 14.5 Optimizing data consumption – filter operators
 
 ```typescript
 const DEBOUNCE_TIME = 300;
@@ -1398,7 +1467,7 @@ public exercises$ = this.entryForm.valueChanges.pipe(
 
 The distinctUntilChanged operator checks whether the stream’s data, has changed from one iteration to another and triggers the next operator only if the value is different, saving even more unnecessary calls to the backend.
 
-### Signals
+### 14.6 Signals
 
 ```typescript
 let a = signal<number>(2);
@@ -1485,7 +1554,9 @@ export class ListEntriesComponent {
 </section>
 ```
 
-## Tests
+## 15.Tests
+
+### 15.1 Basics
 
 ```typescript
 describe('AppComponent', () => {
@@ -1522,7 +1593,7 @@ beforeEach(() => {
 });
 ```
 
-### Unit testing with Jest
+### 15.2 Unit testing with Jest
 
 Angular component unit tests not only examine logic but also assess the values that will be presented on the screen.
 
@@ -1584,7 +1655,7 @@ test.only('this will be the only test that runs', () => {
 });
 ```
 
-### E2E tests with Cypress
+### 15.3 E2E tests with Cypress
 
 ```bash
 ng add @cypress/schematic
@@ -1630,7 +1701,9 @@ describe('New Entry Form:', () => {
 
 ----------------------------------------------------------------------------
 
-## PWA
+## 16.PWA
+
+### 16.1 Basics
 
 ```bash
 ng add @angular/pwa
@@ -1754,7 +1827,9 @@ export class CartDetailComponent {
 
 > When you add progressive features to an application, you must deploy it so that it can be accessed over secure HTTP connections. If you do not, the progressive features will not work because the underlying technology—called service workers—won’t be allowed by the browser over regular HTTP connections. You can test progressive features using localhost, as I demonstrate shortly, but an SSL(Secure Sockets Layer)/TLS(Transport Layer Security) certificate is required when you deploy the application.
 
-## Micro frontend
+## 17.Micro frontend
+
+### 17.1 Basics
 
 There are several ways to share micro frontends, from the simplest (and obsolete), with the use of iframes, to more modern, but complex, solutions such as module federation.
 
@@ -1839,7 +1914,7 @@ Here, we are declaring the new exercise-form element, and to load it, we use the
 
 To run our project, make sure the micro frontend is being served with the npm run serve-mfe command.
 
-### Angular elements
+### 17.2 Angular elements
 
 An Angular element component is a common component but transpiled to the Web Components standard, packaging not only our code but also the Angular rendering engine,
 making it framework agnostic.
@@ -1848,7 +1923,9 @@ making it framework agnostic.
 npm install @angular/elements --save
 ```
 
-## Deploy
+## 18.Deploy
+
+### 18.1 Basics
 
 The ng build command performs the production compilation process, and the bundles it produces are smaller and contain only the code that is required by the application.
 
@@ -1942,7 +2019,7 @@ When running the build in production configurations, Angular performs the follow
 - Uglification: It rewrites generated code for variables, function names, and small, cryptic modules to make it difficult to reverse engineer the frontend code delivered to the user’s browser.
 - Dead code elimination: Also known as tree shaking, this is the process of not including components in bundles that are not referenced in the code and do not need to be present in the production package.
 
-### Mounting a Docker image with Nginx
+### 18.2 Mounting a Docker image with Nginx
 
 nginx.default.conf:
 
@@ -2017,13 +2094,15 @@ sudo docker build -t my-image .
 sudo docker run --name my-container -d -rm -p 8080:80 myapp
 ```
 
-## Upgrading Angular
+## 19.Upgrading
+
+### 19.1 Basics
 
 [Update Guide](https://angular.dev/update-guide)
 
 1. ensure the project was on the latest current version of Angular (Angular CURRENT.x to CURRENT.y)
 
-2. 
+2. update with cli
 
 ```bash
 ng update @angular/cli@17 @angular/core@17
