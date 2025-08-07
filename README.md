@@ -45,6 +45,5 @@ Thus I free my head and laptop's browser bookmarks and keep all in one place.
 - 🔖 [Dockerize frontend](./md/backend/dockerizeFrontend.md)
 - 🔖 [Supabase](https://github.com/PavPavv/supabase-test/blob/main/md/supabase.md)
 - 🔖 [postgreSQL](./md/backend/post.md)
-- 🔖 [postgreSQL](https://github.com/PavPavv/learn_postgres)
 - 🔖 [Python](https://github.com/PavPavv/python-vs-js/blob/main/README.md)
-- 🔖 [Python](https://github.com/PavPavv/python-rush-jr-course/blob/main/README.md)
+- 🔖 [Python](https://github.com/PavPavv/python-rush-jr-course/blob/main/README.md) (private repo)
