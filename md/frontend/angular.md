@@ -16,11 +16,12 @@
     1. Basics
     2. More about standalone components
     3. Conceptual preview of Angular components
-    4. Input()
-    5. Dependency injection
-    6. Component's lifecycle methods
-    7. Component's core services
-    8. @ViewChild() decorator
+    4. @Input()
+    5. @Output()
+    6. Dependency injection
+    7. Component's lifecycle methods
+    8. Component's core services
+    9. @ViewChild() decorator
 4. Data
     1. One-way binding
     2. Event one-way binding
@@ -275,7 +276,7 @@ In Angular, components have metadata that define its properties. When you create
 starting with Angular 15.2, the **@Component** decorator now includes an imports array. This array isn’t related to TypeScript’s import statement. Instead, it’s specific to Angular and is used
 to provide the compilation context for **standalone components**. It includes all other components, directives, pipes, and NgModules that are used in the template of the standalone component.
 
-### 3.4 Input()
+### 3.4 @Input()
 
 ```typescript
 @Input('exercise-set') exerciseSet!:ExerciseSet; or @Input() exerciseList!: ExerciseSetList;
@@ -288,10 +289,13 @@ Separating responsibilities – Smart/Container and Presentation (Smart and Dump
 The EventEmitter class uses TypeScript’s type-checking capability, making it possible for us to
 determine what type of object we are going to emit to the parent component.
 
-@Output attribute must be done with parentheses –
-( ) – and this $event parameter represents the object that the child component will emit.
+### 3.5 @Output()
 
-### 3.5 Dependency injection
+Output properties are the Angular feature that allows directives to add custom events to their host elements, through which details of important changes can be sent to the rest of the application. Output properties are defined using the @Output decorator, which is defined in the @angular/core module
+
+@Output attribute must be done with parentheses – ( ) – and this $event parameter represents the object that the child component will emit.
+
+### 3.6 Dependency injection
 
 Angular has a dependency injection mechanism. This feature allows us to compose a class just by declaring the object we need in its constructor (args).
 
@@ -318,10 +322,11 @@ inject() must be called from an injection context such as a constructor, a facto
 
 The singleton pattern is a design pattern of the creational type and allows the creation of objects whose access will be global in the system.
 
-### 3.6 Component's lifecycle methods
+### 3.7 Component's lifecycle methods
 
 1. **constructor** -> The constructor is called when the component is created. This happens before any Angular-specific initialization methods occurs.
-2. **ngOnChanges** -> Runs after an input/output binding has been changed.
+2. **ngOnChanges** -> Runs after an input/output binding has been changed. The ngOnChanges method is called once before the ngOnInit method and then called again each time.
+there are changes to any of a directive’s input properties.
 3. **ngOnInit** ->  Runs after a component has been initialized. Input bindings are ready.
 4. **ngDoCheck** -> Allows developers to perform custom actions during change detection.
 5. **ngAfterContentInit** -> Runs after the content of a component has been initialized. You would typically use ngAfterContentInit when you need to perform some initialization logic based on the content that has been projected into the component using ```<ng-content>```. This is useful for components that accept content from their parent components.
@@ -330,7 +335,7 @@ The singleton pattern is a design pattern of the creational type and allows the 
 8. **ngAfterViewChecked** -> Runs after every check of a component's view.
 9. **ngOnDestroy** -> Runs before a component is destroyed.
 
-### 3.7 Component's core services
+### 3.8 Component's core services
 
 #### ChangeDetectorRef
 
@@ -373,7 +378,7 @@ export class ExampleComponent {
 }
 ```
 
-### 3.8 @ViewChild() decorator
+### 3.9 @ViewChild() decorator
 
 In Angular, @ViewChild is a decorator that allows you to access a child component, directive, or DOM element from a parent component's class. It provides a way to interact with the child component's properties and methods directly.
 
