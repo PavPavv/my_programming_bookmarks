@@ -30,6 +30,7 @@
 5. Event
     1. Basics
     2. Mouse bindings
+    3. Advanced
 6. Directives
     1. The Basic Built-in Angular Directives
     2. Custom directives
@@ -606,6 +607,12 @@ a method.
   }
 ```
 
+### 5.3 Advanced
+
+Behind the scenes, Angular uses the Reactive Extensions package to distribute events. The EventEmitter<T> interface extends the RxJS Subject<T> interface, which, in turn, extends the Observable<T> interface.
+
+Bindings on the host element are defined using two decorators, @HostBinding and @HostListener, both of which are defined in the @angular/core module.
+
 ## 6.Directives
 
 ### 6.1 The Basic Built-in Angular Directives
@@ -762,48 +769,97 @@ export class PaAttrDirective {
 ```
 
 Directives can support two-way bindings, which means they can be used with the banana-in-a-box bracket style that ngModel uses and can bind to a model property in both directions.
+The **exportAs** property of the @Directive decorator specifies a name that will be used to refer to the directive in template variables. When you use the **exportAs** decorator, you are providing access to all the methods and properties defined by the directive to be used in template expressions and data bindings.
 
 ```typescript
-import {
-    Input, Output, EventEmitter, Directive,
-    HostBinding, HostListener, SimpleChange
-} from "@angular/core";
+import { Input, Output, EventEmitter, Directive, HostBinding, HostListener, SimpleChange, OnChanges, SimpleChanges } from '@angular/core';
 
 @Directive({
-    selector: "input[paModel]"
+  selector: '[appModel]',
+  exportAs: 'appModel',
 })
-export class PaModel {
-    @Input("paModel")
-    modelProperty: string | undefined = "";
+export class AppModelDirective implements OnChanges {
+  @Input()
+  appModel: string | undefined = '';
 
-    @HostBinding("value")
-    fieldValue: string = "";
+  @Output()
+  appModelChange = new EventEmitter<string>();
 
-    ngOnChanges(changes: { [property: string]: SimpleChange }) {
-        let change = changes["modelProperty"];
-        if (change.currentValue != this.fieldValue) {
-            this.fieldValue = changes["modelProperty"].currentValue || "";
-        }
-    }
+  @HostBinding('value')
+  fieldValue = '';
 
-    @Output("paModelChange")
-    update = new EventEmitter<string>();
+  direction = 'None';
 
-    @HostListener("input", ["$event.target.value"])
-    updateValue(newValue: string) {
-        this.fieldValue = newValue;
-        this.update.emit(newValue);
-    }
+  @HostListener('input', ['$event.target.value'])
+  updateValue(newVal: string) {
+    this.fieldValue = newVal;
+    this.appModelChange.emit(newVal);
+    this.direction = 'Element';
+  }
+
+  ngOnChanges(changes: { [property: string]: SimpleChange }): void {
+    const change = changes['appModel'];
+    if (change.currentValue && change.currentValue !== this.fieldValue) {
+      this.fieldValue = change.currentValue || '';
+      this.direction = 'Model';
+    }
+  }
 }
+
+
 ```
 
 ```html
-    <div class="form-group bg-info text-white p-2">
-        <label>Name:</label>
-        <input class="bg-primary text-white form-control"
-            [paModel]="newProduct.name"
-            (paModelChange)="newProduct.name = $event" />
-    </div>
+    <div class="row p-2">
+  <div class="col-6">
+    <form #form="ngForm" class="m-2" (ngSubmit)="submitForm(form)">
+      <div class="form-group">
+        <label>Name</label>
+        <input type="text" class="form-control" name="name" [(ngModel)]="newProduct.name">
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <input type="text" class="form-control" name="category" [(ngModel)]="newProduct.category">
+      </div>
+      <div class="form-group">
+        <label>Price</label>
+        <input type="text" class="form-control" name="price" [(ngModel)]="newProduct.price">
+      </div>
+      <button class="btn btn-primary mt-4" type="submit">Create</button>
+    </form>
+  </div>
+
+  <div class="col">
+    <div class="form-group bg-info text-white p-2">
+      <label>Name:</label>
+      <input
+        type="text"
+        class="form-control bg-primary text-white"
+        [(appModel)]="newProduct.name"
+        (appModelChange)="newProduct.name = $event"
+      >
+    </div>
+    <table class="table">
+      <tr>
+        <th></th>
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+      </tr>
+      <tr
+        *ngFor="let item of getProducts(); let i = index;"
+        [appAttr]="getProducts().length < 6 ? 'bg-success' : 'bg-warning'"
+        [appProduct]="item"
+        (categoryClick)="newProduct.category = $event"
+      >
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.name }}</td>
+        <td [appAttr]="item.category === 'Soccer' ? 'bg-info' : null">{{ item.category }}</td>
+        <td [appAttr]="'bg-info'">{{ item.price }}</td>
+      </tr>
+    </table>
+  </div>
+</div>
 ```
 
 ## 7.Forms
