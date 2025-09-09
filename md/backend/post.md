@@ -8,6 +8,30 @@
 sudo apt install postgresql
 ```
 
+### Control db
+
+```bash
+$ sudo service postgresql status 
+```
+
+#### Run
+
+```bash
+$ sudo service postgresql start 
+```
+
+#### Stop
+
+```bash
+$ sudo service postgresql stop 
+```
+
+#### Restart
+
+```bash
+$ sudo service postgresql restart
+```
+
 ### Enter into postgresql local server
 
 New super user created automatically
@@ -104,6 +128,10 @@ ALTER USER username WITH SUPERUSER;
 ```sql
 DROP USER username;
 ```
+
+## Work with pgAdmin
+
+Install it locally, open via interface and type your password for current user!
 
 ## Tables
 
