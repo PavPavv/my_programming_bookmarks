@@ -36,6 +36,7 @@ Thus I free my head and laptop's browser bookmarks and keep all in one place.
 - 🔖 [Webpack](https://github.com/PavPavv/wb)
 - 🔖 [Custom webpack set up](./md/frontend/webpack.md)
 - 🔖 [JS](https://github.com/PavPavv/MyJSCheatsheet)
+- 🔖 [TS](./md/frontend/ts.md)
 - 🔖 [SVG](./md/frontend/svg.md)
 - 🔖 [React](https://github.com/PavPavv/MyJSCheatsheet/blob/master/interview_EN/react.md)
 - 🔖 [Angular](./md/frontend/angular.md)
