@@ -160,7 +160,7 @@ ng lint <options...>
 
 - _--fix=true_ Recommended you only run this option on a pristine git repository, making it easy to undo if it breaks something.
 
-### 1.5Running Unit Tests
+### 1.5 Running Unit Tests
 
 ```bash
 ng test <options...>
