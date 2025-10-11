@@ -44,6 +44,7 @@ Thus I free my head and laptop's browser bookmarks and keep all in one place.
 - 🔖 [HTTP](./md/backend/http.md)
 - 🔖 [Docker](./md/backend/docker.md)
 - 🔖 [Dockerize frontend](./md/backend/dockerizeFrontend.md)
+- 🔖 [Node.js](./md/backend/my_node.md)
 - 🔖 [Supabase](https://github.com/PavPavv/supabase-test/blob/main/md/supabase.md)
 - 🔖 [postgreSQL](./md/backend/post.md)
 - 🔖 [Python](https://github.com/PavPavv/python-vs-js/blob/main/README.md)
