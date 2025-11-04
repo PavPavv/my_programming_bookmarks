@@ -129,8 +129,16 @@ module.exports = {
 npm init -y
 
 # Install dependencies
+# view library
 npm install react react-dom
-npm install -D webpack webpack-cli webpack-dev-server typescript ts-loader html-webpack-plugin css-loader style-loader sass-loader sass
+# typescript, types for view and DOM
+npm install -D typescript @types/react @types/react-dom
+# transpilation to ES5
+npm install -D @babel/core @babel/preset-env @babel/preset-react @babel/preset-typescript babel-loader
+# bundler itself
+npm install -D webpack webpack-cli webpack-dev-server html-webpack-plugin
+# handle styles
+npm install -D css-loader style-loader sass-loader sass
 
 # Create config files and start coding!
 ```
