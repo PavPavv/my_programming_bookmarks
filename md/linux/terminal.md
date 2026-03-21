@@ -429,9 +429,12 @@ sudo systemctl list-units --type=service
 #### Toggle OS theme:
 ```bash
 
-# На светлую тему
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
 
-# На темную тему
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 ```
+
+#### Install pacakges
+
+1. deb: `sudo -i <downloaded-package-name>.deb`
+2. 
