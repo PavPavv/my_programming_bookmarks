@@ -434,7 +434,7 @@ gsettings set org.gnome.desktop.interface color-scheme 'prefer-light'
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 ```
 
-#### Install pacakges
+#### Install packages
 
 1. deb: `sudo -i <downloaded-package-name>.deb`
 2. 
